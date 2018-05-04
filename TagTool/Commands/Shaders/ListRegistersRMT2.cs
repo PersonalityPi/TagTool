@@ -105,7 +105,7 @@ namespace TagTool.Commands.Shaders
             var stream = CacheContext.OpenTagCacheRead();
 
             HashSet<string> strings = new HashSet<string>();
-            strings.Add($"name,register_index,register_type,argument_index,offset_name,array_size,shader_mode,tag_name");
+            strings.Add($"name,register_index,register_type,argument_index,offset_name,array_size,shader_mode,tag_name,argument_list_count");
 
             IEnumerable<CachedTagInstance> tags;
 
@@ -178,8 +178,11 @@ namespace TagTool.Commands.Shaders
                                     var array_size = param.RegisterCount;
                                     var shader_mode_str = shader_mode.ToString();
 
+                                    var argument_list_count = rmt2.Arguments.Count();
 
-                                    strings.Add($"{name},{register_index},{register_type},{argument_index},{offset_name},{array_size},{shader_mode_str},{tag_name}");
+
+
+                                    strings.Add($"{name},{register_index},{register_type},{argument_index},{offset_name},{array_size},{shader_mode_str},{tag_name},{argument_list_count}");
                                 }
                             }
                         }
