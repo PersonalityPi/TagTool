@@ -10,10 +10,10 @@ namespace TagTool.Common
     {
         protected ushort GetValue(uint offset, uint count, string variable_name = "Value")
         {
-            long Value = (long)this.GetType().GetField(variable_name).GetValue(this);
-
+            long Value = Convert.ToInt64(this.GetType().GetField(variable_name).GetValue(this));
+            
             uint end_offset = offset + count;
-            if (end_offset >= sizeof(ushort) * 8) throw new System.Exception("Packed Integer out of range!");
+            if (end_offset > sizeof(ushort) * 8) throw new System.Exception("Packed Integer out of range!");
 
             long bitmask = 0;
             for (int i = (int)offset; i < end_offset; i++)
@@ -26,10 +26,10 @@ namespace TagTool.Common
 
         protected void SetValue(uint offset, uint count, ushort value, string variable_name = "Value")
         {
-            long Value = (long)this.GetType().GetField(variable_name).GetValue(this);
+            long Value = Convert.ToInt64(this.GetType().GetField(variable_name).GetValue(this));
 
             uint end_offset = offset + count;
-            if (end_offset >= sizeof(ushort) * 8) throw new System.Exception("Packed Integer out of range!");
+            if (end_offset > sizeof(ushort) * 8) throw new System.Exception("Packed Integer out of range!");
 
             long bitmask = 0;
             for (int i = (int)offset; i < end_offset; i++)
