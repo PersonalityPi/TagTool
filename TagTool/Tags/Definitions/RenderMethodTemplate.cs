@@ -35,6 +35,7 @@ namespace TagTool.Tags.Definitions
 
         public enum ShaderModeBitmask : uint
         {
+            None,
             Default = 1 << 0,
             Albedo = 1 << 1,
             Static_Default = 1 << 2,
