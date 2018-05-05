@@ -86,20 +86,20 @@ namespace TagTool.Tags.Definitions
         [TagStructure(Size = 0x1C)]
         public class DrawModeRegisterOffsetBlock
         {
-            RMT2PackedUInt16 Textures_Samplers;
-            RMT2PackedUInt16 Unknown_Vectors;
-            RMT2PackedUInt16 Unidentified_RegsiterOffset1;
-            RMT2PackedUInt16 Unidentified_RegsiterOffset2;
-            RMT2PackedUInt16 Arguments_Vectors;
-            RMT2PackedUInt16 Unidentified_RegsiterOffset3;
-            RMT2PackedUInt16 Global_Arguments;
-            RMT2PackedUInt16 Render_Method_Extern_Generic;
-            RMT2PackedUInt16 Unidentified_RegsiterOffset4;
-            RMT2PackedUInt16 Unidentified_RegsiterOffset5;
-            RMT2PackedUInt16 Render_Method_Extern_Vectors;
-            RMT2PackedUInt16 Unidentified_RegsiterOffset6;
-            RMT2PackedUInt16 Unidentified_RegsiterOffset7;
-            RMT2PackedUInt16 Unidentified_RegsiterOffset8;
+            public RMT2PackedUInt16 Textures_Samplers;
+            public RMT2PackedUInt16 Unknown_Vectors;
+            public RMT2PackedUInt16 Unidentified_RegsiterOffset1;
+            public RMT2PackedUInt16 Unidentified_RegsiterOffset2;
+            public RMT2PackedUInt16 Arguments_Vectors;
+            public RMT2PackedUInt16 Unidentified_RegsiterOffset3;
+            public RMT2PackedUInt16 Global_Arguments;
+            public RMT2PackedUInt16 Render_Method_Extern_Generic;
+            public RMT2PackedUInt16 Unidentified_RegsiterOffset4;
+            public RMT2PackedUInt16 Unidentified_RegsiterOffset5;
+            public RMT2PackedUInt16 Render_Method_Extern_Vectors;
+            public RMT2PackedUInt16 Unidentified_RegsiterOffset6;
+            public RMT2PackedUInt16 Unidentified_RegsiterOffset7;
+            public RMT2PackedUInt16 Unidentified_RegsiterOffset8;
         }
 
         /// <summary>

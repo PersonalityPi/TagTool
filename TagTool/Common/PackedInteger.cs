@@ -16,12 +16,14 @@ namespace TagTool.Common
             if (end_offset > sizeof(ushort) * 8) throw new System.Exception("Packed Integer out of range!");
 
             long bitmask = 0;
-            for (int i = (int)offset; i < end_offset; i++)
+            for (int i = 0; i < count; i++)
                 bitmask |= 1L << i;
+            bitmask = bitmask << (int)offset;
 
-            ushort new_value = (ushort)(Value & bitmask);
+            var new_value = Value & bitmask;
+            new_value = new_value >> (int)offset;
 
-            return new_value;
+            return (ushort)new_value;
         }
 
         protected void SetValue(uint offset, uint count, ushort value, string variable_name = "Value")

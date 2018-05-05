@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using static TagTool.Tags.Definitions.RenderMethodTemplate.DrawModeRegisterOffsetBlock;
 using static TagTool.Tags.Definitions.RenderMethodTemplate;
+using System.Reflection;
 
 namespace TagTool.Commands.Shaders
 {
@@ -148,10 +149,22 @@ namespace TagTool.Commands.Shaders
 
                 var drawmode_argument_offsets_variables = typeof(DrawModeRegisterOffsetBlock).GetFields();
 
-                foreach (var drawmode in rmt2.DrawModes)
+                //foreach (var drawmode in rmt2.DrawModes)
+                for(var shader_mode_index = 0; shader_mode_index < rmt2.DrawModes.Count; shader_mode_index++)
                 {
-                    var shader_mode = (ShaderMode)rmt2.DrawModes.IndexOf(drawmode);
-                    var shader_drawmode = pixl.DrawModes[(int)shader_mode];
+                    var drawmode = rmt2.DrawModes[shader_mode_index];
+                    var shader_mode = (ShaderMode)shader_mode_index;
+
+
+                    // NOTE: These are all cases of globally defined shaders and going out of bounds because they're not even stored as null
+                    // in the PIXL tag
+                    // We don't even have an index for this in PIXL, which means it must be globally defined
+                    if (shader_mode_index >= pixl.DrawModes.Count) continue; 
+
+                    var shader_drawmode = pixl.DrawModes[shader_mode_index];
+
+                    // TODO: This is a globally defined shader mode, we'll sort this out later on
+                    if (shader_mode == ShaderMode.Shadow_Generate && shader_drawmode.Count == 0) continue;
 
                     for (var drawmode_index = 0; drawmode_index < drawmode.Count; drawmode_index++)
                     {
