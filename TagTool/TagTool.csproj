@@ -431,6 +431,7 @@
     <Compile Include="ShaderGenerator\ParticleTemplateShaderGenerator.cs" />
     <Compile Include="ShaderGenerator\RegisterFixups\Register_Fixups_Render_Method_Extern_Generic.cs" />
     <Compile Include="ShaderGenerator\RegisterFixups\Register_Fixups_Render_Method_Extern_Vectors.cs" />
+    <Compile Include="ShaderGenerator\RegisterFixups\RenderMethodExtern.cs" />
     <Compile Include="ShaderGenerator\ScreenTemplateShaderGenerator.cs" />
     <Compile Include="ShaderGenerator\ShaderTemplateShaderGenerator.cs" />
     <Compile Include="ShaderGenerator\TemplateShaderGenerator.cs" />

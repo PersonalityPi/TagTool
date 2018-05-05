@@ -88,7 +88,7 @@ namespace TagTool.Tags.Definitions
         public class DrawModeRegisterOffsetBlock
         {
             public RMT2PackedUInt16 Textures_Samplers;
-            public RMT2PackedUInt16 Unknown_Vectors;
+            public RMT2PackedUInt16 Water_Vectors;
             public RMT2PackedUInt16 Unidentified_RegsiterOffset1;
             public RMT2PackedUInt16 Unidentified_RegsiterOffset2;
             public RMT2PackedUInt16 Arguments_Vectors;
