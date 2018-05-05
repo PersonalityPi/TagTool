@@ -78,7 +78,7 @@ namespace TagTool.Commands.Shaders
                         //VertexShader;
                         //PixelShader
 
-                        Definition.DrawModes = new List<RenderMethodTemplate.DrawMode>();
+                        Definition.DrawModes = new List<RenderMethodTemplate.RMT2PackedUInt16>();
                         Definition.ArgumentMappings = new List<RenderMethodTemplate.ArgumentMapping>();
                         Definition.DrawModeRegisterOffsets = new List<RenderMethodTemplate.DrawModeRegisterOffsetBlock>();
 
@@ -87,63 +87,25 @@ namespace TagTool.Commands.Shaders
                         Definition.GlobalArguments = new List<RenderMethodTemplate.ShaderArgument>();
                         Definition.ShaderMaps = new List<RenderMethodTemplate.ShaderArgument>();
 
-                        foreach(var param in result_default.Parameters)
-                        {
-                            var param_name = CacheContext.GetString(param.ParameterName);
+                        //foreach(var param in result_default.Parameters)
+                        //{
+                        //    var param_name = CacheContext.GetString(param.ParameterName);
 
-                            var mapping = GlobalUniformMappings.GetMapping(param_name, "beam_templates", param.RegisterType, RenderMethodTemplate.ShaderMode.Default);
+                        //    var mapping = GlobalUniformMappings.GetMapping(param_name, "beam_templates", param.RegisterType, RenderMethodTemplate.ShaderMode.Default);
 
-                            if(mapping != null)
-                            {
-                                Console.WriteLine($"SUCCESS: Found parameter {param_name} register_index:{param.RegisterIndex} argument_index:{mapping.ArgumentIndex}");
-                            }
-                            else
-                            {
-                                Console.WriteLine("WARNING: Missing parameter " + param_name);
-                            }
-                        }
+                        //    if(mapping != null)
+                        //    {
+                        //        Console.WriteLine($"SUCCESS: Found parameter {param_name} register_index:{param.RegisterIndex} argument_index:{mapping.ArgumentIndex}");
+                        //    }
+                        //    else
+                        //    {
+                        //        Console.WriteLine("WARNING: Missing parameter " + param_name);
+                        //    }
+                        //}
                     }
 					break;
                 case "shader_templates":
                 case "shader_template":
-                    {
-                        var result_default = new ShaderTemplateShaderGenerator(CacheContext, TemplateShaderGenerator.Drawmode.Albedo, shader_args)?.Generate();
-
-                        //TODO: Figure out the rest of RMT2 rip
-
-                        Definition.DrawModeBitmask = 0;
-                        Definition.DrawModeBitmask |= RenderMethodTemplate.ShaderModeBitmask.Default;
-
-                        //TODO: Replace Vertex and Pixl Shaders
-                        //VertexShader;
-                        //PixelShader
-
-                        Definition.DrawModes = new List<RenderMethodTemplate.DrawMode>();
-                        Definition.ArgumentMappings = new List<RenderMethodTemplate.ArgumentMapping>();
-                        Definition.DrawModeRegisterOffsets = new List<RenderMethodTemplate.DrawModeRegisterOffsetBlock>();
-
-                        Definition.Arguments = new List<RenderMethodTemplate.ShaderArgument>();
-                        Definition.Unknown5 = new List<RenderMethodTemplate.ShaderArgument>();
-                        Definition.GlobalArguments = new List<RenderMethodTemplate.ShaderArgument>();
-                        Definition.ShaderMaps = new List<RenderMethodTemplate.ShaderArgument>();
-
-                        foreach (var param in result_default.Parameters)
-                        {
-                            var param_name = CacheContext.GetString(param.ParameterName);
-
-                            var mapping = GlobalUniformMappings.GetMapping(param_name, "shader_templates", param.RegisterType, RenderMethodTemplate.ShaderMode.Default);
-
-                            if (mapping != null)
-                            {
-                                Console.WriteLine($"SUCCESS: Found parameter {param_name} register_index:{param.RegisterIndex} argument_index:{mapping.ArgumentIndex}");
-                            }
-                            else
-                            {
-                                Console.WriteLine("WARNING: Missing parameter " + param_name);
-                            }
-                        }
-                    }
-                    break;
                 case "contrail_templates":
                 case "contrail_template":
 				case "cortana_templates":
