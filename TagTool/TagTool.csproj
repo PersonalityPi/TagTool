@@ -318,7 +318,6 @@
     <Compile Include="Commands\Scenarios\ExtractScriptsCommand.cs" />
     <Compile Include="Commands\Scenarios\ScenarioContextFactory.cs" />
     <Compile Include="Commands\Shaders\GenerateRenderMethodTemplate.cs" />
-    <Compile Include="Commands\Shaders\GlobalUniformMappings.cs" />
     <Compile Include="Commands\Shaders\ListMethodOptionParameters.cs" />
     <Compile Include="Commands\Shaders\ListRegisters.cs" />
     <Compile Include="Commands\Shaders\CompileCommand.cs" />
@@ -372,6 +371,7 @@
     <Compile Include="Common\GameLanguage.cs" />
     <Compile Include="Common\Half.cs" />
     <Compile Include="Common\HalfHelper.cs" />
+    <Compile Include="Common\PackedInteger.cs" />
     <Compile Include="Common\PageableResource.cs" />
     <Compile Include="Common\Point2d.cs" />
     <Compile Include="Common\ReadOnlySet.cs" />

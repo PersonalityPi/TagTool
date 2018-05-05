@@ -196,7 +196,7 @@ namespace TagTool.Commands.Shaders
                                         var register_index = param.RegisterIndex;
                                         var register_type = param.RegisterType.ToString();
                                         var argument_index = argument.ArgumentIndex;
-                                        var argument_mapping_name = argument_offset_count_field.ToString();
+                                        var argument_mapping_name = argument_offset_count_field.Name;
                                         var array_size = param.RegisterCount;
                                         var shader_mode_str = shader_mode.ToString();
 
