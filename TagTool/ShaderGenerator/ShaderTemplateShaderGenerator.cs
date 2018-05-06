@@ -41,8 +41,19 @@ namespace TagTool.ShaderGenerator
 
         public override ShaderGeneratorResult Generate()
         {
-            // Handled by global shader
-            if (drawMode == RenderMethodTemplate.ShaderMode.Shadow_Generate) return null;
+            switch (drawMode)
+            {
+                // Handled by global shader
+                case RenderMethodTemplate.ShaderMode.Shadow_Generate:
+
+                // Unsupported Modes causing crashes. TODO: Investigate
+                case RenderMethodTemplate.ShaderMode.Static_Per_Vertex:
+                case RenderMethodTemplate.ShaderMode.Static_Prt_Ambient:
+                case RenderMethodTemplate.ShaderMode.Static_Prt_Linear:
+                case RenderMethodTemplate.ShaderMode.Static_Prt_Quadratic:
+
+                return null;
+            }
 
             return base.Generate();
         }
