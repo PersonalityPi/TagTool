@@ -8,6 +8,7 @@ using TagTool.Direct3D.Functions;
 using TagTool.ShaderGenerator.Types;
 using TagTool.Shaders;
 using TagTool.Util;
+using TagTool.Tags.Definitions;
 
 namespace TagTool.ShaderGenerator
 {
@@ -19,7 +20,7 @@ namespace TagTool.ShaderGenerator
             new DirectX.MacroDefine {Name = "_debug_color", Definition = "float4(1, 0, 0, 0)" }
         };
 
-        public DecalTemplateShaderGenerator(GameCacheContext cacheContext, TemplateShaderGenerator.Drawmode drawmode, Int32[] args, Int32 arg_pos = 0) : base(
+        public DecalTemplateShaderGenerator(GameCacheContext cacheContext, RenderMethodTemplate.ShaderMode drawmode, Int32[] args, Int32 arg_pos = 0) : base(
                 drawmode,
          (Albedo)GetNextTemplateArg(args, ref arg_pos),
 		 (Blend_Mode)GetNextTemplateArg(args, ref arg_pos),

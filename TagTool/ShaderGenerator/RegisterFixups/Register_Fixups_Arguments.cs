@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TagTool.ShaderGenerator.RegisterFixups
 {
-    class Register_Fixups_Arguments
+    class Register_Fixups_Arguments : Register_Fixup
     {
         /*
          * In this fixup we just want to generate the StringID's for the corresponding
@@ -17,6 +17,33 @@ namespace TagTool.ShaderGenerator.RegisterFixups
          * more maintainable than each specific template list
          * 
          */
+
+        public override void Fixup(Register_Fixup_Manager manager)
+        {
+            foreach(var target in manager.Targets)
+            {
+                var index = Arguments.IndexOf(target.Name);
+                if(index != -1)
+                {
+                    if (target.Parameter.RegisterIndex < 58) throw new Exception("Invalid argument index. Must be greater than 58!");
+                    if (target.Parameter.RegisterIndex > 100) throw new Exception("Invalid argument index. Overwriting statis structures, index must be less than 100!");
+
+                    //NOTE: Perhaps we should add this.....
+                    //var argument_type = Arguments[target.Name];
+                    //if (target.Parameter.RegisterType != argument_type) throw new Exception($"Incorrect type for {target.Name}");
+
+                    //NOTE: We should check that StringID's always match up 1:1 with their names
+                    if (!manager.StringIDs_Arguments.Contains(target.Name))
+                        manager.StringIDs_Arguments.Add(target.Name);
+                    target.ArgumentIndex = manager.StringIDs_Textures_Samplers.IndexOf(target.Name);
+
+                    // Add this to the textures_samplers
+                    manager.Targets_Arguments.Add(target);
+
+                    target.IsHandled = true;
+                }
+            }
+        }
 
         List<string> Arguments = new List<string>
         {

@@ -28,7 +28,8 @@ namespace TagTool.Common
 
         protected void SetValue(uint offset, uint count, ushort value, string variable_name = "Value")
         {
-            long Value = Convert.ToInt64(this.GetType().GetField(variable_name).GetValue(this));
+            var field = this.GetType().GetField(variable_name);
+            long Value = Convert.ToInt64(field.GetValue(this));
 
             uint end_offset = offset + count;
             if (end_offset > sizeof(ushort) * 8) throw new System.Exception("Packed Integer out of range!");
@@ -45,6 +46,17 @@ namespace TagTool.Common
             long new_value = new_value_masked | old_value_masked;
 
             Value = (ushort)new_value;
+
+            switch(field.GetValue(this))
+            {
+                case UInt16 _current_value:
+                    this.GetType().GetField(variable_name).SetValue(this, (UInt16)Value);
+                    break;
+                default:
+                    throw new Exception("Unsupported type");
+            }
+
+            
         }
     }
 }

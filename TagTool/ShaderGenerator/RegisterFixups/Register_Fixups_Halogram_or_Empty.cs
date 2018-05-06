@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TagTool.ShaderGenerator.RegisterFixups
 {
-    class Register_Fixups_Halogram_or_Empty
+    class Register_Fixups_Halogram_or_Empty : Register_Fixup
     {
         /*
          * Not 100% sure what this is yet, it appears to only be in Halograms
@@ -19,6 +19,11 @@ namespace TagTool.ShaderGenerator.RegisterFixups
          * identify everything.
          * 
          */
+
+        public override void Fixup(Register_Fixup_Manager manager)
+        {
+            
+        }
 
         List<string> Arguments = new List<string>
         {

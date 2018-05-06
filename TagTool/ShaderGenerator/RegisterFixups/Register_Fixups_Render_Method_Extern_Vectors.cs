@@ -7,14 +7,12 @@ using static TagTool.Tags.Definitions.RenderMethodTemplate;
 
 namespace TagTool.ShaderGenerator.RegisterFixups
 {
-    class Register_Fixups_Render_Method_Extern_Vectors
+    class Register_Fixups_Render_Method_Extern_Vectors : Register_Fixup
     {
-        bool FixupRegister()
+
+        public override void Fixup(Register_Fixup_Manager manager)
         {
-
-
-
-            return false; // Couldn't handle this register type
+            
         }
 
         class Render_Method_Extern_Fixup

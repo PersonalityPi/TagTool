@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace TagTool.ShaderGenerator.RegisterFixups
 {
-    class Register_Fixups_Global_Arguments
+    class Register_Fixups_Global_Arguments : Register_Fixup
     {
-
-
+        public override void Fixup(Register_Fixup_Manager manager)
+        {
+            
+        }
 
         static Dictionary<string, List<string>> Arguments = new Dictionary<string, List<string>>
         {

@@ -12,14 +12,15 @@ using TagTool.ShaderGenerator;
 using TagTool.ShaderGenerator.Types;
 using System.Linq;
 using static TagTool.Tags.Definitions.RenderMethodTemplate.DrawModeRegisterOffsetBlock;
+using TagTool.ShaderGenerator.RegisterFixups;
 
 namespace TagTool.Commands.Shaders
 {
     class GenerateRenderMethodTemplate : Command
     {
         private GameCacheContext CacheContext { get; }
-        private CachedTagInstance Tag { get; }
-        private RenderMethodTemplate Definition { get; }
+        private CachedTagInstance rmt2_cachedtaginstance { get; }
+        private RenderMethodTemplate rmt2 { get; }
 
         public GenerateRenderMethodTemplate(GameCacheContext cacheContext, CachedTagInstance tag, RenderMethodTemplate definition) :
             base(CommandFlags.Inherit,
@@ -30,8 +31,8 @@ namespace TagTool.Commands.Shaders
                 "Compiles HLSL source file from scratch :D")
         {
             CacheContext = cacheContext;
-            Tag = tag;
-            Definition = definition;
+            rmt2_cachedtaginstance = tag;
+            rmt2 = definition;
         }
 
 
@@ -61,51 +62,35 @@ namespace TagTool.Commands.Shaders
 			try { shader_args = Array.ConvertAll(args.Skip(1).ToArray(), Int32.Parse); }
 			catch { Console.WriteLine("Invalid shader arguments! (could not parse to Int32[].)"); return false; }
 
-			// runs the appropriate shader-generator for the template type.
-            switch(shader_type)
+            // Reset all information
+            rmt2.DrawModeBitmask = 0;
+            rmt2.DrawModes = new List<RenderMethodTemplate.RMT2PackedUInt16>();
+            rmt2.ArgumentMappings = new List<RenderMethodTemplate.ArgumentMapping>();
+            rmt2.DrawModeRegisterOffsets = new List<RenderMethodTemplate.DrawModeRegisterOffsetBlock>();
+            rmt2.Arguments = new List<RenderMethodTemplate.ShaderArgument>();
+            rmt2.Unknown5 = new List<RenderMethodTemplate.ShaderArgument>();
+            rmt2.GlobalArguments = new List<RenderMethodTemplate.ShaderArgument>();
+            rmt2.ShaderMaps = new List<RenderMethodTemplate.ShaderArgument>();
+
+            Dictionary<RenderMethodTemplate.ShaderMode, ShaderGeneratorResult> shader_results = new Dictionary<RenderMethodTemplate.ShaderMode, ShaderGeneratorResult>();
+
+            // runs the appropriate shader-generator for the template type.
+            switch (shader_type)
             {
                 case "beam_templates":
                 case "beam_template":
                     {
-                        var result_default = new BeamTemplateShaderGenerator(CacheContext, TemplateShaderGenerator.Drawmode.Default, shader_args)?.Generate();
-
-                        //TODO: Figure out the rest of RMT2 rip
-
-                        Definition.DrawModeBitmask = 0;
-                        Definition.DrawModeBitmask |= RenderMethodTemplate.ShaderModeBitmask.Default;
-
-                        //TODO: Replace Vertex and Pixl Shaders
-                        //VertexShader;
-                        //PixelShader
-
-                        Definition.DrawModes = new List<RenderMethodTemplate.RMT2PackedUInt16>();
-                        Definition.ArgumentMappings = new List<RenderMethodTemplate.ArgumentMapping>();
-                        Definition.DrawModeRegisterOffsets = new List<RenderMethodTemplate.DrawModeRegisterOffsetBlock>();
-
-                        Definition.Arguments = new List<RenderMethodTemplate.ShaderArgument>();
-                        Definition.Unknown5 = new List<RenderMethodTemplate.ShaderArgument>();
-                        Definition.GlobalArguments = new List<RenderMethodTemplate.ShaderArgument>();
-                        Definition.ShaderMaps = new List<RenderMethodTemplate.ShaderArgument>();
-
-                        //foreach(var param in result_default.Parameters)
-                        //{
-                        //    var param_name = CacheContext.GetString(param.ParameterName);
-
-                        //    var mapping = GlobalUniformMappings.GetMapping(param_name, "beam_templates", param.RegisterType, RenderMethodTemplate.ShaderMode.Default);
-
-                        //    if(mapping != null)
-                        //    {
-                        //        Console.WriteLine($"SUCCESS: Found parameter {param_name} register_index:{param.RegisterIndex} argument_index:{mapping.ArgumentIndex}");
-                        //    }
-                        //    else
-                        //    {
-                        //        Console.WriteLine("WARNING: Missing parameter " + param_name);
-                        //    }
-                        //}
+                        var result_default = new BeamTemplateShaderGenerator(CacheContext, RenderMethodTemplate.ShaderMode.Default, shader_args)?.Generate();
+                        shader_results[RenderMethodTemplate.ShaderMode.Default] = result_default;
                     }
 					break;
                 case "shader_templates":
                 case "shader_template":
+                    {
+                        var result_albedo = new ShaderTemplateShaderGenerator(CacheContext, RenderMethodTemplate.ShaderMode.Albedo, shader_args)?.Generate();
+                        shader_results[RenderMethodTemplate.ShaderMode.Albedo] = result_albedo;
+                    }
+                    break;
                 case "contrail_templates":
                 case "contrail_template":
 				case "cortana_templates":
@@ -133,6 +118,127 @@ namespace TagTool.Commands.Shaders
                 default:
                     Console.WriteLine($"Unknown template {shader_type}");
                     return false;
+            }
+
+            List<RenderMethodTemplate.ShaderMode> shader_modes = new List<RenderMethodTemplate.ShaderMode>(shader_results.Keys);
+
+            int num_drawmodes = 0;
+            foreach (var result in shader_results)
+            {
+                num_drawmodes = Math.Max(Math.Max(1, num_drawmodes), (int)result.Key);
+            }
+            rmt2.DrawModes = new RenderMethodTemplate.RMT2PackedUInt16[num_drawmodes].ToList();
+
+            PixelShader pixl;
+            CachedTagInstance pixl_cachedtaginstance;
+
+            using (var stream = CacheContext.OpenTagCacheRead())
+            {
+                pixl_cachedtaginstance = rmt2.PixelShader;
+                pixl = (PixelShader)CacheContext.Deserializer.Deserialize(new TagSerializationContext(stream, CacheContext, pixl_cachedtaginstance), typeof(PixelShader));
+            }
+
+            // Reset pixel information
+            pixl.DrawModes = new List<ShaderDrawMode>();
+            pixl.Shaders = new List<PixelShaderBlock>();
+
+            foreach (var result in shader_results)
+            {
+                var shader_mode = result.Key;
+                var result_default = result.Value;
+                var shader_mode_bitmask = (RenderMethodTemplate.ShaderModeBitmask)(1 << (int)shader_mode);
+                rmt2.DrawModeBitmask |= shader_mode_bitmask;
+
+                Register_Fixup.Register_Fixup_Manager manager = new Register_Fixup.Register_Fixup_Manager(CacheContext, result_default.Parameters, null);
+
+                Register_Fixups_Textures_Samplers register_Fixups_Textures_Samplers = new Register_Fixups_Textures_Samplers();
+                register_Fixups_Textures_Samplers.Fixup(manager);
+
+                Register_Fixups_Arguments register_Fixups_Arguments = new Register_Fixups_Arguments();
+                register_Fixups_Arguments.Fixup(manager);
+
+                foreach (var target in manager.Targets)
+                {
+                    if (target.IsHandled)
+                    {
+                        Console.WriteLine($"SUCCESS: {target.Name}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"FAILURE: {target.Name}");
+                    }
+                }
+
+                foreach (var argument in manager.StringIDs_Arguments)
+                {
+                    rmt2.Arguments.Add(new RenderMethodTemplate.ShaderArgument
+                    {
+                        Name = CacheContext.GetStringId(argument)
+                    });
+                }
+
+                foreach (var texture_sampler in manager.StringIDs_Textures_Samplers)
+                {
+                    rmt2.ShaderMaps.Add(new RenderMethodTemplate.ShaderArgument
+                    {
+                        Name = CacheContext.GetStringId(texture_sampler)
+                    });
+                }
+
+                //TODO:
+                var drawmode = new RenderMethodTemplate.RMT2PackedUInt16();
+                drawmode.Offset = (ushort)rmt2.DrawModeRegisterOffsets.Count();
+                drawmode.Count = 1;
+                rmt2.DrawModes[(int)shader_mode] = drawmode;
+
+                //TODO:
+                var offset_block = new RenderMethodTemplate.DrawModeRegisterOffsetBlock();
+
+                offset_block.Textures_Samplers = new RenderMethodTemplate.RMT2PackedUInt16();
+                offset_block.Textures_Samplers.Offset = (ushort)rmt2.ArgumentMappings.Count();
+                offset_block.Textures_Samplers.Count = (ushort)manager.Targets_Textures_Samplers.Where(target => target.IsHandledDirectly).Count();
+
+                foreach (var textures_sampler_argument in manager.Targets_Textures_Samplers)
+                {
+                    var shader_argument = new RenderMethodTemplate.ArgumentMapping();
+
+                    // No need to handle indirect registers
+                    if (textures_sampler_argument.IsHandledDirectly)
+                    {
+                        shader_argument.RegisterIndex = textures_sampler_argument.Parameter.RegisterIndex;
+                        shader_argument.ArgumentIndex = (byte)textures_sampler_argument.ArgumentIndex;
+
+                        //TODO: Unknown argument
+
+                        rmt2.ArgumentMappings.Add(shader_argument);
+                    }
+                }
+
+                rmt2.DrawModeRegisterOffsets.Add(offset_block);
+                
+
+                var pixl_drawmode = new ShaderDrawMode();
+                pixl_drawmode.Index = (byte)pixl.Shaders.Count();
+                pixl_drawmode.Count = 1;
+
+                var pixl_shaderblock = new PixelShaderBlock();
+                pixl_shaderblock.PCParameters = result_default.Parameters;
+                pixl_shaderblock.PCShaderBytecode = result_default.ByteCode;
+
+                pixl.Shaders.Add(pixl_shaderblock);
+                pixl.DrawModes.Add(pixl_drawmode);
+            }
+
+            using (var stream = CacheContext.TagCacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
+            {
+                var context = new TagSerializationContext(stream, CacheContext, rmt2_cachedtaginstance);
+                CacheContext.Serializer.Serialize(context, rmt2);
+            }
+
+            using (var stream = CacheContext.TagCacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
+            {
+                var context = new TagSerializationContext(stream, CacheContext, pixl_cachedtaginstance);
+                CacheContext.Serializer.Serialize(context, pixl);
             }
 
             return true;

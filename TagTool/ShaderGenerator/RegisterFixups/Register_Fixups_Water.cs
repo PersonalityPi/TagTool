@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TagTool.Cache;
 
 namespace TagTool.ShaderGenerator.RegisterFixups
 {
-    class Register_Fixups_Water
+    class Register_Fixups_Water : Register_Fixup
     {
         /*
          * In this fixup we just want to generate the StringID's for the corresponding
@@ -17,6 +18,12 @@ namespace TagTool.ShaderGenerator.RegisterFixups
          * more maintainable than each specific template list
          * 
          */
+
+
+        public override void Fixup(Register_Fixup_Manager manager)
+        {
+            
+        }
 
         Dictionary<string, int> Arguments = new Dictionary<string, int>
         {

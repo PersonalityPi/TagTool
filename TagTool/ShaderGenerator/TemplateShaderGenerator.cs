@@ -8,37 +8,15 @@ using TagTool.Direct3D.Functions;
 using TagTool.ShaderGenerator.Types;
 using TagTool.Shaders;
 using TagTool.Util;
+using static TagTool.Tags.Definitions.RenderMethodTemplate;
 
 namespace TagTool.ShaderGenerator
 {
     public abstract class TemplateShaderGenerator : IShaderGenerator
     {
-        public enum Drawmode
-        {
-            Default,
-            Albedo,
-            Static_Default,
-            Static_Per_Pixel,
-            Static_Per_Vertex,
-            Static_Sh,
-            Static_Prt_Ambient,
-            Static_Prt_Linear,
-            Static_Prt_Quadratic,
-            Dynamic_Light,
-            Shadow_Generate,
-            Shadow_Apply,
-            Active_Camo,
-            Lightmap_Debug_Mode,
-            Static_Per_Vertex_Color,
-            Water_Tessellation,
-            Water_Shading,
-            Dynamic_Light_Cinematic,
-            Z_Only,
-            Sfx_Distort
-        }
-        protected Drawmode drawMode { get; set; }
+        protected ShaderMode drawMode { get; set; }
 
-        protected TemplateShaderGenerator(Drawmode drawmode, params object[] enums)
+        protected TemplateShaderGenerator(ShaderMode drawmode, params object[] enums)
         {
             this.drawMode = drawmode;
             this.EnumValues = enums;

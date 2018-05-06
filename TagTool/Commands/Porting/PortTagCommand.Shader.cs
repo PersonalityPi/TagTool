@@ -139,7 +139,7 @@ namespace TagTool.Commands.Porting
                         throw new Exception($"Unsupported shader index {i}.");
                     }
 
-                    var drawmode = TemplateShaderGenerator.Drawmode.Default;
+                    var drawmode = RenderMethodTemplate.ShaderMode.Default;
 
                     ShaderGeneratorResult shader_gen_result;
                     switch (type)

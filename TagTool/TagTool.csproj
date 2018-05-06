@@ -429,6 +429,8 @@
     <Compile Include="ShaderGenerator\IShaderGenerator.cs" />
     <Compile Include="ShaderGenerator\LightVolumeTemplateShaderGenerator.cs" />
     <Compile Include="ShaderGenerator\ParticleTemplateShaderGenerator.cs" />
+    <Compile Include="ShaderGenerator\RegisterFixups\Register_Fixup.cs" />
+    <Compile Include="ShaderGenerator\RegisterFixups\Register_Fixups_Textures_Samplers.cs" />
     <Compile Include="ShaderGenerator\RegisterFixups\Register_Fixups_Halogram_or_Empty.cs" />
     <Compile Include="ShaderGenerator\RegisterFixups\Register_Fixups_Water.cs" />
     <Compile Include="ShaderGenerator\RegisterFixups\Register_Fixups_Arguments.cs" />
