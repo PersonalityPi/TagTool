@@ -9,6 +9,7 @@ using TagTool.Serialization;
 using TagTool.ShaderGenerator.RegisterFixups;
 using TagTool.ShaderGenerator.Types;
 using TagTool.Shaders;
+using TagTool.Tags;
 using TagTool.Tags.Definitions;
 
 namespace TagTool.ShaderGenerator
@@ -29,7 +30,7 @@ namespace TagTool.ShaderGenerator
         int[] shader_args;
         PixelShader pixl;
         CachedTagInstance pixl_cachedtaginstance;
-        List<RenderMethod> shaders_dependencies;
+        List<dynamic> shaders_dependencies;
         List<CachedTagInstance> shaders_dependencies_instances;
 
         // Debug Information
@@ -104,7 +105,7 @@ namespace TagTool.ShaderGenerator
                 // Save
                 //using (var stream = CacheContext.TagCacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
                 {
-                    
+
                 }
             }
         }
@@ -120,14 +121,44 @@ namespace TagTool.ShaderGenerator
                 CacheContext.Serializer.Serialize(context, pixl);
             }
 
+            //for (var i = 0; i < shaders_dependencies.Count; i++)
+            //{
+            //    var shader_dependency = shaders_dependencies[i];
+
+            //    var new_shader = (RenderMethod)Activator.CreateInstance(shader_dependency.GetType());
+            //    new_shader.BaseRenderMethod = shader_dependency.BaseRenderMethod;
+            //    new_shader.ShaderProperties = new RenderMethod.ShaderProperty[1].ToList();
+            //    new_shader.ShaderProperties[0] = new RenderMethod.ShaderProperty();
+            //    new_shader.ShaderProperties[0].Template = shader_dependency.ShaderProperties[0].Template;
+            //    new_shader.ShaderProperties[0].ShaderMaps = shader_dependency.ShaderProperties[0].ShaderMaps;
+            //    new_shader.ShaderProperties[0].Arguments = shader_dependency.ShaderProperties[0].Arguments;
+
+            //    shaders_dependencies[i] = new_shader;
+            //}
+
             for (var i = 0; i < shaders_dependencies.Count; i++)
             {
                 var shader_tag_cache = shaders_dependencies_instances[i];
                 var shader = shaders_dependencies[i];
 
+                var shader_properties = (List<RenderMethod.ShaderProperty>)shader.ShaderProperties;
+
+                // Fixups for random crashes
+                shader_properties[0].Unknown8 = 0;
+                shader_properties[0].Unknown9 = 0;
+                shader_properties[0].Unknown10 = 0;
+                shader_properties[0].Unknown11 = 0;
+                shader_properties[0].Unknown12 = 0;
+                shader_properties[0].Unknown13 = 0;
+                shader_properties[0].Unknown14 = 0;
+                shader_properties[0].Unknown15 = 0;
+                shader_properties[0].Unknown16 = 0;
+
                 var context = new TagSerializationContext(stream, CacheContext, shader_tag_cache);
                 CacheContext.Serializer.Serialize(context, shader);
             }
+
+            CacheContext.SaveTagNames();
         }
 
         public void SetupShaderModes(Dictionary<RenderMethodTemplate.ShaderMode, ShaderGeneratorResult> shader_results)
@@ -439,13 +470,15 @@ namespace TagTool.ShaderGenerator
         {
             // Shader Dependencies
             shaders_dependencies_instances = CacheContext.TagCache.Index.NonNull().Where(t => t.Dependencies.Contains(rmt2_cachedtaginstance.Index)).ToList();
-            shaders_dependencies = new List<RenderMethod>();
+            shaders_dependencies = new List<dynamic>();
 
             foreach (var shader_dependency_instance in shaders_dependencies_instances)
             {
                 //using (var stream = CacheContext.OpenTagCacheRead())
                 {
-                    var shader_dependency = CacheContext.Deserializer.Deserialize<RenderMethod>(new TagSerializationContext(stream, CacheContext, shader_dependency_instance));
+                    var type = TagDefinition.Find(shader_dependency_instance.Group.Tag);
+                    var shader_dependency = CacheContext.Deserializer.Deserialize(new TagSerializationContext(stream, CacheContext, shader_dependency_instance), type);
+
                     shaders_dependencies.Add(shader_dependency);
                 }
             }
