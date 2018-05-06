@@ -39,6 +39,14 @@ namespace TagTool.ShaderGenerator
             this.CacheContext = cacheContext;
         }
 
+        public override ShaderGeneratorResult Generate()
+        {
+            // Handled by global shader
+            if (drawMode == RenderMethodTemplate.ShaderMode.Shadow_Generate) return null;
+
+            return base.Generate();
+        }
+
         #region Implemented Features Check
 
         protected override MultiValueDictionary<Type, object> ImplementedEnums => new MultiValueDictionary<Type, object>
@@ -66,7 +74,7 @@ namespace TagTool.ShaderGenerator
         protected override MultiValueDictionary<object, TemplateParameter> Uniforms => new MultiValueDictionary<object, TemplateParameter>
         {
             {Albedo.Default,  new TemplateParameter(typeof(Albedo), "base_map", ShaderParameter.RType.Sampler) },
-            {Albedo.Default,  new TemplateParameter(typeof(Albedo), "albedo_unknown_s1", ShaderParameter.RType.Sampler) { Enabled = false } }, // Manually added (Unknown bitmap)
+            //{Albedo.Default,  new TemplateParameter(typeof(Albedo), "albedo_unknown_s1", ShaderParameter.RType.Sampler) { Enabled = false } }, // Manually added (Unknown bitmap)
             {Albedo.Default,  new TemplateParameter(typeof(Albedo), "detail_map", ShaderParameter.RType.Sampler) },
             {Albedo.Default,  new TemplateParameter(typeof(Albedo), "albedo_color", ShaderParameter.RType.Vector) },
             {Albedo.Default,  new TemplateParameter(typeof(Albedo), "base_map_xform", ShaderParameter.RType.Vector) }, // Manually added

@@ -22,11 +22,16 @@ namespace TagTool.ShaderGenerator.RegisterFixups
         {
             foreach(var target in manager.Targets)
             {
+                if (target.IsHandled) continue;
+
                 var index = Arguments.IndexOf(target.Name);
                 if(index != -1)
                 {
-                    if (target.Parameter.RegisterIndex < 58) throw new Exception("Invalid argument index. Must be greater than 58!");
-                    if (target.Parameter.RegisterIndex > 100) throw new Exception("Invalid argument index. Overwriting statis structures, index must be less than 100!");
+                    if(target.Parameter.RegisterType == Shaders.ShaderParameter.RType.Vector)
+                    {
+                        if (target.Parameter.RegisterIndex < 58) throw new Exception("Invalid argument index. Must be greater than 58!");
+                        if (target.Parameter.RegisterIndex > 100) throw new Exception("Invalid argument index. Overwriting statis structures, index must be less than 100!");
+                    }
 
                     //NOTE: Perhaps we should add this.....
                     //var argument_type = Arguments[target.Name];
@@ -40,6 +45,7 @@ namespace TagTool.ShaderGenerator.RegisterFixups
                     // Add this to the textures_samplers
                     manager.Targets_Arguments.Add(target);
 
+                    target.IsHandledDirectly = true;
                     target.IsHandled = true;
                 }
             }

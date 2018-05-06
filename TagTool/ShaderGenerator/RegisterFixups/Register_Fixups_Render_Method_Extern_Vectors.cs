@@ -9,10 +9,40 @@ namespace TagTool.ShaderGenerator.RegisterFixups
 {
     class Register_Fixups_Render_Method_Extern_Vectors : Register_Fixup
     {
+        private Render_Method_Extern_Fixup GetArgument(string name)
+        {
+            foreach (var argument in Arguments)
+            {
+                if (argument.Name == name) return argument;
+            }
+            return null;
+        }
+        private bool ContainsKey(string name)
+        {
+            return GetArgument(name) != null;
+        }
+
 
         public override void Fixup(Register_Fixup_Manager manager)
         {
-            
+            foreach (var target in manager.Targets)
+            {
+                if (target.IsHandled) continue;
+
+                var index = ContainsKey(target.Name);
+                if (index)
+                {
+                    var argument_type = GetArgument(target.Name);
+                    if (target.Parameter.RegisterType != Shaders.ShaderParameter.RType.Vector) throw new Exception($"Incorrect type for {target.Name}");
+
+                    target.ArgumentIndex = (int)argument_type.Argument;
+
+                    manager.Targets_Render_Method_Extern_Vectors_Targets.Add(target);
+
+                    target.IsHandled = true;
+                    target.IsHandledDirectly = true;
+                }
+            }
         }
 
         class Render_Method_Extern_Fixup
