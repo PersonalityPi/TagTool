@@ -18,7 +18,7 @@ namespace TagTool.ShaderGenerator
         protected override string ShaderGeneratorType => "shader_template";
         protected override List<DirectX.MacroDefine> TemplateDefinitions => new List<DirectX.MacroDefine>
         {
-            new DirectX.MacroDefine {Name = "_debug_color", Definition = "float4(1, 0, 0, 0)" }
+            new DirectX.MacroDefine {Name = "_debug_color", Definition = "float4(1, 0, 0, 1)" }
         };
 
         public ShaderTemplateShaderGenerator(GameCacheContext cacheContext, RenderMethodTemplate.ShaderMode drawmode, Int32[] args, Int32 arg_pos = 0) : base(
@@ -47,10 +47,10 @@ namespace TagTool.ShaderGenerator
                 case RenderMethodTemplate.ShaderMode.Shadow_Generate:
 
                 // Unsupported Modes causing crashes. TODO: Investigate
-                case RenderMethodTemplate.ShaderMode.Static_Per_Vertex:
-                case RenderMethodTemplate.ShaderMode.Static_Prt_Ambient:
-                case RenderMethodTemplate.ShaderMode.Static_Prt_Linear:
-                case RenderMethodTemplate.ShaderMode.Static_Prt_Quadratic:
+                //case RenderMethodTemplate.ShaderMode.Static_Per_Vertex:
+                //case RenderMethodTemplate.ShaderMode.Static_Prt_Ambient:
+                //case RenderMethodTemplate.ShaderMode.Static_Prt_Linear:
+                //case RenderMethodTemplate.ShaderMode.Static_Prt_Quadratic:
 
                 return null;
             }

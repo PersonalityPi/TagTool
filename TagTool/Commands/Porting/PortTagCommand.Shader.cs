@@ -1041,7 +1041,7 @@ namespace TagTool.Commands.Porting
                     case "rmbk":
                     case "rmd ":
                     case "rmw ":
-                        using (var cacheStream = CacheContext.TagCacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
+                        using (var cacheStream = CacheContext.OpenTagCacheReadWrite())
                         {
                             var edContext = new TagSerializationContext(cacheStream, CacheContext, edInstance);
                             var rm2 = CacheContext.Deserializer.Deserialize<RenderMethodFast>(edContext);
@@ -1064,7 +1064,7 @@ namespace TagTool.Commands.Porting
                         break;
                 }
 
-                using (var cacheStream = CacheContext.TagCacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
+                using (var cacheStream = CacheContext.OpenTagCacheReadWrite())
                 {
                     var edContext = new TagSerializationContext(cacheStream, CacheContext, edInstance);
                     rm = CacheContext.Deserializer.Deserialize(new TagSerializationContext(cacheStream, CacheContext, edInstance), TagDefinition.Find(edInstance.Group.Tag));

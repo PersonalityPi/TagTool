@@ -221,6 +221,7 @@
     <Compile Include="Commands\Common\ClearCommand.cs" />
     <Compile Include="Commands\Common\DumpLogCommand.cs" />
     <Compile Include="Commands\Common\EchoCommand.cs" />
+    <Compile Include="Commands\Common\CacheFlush.cs" />
     <Compile Include="Commands\Common\HelpCommand.cs" />
     <Compile Include="Commands\Common\LocalizedStringPrinter.cs" />
     <Compile Include="Commands\Common\SetLocaleCommand.cs" />
@@ -317,6 +318,7 @@
     <Compile Include="Commands\Scenarios\CopyForgePaletteCommand.cs" />
     <Compile Include="Commands\Scenarios\ExtractScriptsCommand.cs" />
     <Compile Include="Commands\Scenarios\ScenarioContextFactory.cs" />
+    <Compile Include="Commands\Shaders\GenerateAllRenderMethodTemplate.cs" />
     <Compile Include="Commands\Shaders\GenerateRenderMethodTemplate.cs" />
     <Compile Include="Commands\Shaders\ListMethodOptionParameters.cs" />
     <Compile Include="Commands\Shaders\ListRegisters.cs" />

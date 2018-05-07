@@ -370,3 +370,12 @@ float4 albedo_two_change_color_tex_overlay(float2 texture_coordinate)
 }
 
 #endif
+
+#ifdef flag_albedo_diffuse_plus_alpha
+
+float4 albedo_diffuse_plus_alpha(float2 texture_coordinate)
+{
+	return _debug_color; // not implemeted
+}
+
+#endif

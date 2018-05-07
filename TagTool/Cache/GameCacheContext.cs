@@ -90,21 +90,91 @@ namespace TagTool.Cache
         }
 
         #region Tag Cache Functionality
-        /// <summary>
-        /// Gets the tag cache file information.
-        /// </summary>
-        public FileInfo TagCacheFile
+
+        public class TagCacheFileManager
         {
-            get
+            private class TagCacheMemoryStream : MemoryStream
             {
-                var files = Directory.GetFiles("tags.dat");
+                public TagCacheFileManager ParentManager;
 
-                if (files.Length == 0)
-                    throw new FileNotFoundException(Path.Combine(Directory.FullName, "tags.dat"));
+                public override void Close()
+                {
+                    //base.Close();
 
-                return files[0];
+                    if (ParentManager.AutomaticFlushing && ParentManager.IsWriteStream)
+                    {
+                        ParentManager.FlushData();
+                    }
+
+                    ParentManager.IsOpen = false;
+                }
+
+                public void CloseTagCacheMemoryStream()
+                {
+                    base.Close();
+                }
+            }
+
+            public bool IsInMemory = false;
+            private bool IsOpen = false;
+            private bool IsWriteStream = false;
+            public bool AutomaticFlushing = false;
+            TagCacheMemoryStream CacheStream;
+            public string FullName => "tags.dat";
+
+            public TagCacheFileManager()
+            {
+                CacheStream = new TagCacheMemoryStream();
+                CacheStream.ParentManager = this;
+
+                using (var input_stream = new FileStream("tags.dat", FileMode.Open))
+                {
+                    byte[] Data = new byte[input_stream.Length];
+                    input_stream.Read(Data, 0, (int)input_stream.Length);
+                    CacheStream.Write(Data, 0, Data.Length);
+                }
+            }
+
+            public void FlushData()
+            {
+                CacheStream.Position = 0;
+
+                using (var output_stream = new FileStream("tags.dat", FileMode.Create))
+                {
+                    byte[] Data = new byte[CacheStream.Length];
+                    CacheStream.Read(Data, 0, (int)CacheStream.Length);
+                    output_stream.Write(Data, 0, Data.Length);
+                }
+            }
+
+            public Stream GetStream(bool use_writes)
+            {
+                if (IsOpen) throw new Exception("Stream is already open!");
+
+                CacheStream.Position = 0;
+
+                this.IsWriteStream = use_writes;
+
+                return CacheStream;
             }
         }
+        public TagCacheFileManager TagCacheFile = new TagCacheFileManager();
+
+        ///// <summary>
+        ///// Gets the tag cache file information.
+        ///// </summary>
+        //public FileInfo TagCacheFile
+        //{
+        //    get
+        //    {
+        //        var files = Directory.GetFiles("tags.dat");
+
+        //        if (files.Length == 0)
+        //            throw new FileNotFoundException(Path.Combine(Directory.FullName, "tags.dat"));
+
+        //        return files[0];
+        //    }
+        //}
 
         /// <summary>
         /// A dictionary of tag names.
@@ -157,19 +227,22 @@ namespace TagTool.Cache
         /// Opens the tag cache file for reading.
         /// </summary>
         /// <returns>The stream that was opened.</returns>
-        public Stream OpenTagCacheRead() => TagCacheFile.OpenRead();
+        //public Stream OpenTagCacheRead() => TagCacheFile.OpenRead();
+        public Stream OpenTagCacheRead() => TagCacheFile.GetStream(false);
 
         /// <summary>
         /// Opens the tag cache file for writing.
         /// </summary>
         /// <returns>The stream that was opened.</returns>
-        public FileStream OpenTagCacheWrite() => TagCacheFile.Open(FileMode.Open, FileAccess.Write);
+        //public FileStream OpenTagCacheWrite() => TagCacheFile.Open(FileMode.Open, FileAccess.Write);
+        public Stream OpenTagCacheWrite() => TagCacheFile.GetStream(true);
 
         /// <summary>
         /// Opens the tag cache file for reading and writing.
         /// </summary>
         /// <returns>The stream that was opened.</returns>
-        public FileStream OpenTagCacheReadWrite() => TagCacheFile.Open(FileMode.Open, FileAccess.ReadWrite);
+        //public FileStream OpenTagCacheReadWrite() => TagCacheFile.Open(FileMode.Open, FileAccess.ReadWrite);
+        public Stream OpenTagCacheReadWrite() => TagCacheFile.GetStream(true);
 
         /// <summary>
         /// Gets a tag from the tag cache.

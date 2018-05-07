@@ -23,7 +23,7 @@ namespace TagTool.ShaderGenerator
             public Dictionary<string, RenderMethod.ShaderProperty.ShaderMap> ShaderMaps = new Dictionary<string, RenderMethod.ShaderProperty.ShaderMap>();
             public Dictionary<string, RenderMethod.ShaderProperty.Argument> Arguments = new Dictionary<string, RenderMethod.ShaderProperty.Argument>();
         }
-        Dictionary<RenderMethod, MaterialFixupInformation> shader_fixups = null;
+        Dictionary<Object, MaterialFixupInformation> shader_fixups = null;
         CachedTagInstance rmt2_cachedtaginstance;
         RenderMethodTemplate rmt2;
         string shader_type;
@@ -47,7 +47,7 @@ namespace TagTool.ShaderGenerator
             shader_type = _shader_type;
             shader_args = _shader_args;
 
-            using (var stream = CacheContext.TagCacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
+            using (var stream = CacheContext.OpenTagCacheRead())
             {
                 pixl_cachedtaginstance = rmt2.PixelShader;
                 pixl = (PixelShader)CacheContext.Deserializer.Deserialize(new TagSerializationContext(stream, CacheContext, pixl_cachedtaginstance), typeof(PixelShader));
@@ -56,13 +56,24 @@ namespace TagTool.ShaderGenerator
 
         public void Generate()
         {
-            using (var stream = CacheContext.TagCacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
+            using (var stream = CacheContext.OpenTagCacheReadWrite())
             {
+                Dictionary<RenderMethodTemplate.ShaderMode, ShaderGeneratorResult> shader_results;
+                try
+                {
+                    shader_results = GenerateRMT2ShaderModes();
+                    if (shader_results == null) return; // This mode isn't supported yet
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine($"Failed to generate shader for {shader_type}");
+                    Console.WriteLine(e.Message);
+                    return;
+                }
 
-                CreateMaterialFixupInformation(stream);
+                if (CreateMaterialFixupInformation(stream)) return;
                 RemoveExistingTagInformation();
 
-                var shader_results = GenerateRMT2ShaderModes();
                 SetupTagBlankDrawmodesArrays(shader_results);
 
                 List<RenderMethodTemplate.ShaderMode> shader_modes = new List<RenderMethodTemplate.ShaderMode>(shader_results.Keys);
@@ -80,6 +91,7 @@ namespace TagTool.ShaderGenerator
             {
                 var shader_tag_cache = shaders_dependencies_instances[i];
                 var shader = shaders_dependencies[i];
+                if (!shader_fixups.ContainsKey(shader)) continue;
                 var fixupInformation = shader_fixups[shader];
 
                 if (shader.ShaderProperties.Count > 1) throw new NotImplementedException();
@@ -93,24 +105,26 @@ namespace TagTool.ShaderGenerator
                 foreach (var property in rmt2.ShaderMaps)
                 {
                     var shader_reference = CacheContext.GetString(property.Name);
-                    properties.ShaderMaps.Add(fixupInformation.ShaderMaps[shader_reference]);
+                    if(fixupInformation.ShaderMaps.ContainsKey(shader_reference))
+                        properties.ShaderMaps.Add(fixupInformation.ShaderMaps[shader_reference]);
                 }
 
                 foreach (var property in rmt2.Arguments)
                 {
                     var shader_reference = CacheContext.GetString(property.Name);
-                    properties.Arguments.Add(fixupInformation.Arguments[shader_reference]);
+                    if (fixupInformation.ShaderMaps.ContainsKey(shader_reference))
+                        properties.Arguments.Add(fixupInformation.Arguments[shader_reference]);
                 }
 
                 // Save
-                //using (var stream = CacheContext.TagCacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
+                //using (var stream = CacheContext.OpenTagCacheReadWrite())
                 {
 
                 }
             }
         }
 
-        private void SaveTagChanges(FileStream stream)
+        private void SaveTagChanges(Stream stream)
         {
             {
                 var context = new TagSerializationContext(stream, CacheContext, rmt2_cachedtaginstance);
@@ -139,23 +153,30 @@ namespace TagTool.ShaderGenerator
             for (var i = 0; i < shaders_dependencies.Count; i++)
             {
                 var shader_tag_cache = shaders_dependencies_instances[i];
-                var shader = shaders_dependencies[i];
+                var dependency = shaders_dependencies[i];
 
-                var shader_properties = (List<RenderMethod.ShaderProperty>)shader.ShaderProperties;
+                switch(dependency)
+                {
+                    case RenderMethod shader:
 
-                // Fixups for random crashes
-                shader_properties[0].Unknown8 = 0;
-                shader_properties[0].Unknown9 = 0;
-                shader_properties[0].Unknown10 = 0;
-                shader_properties[0].Unknown11 = 0;
-                shader_properties[0].Unknown12 = 0;
-                shader_properties[0].Unknown13 = 0;
-                shader_properties[0].Unknown14 = 0;
-                shader_properties[0].Unknown15 = 0;
-                shader_properties[0].Unknown16 = 0;
+                        var shader_properties = (List<RenderMethod.ShaderProperty>)dependency.ShaderProperties;
 
-                var context = new TagSerializationContext(stream, CacheContext, shader_tag_cache);
-                CacheContext.Serializer.Serialize(context, shader);
+                        // Fixups for random crashes
+                        shader_properties[0].Unknown8 = 0;
+                        shader_properties[0].Unknown9 = 0;
+                        shader_properties[0].Unknown10 = 0;
+                        shader_properties[0].Unknown11 = 0;
+                        shader_properties[0].Unknown12 = 0;
+                        shader_properties[0].Unknown13 = 0;
+                        shader_properties[0].Unknown14 = 0;
+                        shader_properties[0].Unknown15 = 0;
+                        shader_properties[0].Unknown16 = 0;
+
+                        var context = new TagSerializationContext(stream, CacheContext, shader_tag_cache);
+                        CacheContext.Serializer.Serialize(context, dependency);
+
+                        break;
+                }
             }
 
             CacheContext.SaveTagNames();
@@ -416,11 +437,11 @@ namespace TagTool.ShaderGenerator
                 case "shader_template":
                     CreateShader<ShaderTemplateShaderGenerator>(RenderMethodTemplate.ShaderMode.Albedo, shader_results, shader_args);
                     CreateShader<ShaderTemplateShaderGenerator>(RenderMethodTemplate.ShaderMode.Static_Per_Pixel, shader_results, shader_args);
-                    // Causes Crash!!! //CreateShader<ShaderTemplateShaderGenerator>(RenderMethodTemplate.ShaderMode.Static_Per_Vertex, shader_results, shader_args);
+                    /* Causes Crash */CreateShader<ShaderTemplateShaderGenerator>(RenderMethodTemplate.ShaderMode.Static_Per_Vertex, shader_results, shader_args);
                     CreateShader<ShaderTemplateShaderGenerator>(RenderMethodTemplate.ShaderMode.Static_Sh, shader_results, shader_args);
-                    // Causes Crash!!! //CreateShader<ShaderTemplateShaderGenerator>(RenderMethodTemplate.ShaderMode.Static_Prt_Ambient, shader_results, shader_args);
-                    // Causes Crash!!! //CreateShader<ShaderTemplateShaderGenerator>(RenderMethodTemplate.ShaderMode.Static_Prt_Linear, shader_results, shader_args);
-                    // Causes Crash!!! //CreateShader<ShaderTemplateShaderGenerator>(RenderMethodTemplate.ShaderMode.Static_Prt_Quadratic, shader_results, shader_args);
+                    ///* Causes Crash */CreateShader<ShaderTemplateShaderGenerator>(RenderMethodTemplate.ShaderMode.Static_Prt_Ambient, shader_results, shader_args);
+                    ///* Causes Crash */CreateShader<ShaderTemplateShaderGenerator>(RenderMethodTemplate.ShaderMode.Static_Prt_Linear, shader_results, shader_args);
+                    ///* Causes Crash */CreateShader<ShaderTemplateShaderGenerator>(RenderMethodTemplate.ShaderMode.Static_Prt_Quadratic, shader_results, shader_args);
                     CreateShader<ShaderTemplateShaderGenerator>(RenderMethodTemplate.ShaderMode.Dynamic_Light, shader_results, shader_args);
                     CreateShader<ShaderTemplateShaderGenerator>(RenderMethodTemplate.ShaderMode.Shadow_Generate, shader_results, shader_args);
                     CreateShader<ShaderTemplateShaderGenerator>(RenderMethodTemplate.ShaderMode.Active_Camo, shader_results, shader_args);
@@ -466,7 +487,7 @@ namespace TagTool.ShaderGenerator
             shader_results[mode] = generator?.Generate();
         }
 
-        private void CreateMaterialFixupInformation(FileStream stream)
+        private bool CreateMaterialFixupInformation(Stream stream)
         {
             // Shader Dependencies
             shaders_dependencies_instances = CacheContext.TagCache.Index.NonNull().Where(t => t.Dependencies.Contains(rmt2_cachedtaginstance.Index)).ToList();
@@ -483,31 +504,43 @@ namespace TagTool.ShaderGenerator
                 }
             }
 
-            shader_fixups = new Dictionary<RenderMethod, MaterialFixupInformation>();
-            foreach (var shader in shaders_dependencies)
+            shader_fixups = new Dictionary<Object, MaterialFixupInformation>();
+            foreach (var dependancy in shaders_dependencies)
             {
-                if (shader.ShaderProperties.Count > 1) throw new NotImplementedException();
-
-                var properties = shader.ShaderProperties[0];
-
-                if (properties.Template.Index != rmt2_cachedtaginstance.Index) throw new Exception("What the mathematical???");
-
-                MaterialFixupInformation fixupInformation = new MaterialFixupInformation();
-                for (int i = 0; i < properties.ShaderMaps.Count; i++)
+                switch(dependancy)
                 {
-                    var shader_reference = CacheContext.GetString(rmt2.ShaderMaps[i].Name);
-                    fixupInformation.ShaderMaps[shader_reference] = properties.ShaderMaps[i];
-                }
+                    case RenderMethod shader:
+                        {
+                            if (shader.ShaderProperties.Count > 1) throw new NotImplementedException();
 
-                Dictionary<string, RenderMethod.ShaderProperty.Argument> Arguments = new Dictionary<string, RenderMethod.ShaderProperty.Argument>();
-                for (int i = 0; i < properties.Arguments.Count; i++)
-                {
-                    var argument_name = CacheContext.GetString(rmt2.Arguments[i].Name);
-                    fixupInformation.Arguments[argument_name] = properties.Arguments[i];
-                }
+                            var properties = shader.ShaderProperties[0];
 
-                shader_fixups[shader] = fixupInformation;
+                            if (properties.Template.Index != rmt2_cachedtaginstance.Index)
+                            {
+                                //throw new Exception("What the mathematical???");
+                                return true;
+                            }
+
+                            MaterialFixupInformation fixupInformation = new MaterialFixupInformation();
+                            for (int i = 0; i < properties.ShaderMaps.Count; i++)
+                            {
+                                var shader_reference = CacheContext.GetString(rmt2.ShaderMaps[i].Name);
+                                fixupInformation.ShaderMaps[shader_reference] = properties.ShaderMaps[i];
+                            }
+
+                            Dictionary<string, RenderMethod.ShaderProperty.Argument> Arguments = new Dictionary<string, RenderMethod.ShaderProperty.Argument>();
+                            for (int i = 0; i < properties.Arguments.Count; i++)
+                            {
+                                var argument_name = CacheContext.GetString(rmt2.Arguments[i].Name);
+                                fixupInformation.Arguments[argument_name] = properties.Arguments[i];
+                            }
+
+                            shader_fixups[shader] = fixupInformation;
+                        }
+                        break;
+                }
             }
+            return false;
         }
     }
 }

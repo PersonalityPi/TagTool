@@ -13,55 +13,50 @@ using TagTool.ShaderGenerator.Types;
 using System.Linq;
 using static TagTool.Tags.Definitions.RenderMethodTemplate.DrawModeRegisterOffsetBlock;
 using TagTool.ShaderGenerator.RegisterFixups;
+using TagTool.Tags;
 
 namespace TagTool.Commands.Shaders
 {
-    class GenerateRenderMethodTemplate : Command
+    class CacheFlush : Command
     {
         private GameCacheContext CacheContext { get; }
-        private CachedTagInstance rmt2_cachedtaginstance { get; }
-        private RenderMethodTemplate rmt2 { get; }
 
-        public GenerateRenderMethodTemplate(GameCacheContext cacheContext, CachedTagInstance tag, RenderMethodTemplate definition) :
+        public CacheFlush(GameCacheContext cacheContext) :
             base(CommandFlags.Inherit,
 
-                "Generate",
-                "Compiles HLSL source file from scratch :D",
-                "Generate <shader_type> <parameters...>",
-                "Compiles HLSL source file from scratch :D")
+                "CacheFlush",
+                "Exports the tags.dat or sets the cache flushing mode",
+                "CacheFlush <mode>",
+                "Exports the tags.dat or sets the cache flushing mode")
         {
             CacheContext = cacheContext;
-            rmt2_cachedtaginstance = tag;
-            rmt2 = definition;
         }
 
         public override object Execute(List<string> args)
         {
-            if (args.Count <= 0)
-                return false;
-
-            if(args.Count < 2)
+            if(args.Count > 0)
             {
-                Console.WriteLine("Invalid number of args");
-                return false;
+                var option = args[0].ToLower();
+                switch (option)
+                {
+                    case "manual":
+                        Console.WriteLine("Setting cache flushing mode to manual. Use CacheFlush without arguments to flush.");
+                        CacheContext.TagCacheFile.AutomaticFlushing = false;
+                        break;
+                    case "automatic":
+                        Console.WriteLine("Setting cache flushing mode to automatic.");
+                        CacheContext.TagCacheFile.AutomaticFlushing = true;
+                        break;
+                    default:
+                        Console.WriteLine($"Unknown option {option}");
+                        break;
+                }
             }
-
-            string shader_type;
-            try
+            else
             {
-                shader_type = args[0].ToLower();
-            } catch
-            {
-                Console.WriteLine("Invalid index, type, and drawmode combination");
-                return false;
+                Console.WriteLine($"{ CacheContext.TagCacheFile.FullName} written to disk");
+                CacheContext.TagCacheFile.FlushData();
             }
-
-            Int32[] shader_args;
-			try { shader_args = Array.ConvertAll(args.Skip(1).ToArray(), Int32.Parse); }
-			catch { Console.WriteLine("Invalid shader arguments! (could not parse to Int32[].)"); return false; }
-
-            RMT2Generator generator = new RMT2Generator(CacheContext, rmt2, rmt2_cachedtaginstance, shader_type, shader_args);
-            generator.Generate();
 
             return true;
         }
