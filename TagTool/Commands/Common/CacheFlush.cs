@@ -64,8 +64,8 @@ namespace TagTool.Commands.Shaders
             }
             else
             {
-                Console.WriteLine($"{ CacheContext.TagCacheFile.FullName} written to disk");
                 CacheContext.TagCacheFile.FlushData();
+                Console.WriteLine($"{ CacheContext.TagCacheFile.FullName} written to disk");
 
                 CacheContext.StringIdCacheFile.FlushData();
 

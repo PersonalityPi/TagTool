@@ -427,6 +427,7 @@ namespace TagTool.Cache
             foreach (var resoure_cache in LoadedResourceCaches)
             {
                 resoure_cache.Value.File.FlushData();
+                Console.WriteLine($"{ resoure_cache.Value.File.FullName} written to disk");
             }
         }
 
@@ -661,6 +662,8 @@ namespace TagTool.Cache
                     File = file,
                     Cache = new ResourceCache(file.GetStream(false))
                 };
+
+                LoadedResourceCaches[location] = cache;
             }
 
             return cache;
