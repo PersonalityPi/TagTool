@@ -137,13 +137,15 @@ namespace TagTool.Cache
                     input_stream.Read(Data, 0, (int)input_stream.Length);
                     CacheStream.Write(Data, 0, Data.Length);
                 }
+
+                CacheStream.Position = 0;
             }
 
             public void FlushData()
             {
                 CacheStream.Position = 0;
 
-                using (var output_stream = new FileStream("tags.dat", FileMode.Create))
+                using (var output_stream = new FileStream(FullName, FileMode.Create))
                 {
                     byte[] Data = new byte[CacheStream.Length];
                     CacheStream.Read(Data, 0, (int)CacheStream.Length);
