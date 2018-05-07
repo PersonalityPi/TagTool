@@ -93,6 +93,7 @@ namespace TagTool.Cache
 
         public class TagCacheFileManager
         {
+
             private class TagCacheMemoryStream : MemoryStream
             {
                 public TagCacheFileManager ParentManager;
@@ -120,14 +121,17 @@ namespace TagTool.Cache
             private bool IsWriteStream = false;
             public bool AutomaticFlushing = false;
             TagCacheMemoryStream CacheStream;
-            public string FullName => "tags.dat";
+            public string FullName;
 
-            public TagCacheFileManager()
+            public TagCacheFileManager(string filename, bool automatic_flushing)
             {
+                AutomaticFlushing = automatic_flushing;
+                FullName = filename;
+
                 CacheStream = new TagCacheMemoryStream();
                 CacheStream.ParentManager = this;
 
-                using (var input_stream = new FileStream("tags.dat", FileMode.Open))
+                using (var input_stream = new FileStream(filename, FileMode.Open))
                 {
                     byte[] Data = new byte[input_stream.Length];
                     input_stream.Read(Data, 0, (int)input_stream.Length);
@@ -158,7 +162,7 @@ namespace TagTool.Cache
                 return CacheStream;
             }
         }
-        public TagCacheFileManager TagCacheFile = new TagCacheFileManager();
+        public TagCacheFileManager TagCacheFile = new TagCacheFileManager("tags.dat", false);
 
         ///// <summary>
         ///// Gets the tag cache file information.
@@ -241,7 +245,7 @@ namespace TagTool.Cache
         /// Opens the tag cache file for reading and writing.
         /// </summary>
         /// <returns>The stream that was opened.</returns>
-        //public FileStream OpenTagCacheReadWrite() => TagCacheFile.Open(FileMode.Open, FileAccess.ReadWrite);
+        //public FileStream OpenTagCacheReadWrite() => TagCacheFile.GetStream(true);
         public Stream OpenTagCacheReadWrite() => TagCacheFile.GetStream(true);
 
         /// <summary>
@@ -333,18 +337,7 @@ namespace TagTool.Cache
         /// <summary>
         /// Gets the string_id cache file information.
         /// </summary>
-        public FileInfo StringIdCacheFile
-        {
-            get
-            {
-                var files = Directory.GetFiles("string_ids.dat");
-
-                if (files.Length == 0)
-                    throw new FileNotFoundException(Path.Combine(Directory.FullName, "string_ids.dat"));
-
-                return files[0];
-            }
-        }
+        public TagCacheFileManager StringIdCacheFile = new TagCacheFileManager("string_ids.dat", false);
 
         /// <summary>
         /// The stringID cache.
@@ -356,19 +349,22 @@ namespace TagTool.Cache
         /// Opens the string_id cache file for reading.
         /// </summary>
         /// <returns>The stream that was opened.</returns>
-        public FileStream OpenStringIdCacheRead() => StringIdCacheFile.OpenRead();
+        //public FileStream OpenStringIdCacheRead() => StringIdCacheFile.OpenRead();
+        public Stream OpenStringIdCacheRead() => StringIdCacheFile.GetStream(false);
 
         /// <summary>
         /// Opens the string_id cache file for writing.
         /// </summary>
         /// <returns>The stream that was opened.</returns>
-        public FileStream OpenStringIdCacheWrite() => StringIdCacheFile.Open(FileMode.Open, FileAccess.Write);
+        //public FileStream OpenStringIdCacheWrite() => StringIdCacheFile.Open(FileMode.Open, FileAccess.Write);
+        public Stream OpenStringIdCacheWrite() => StringIdCacheFile.GetStream(true);
 
         /// <summary>
         /// Opens the string_id cache file for reading and writing.
         /// </summary>
         /// <returns>The stream that was opened.</returns>
-        public FileStream OpenStringIdCacheReadWrite() => StringIdCacheFile.Open(FileMode.Open, FileAccess.ReadWrite);
+        //public FileStream OpenStringIdCacheReadWrite() => StringIdCacheFile.GetStream(true);
+        public Stream OpenStringIdCacheReadWrite() => StringIdCacheFile.GetStream(true);
 
         /// <summary>
         /// Gets a string from the string_id cache.
@@ -407,25 +403,45 @@ namespace TagTool.Cache
             { ResourceLocation.Lightmaps, "lightmaps.dat" },
         };
 
+        private bool _UseResourceAutomaticFlushing = true;
+        public bool UseResourceAutomaticFlushing
+        {
+            get => _UseResourceAutomaticFlushing;
+            set
+            {
+                _UseResourceAutomaticFlushing = value;
+                foreach(var resoure_cache in LoadedResourceCaches)
+                {
+                    resoure_cache.Value.File.AutomaticFlushing = value;
+                }
+            }
+        }
+
         /// <summary>
         /// The loaded <see cref="ResourceCache"/> for each <see cref="ResourceLocation"/>.
         /// </summary>
         private Dictionary<ResourceLocation, LoadedResourceCache> LoadedResourceCaches { get; } = new Dictionary<ResourceLocation, LoadedResourceCache>();
 
-        public FileInfo GetResourceCacheFile(ResourceLocation location)
+        public void FlushResources()
+        {
+            foreach (var resoure_cache in LoadedResourceCaches)
+            {
+                resoure_cache.Value.File.FlushData();
+            }
+        }
+
+        public TagCacheFileManager GetResourceCacheFile(ResourceLocation location)
         {
             if (!LoadedResourceCaches.TryGetValue(location, out LoadedResourceCache cache))
             {
-                var file = new FileInfo(Path.Combine(Directory.FullName, ResourceCacheNames[location]));
+                var filename = ResourceCacheNames[location];
+                var file = new TagCacheFileManager(filename, UseResourceAutomaticFlushing);
 
-                using (var stream = file.OpenRead())
+                cache = new LoadedResourceCache
                 {
-                    cache = new LoadedResourceCache
-                    {
-                        File = file,
-                        Cache = new ResourceCache(stream)
-                    };
-                }
+                    File = file,
+                    Cache = new ResourceCache(file.GetStream(false))
+                };
 
                 LoadedResourceCaches[location] = cache;
             }
@@ -442,16 +458,14 @@ namespace TagTool.Cache
         {
             if (!LoadedResourceCaches.TryGetValue(location, out LoadedResourceCache cache))
             {
-                var file = new FileInfo(Path.Combine(Directory.FullName, ResourceCacheNames[location]));
+                var filename = ResourceCacheNames[location];
+                var file = new TagCacheFileManager(filename, UseResourceAutomaticFlushing);
 
-                using (var stream = file.OpenRead())
+                cache = new LoadedResourceCache
                 {
-                    cache = new LoadedResourceCache
-                    {
-                        File = file,
-                        Cache = new ResourceCache(stream)
-                    };
-                }
+                    File = file,
+                    Cache = new ResourceCache(file.GetStream(false))
+                };
 
                 LoadedResourceCaches[location] = cache;
             }
@@ -493,21 +507,21 @@ namespace TagTool.Cache
         /// </summary>
         /// <param name="location">The location of the resource file.</param>
         /// <returns></returns>
-        public FileStream OpenResourceCacheRead(ResourceLocation location) => LoadedResourceCaches[location].File.OpenRead();
+        public Stream OpenResourceCacheRead(ResourceLocation location) => LoadedResourceCaches[location].File.GetStream(false);
 
         /// <summary>
         /// Opens a resource cache file for writing.
         /// </summary>
         /// <param name="location">The location of the resource file.</param>
         /// <returns></returns>
-        public FileStream OpenResourceCacheWrite(ResourceLocation location) => LoadedResourceCaches[location].File.OpenWrite();
+        public Stream OpenResourceCacheWrite(ResourceLocation location) => LoadedResourceCaches[location].File.GetStream(true);
 
         /// <summary>
         /// Opens a resource cache file for reading and writing.
         /// </summary>
         /// <param name="location">The location of the resource file.</param>
         /// <returns></returns>
-        public FileStream OpenResourceCacheReadWrite(ResourceLocation location) => LoadedResourceCaches[location].File.Open(FileMode.Open, FileAccess.ReadWrite);
+        public Stream OpenResourceCacheReadWrite(ResourceLocation location) => LoadedResourceCaches[location].File.GetStream(true);
         
         /// <summary>
         /// Adds a new resource to a cache.
@@ -526,7 +540,7 @@ namespace TagTool.Cache
 
             resource.ChangeLocation(location);
             var cache = GetResourceCache(resource);
-            using (var stream = cache.File.Open(FileMode.Open, FileAccess.ReadWrite))
+            using (var stream = cache.File.GetStream(true))
             {
                 var dataSize = (int)(dataStream.Length - dataStream.Position);
                 var data = new byte[dataSize];
@@ -552,7 +566,7 @@ namespace TagTool.Cache
             resource.ChangeLocation(location);
             resource.DisableChecksum();
             var cache = GetResourceCache(resource);
-            using (var stream = cache.File.Open(FileMode.Open, FileAccess.ReadWrite))
+            using (var stream = cache.File.GetStream(true))
                 resource.Page.Index = cache.Cache.AddRaw(stream, data);
         }
 
@@ -571,7 +585,7 @@ namespace TagTool.Cache
                 throw new ArgumentException("The output stream is not open for writing", "outStream");
 
             var cache = GetResourceCache(resource);
-            using (var stream = cache.File.OpenRead())
+            using (var stream = cache.File.GetStream(false))
                 cache.Cache.Decompress(stream, resource.Page.Index, resource.Page.CompressedBlockSize, outStream);
         }
 
@@ -586,7 +600,7 @@ namespace TagTool.Cache
                 throw new ArgumentNullException("resource");
 
             var cache = GetResourceCache(resource);
-            using (var stream = cache.File.OpenRead())
+            using (var stream = cache.File.GetStream(false))
                 return cache.Cache.ExtractRaw(stream, resource.Page.Index, resource.Page.CompressedBlockSize);
         }
 
@@ -604,7 +618,7 @@ namespace TagTool.Cache
                 throw new ArgumentException("The input stream is not open for reading", "dataStream");
 
             var cache = GetResourceCache(resource);
-            using (var stream = cache.File.Open(FileMode.Open, FileAccess.ReadWrite))
+            using (var stream = cache.File.GetStream(true))
             {
                 var dataSize = (int)(dataStream.Length - dataStream.Position);
                 var data = new byte[dataSize];
@@ -628,7 +642,7 @@ namespace TagTool.Cache
 
             resource.DisableChecksum();
             var cache = GetResourceCache(resource);
-            using (var stream = cache.File.Open(FileMode.Open, FileAccess.ReadWrite))
+            using (var stream = cache.File.GetStream(true))
                 cache.Cache.ImportRaw(stream, resource.Page.Index, data);
         }
 
@@ -639,16 +653,14 @@ namespace TagTool.Cache
 
             if (!LoadedResourceCaches.TryGetValue(location, out LoadedResourceCache cache))
             {
-                var file = new FileInfo(Path.Combine(Directory.FullName, ResourceCacheNames[location]));
+                var filename = ResourceCacheNames[location];
+                var file = new TagCacheFileManager(filename, UseResourceAutomaticFlushing);
 
-                using (var stream = file.OpenRead())
+                cache = new LoadedResourceCache
                 {
-                    cache = new LoadedResourceCache
-                    {
-                        File = file,
-                        Cache = new ResourceCache(stream)
-                    };
-                }
+                    File = file,
+                    Cache = new ResourceCache(file.GetStream(false))
+                };
             }
 
             return cache;
@@ -658,7 +670,8 @@ namespace TagTool.Cache
         {
             public ResourceCache Cache { get; set; }
 
-            public FileInfo File { get; set; }
+            public TagCacheFileManager File { get; set; }
+            //public FileInfo File { get; set; }
         }
         #endregion
     }
