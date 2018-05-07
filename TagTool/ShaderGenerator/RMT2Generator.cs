@@ -46,7 +46,7 @@ namespace TagTool.ShaderGenerator
             shader_type = _shader_type;
             shader_args = _shader_args;
 
-            using (var stream = CacheContext.TagCacheFile.GetStream(false))
+            using (var stream = CacheContext.TagCacheFile.OpenRead())
             {
                 pixl_cachedtaginstance = rmt2.PixelShader;
                 pixl = (PixelShader)CacheContext.Deserializer.Deserialize(new TagSerializationContext(stream, CacheContext, pixl_cachedtaginstance), typeof(PixelShader));
@@ -55,7 +55,7 @@ namespace TagTool.ShaderGenerator
 
         public void Generate()
         {
-            using (var stream = CacheContext.TagCacheFile.GetStream(true))
+            using (var stream = CacheContext.TagCacheFile.OpenReadWrite())
             {
 
                 CreateMaterialFixupInformation(stream);
