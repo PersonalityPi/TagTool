@@ -8,6 +8,7 @@ using TagTool.Direct3D.Functions;
 using TagTool.ShaderGenerator.Types;
 using TagTool.Shaders;
 using TagTool.Util;
+using TagTool.Tags.Definitions;
 
 namespace TagTool.ShaderGenerator
 {
@@ -35,7 +36,7 @@ namespace TagTool.ShaderGenerator
             {
                 var definitions = new List<DirectX.MacroDefine>
                 {
-                    new DirectX.MacroDefine {Name = "_debug_color", Definition = "float4(1, 0, 0, 0)" },
+                    new DirectX.MacroDefine {Name = "_debug_color", Definition = "float4(1, 0, 0, 1.0)" },
                     new DirectX.MacroDefine {Name = "Albedo", Definition = "albedo_terrain"},
                     new DirectX.MacroDefine {Name = "Bump_Mapping", Definition = "bump_mapping_terrain"}
                 };
@@ -48,7 +49,7 @@ namespace TagTool.ShaderGenerator
         }
 
 
-        public TerrainTemplateShaderGenerator(GameCacheContext cacheContext, TemplateShaderGenerator.Drawmode drawmode, Int32[] args, Int32 arg_pos = 0) : base(
+        public TerrainTemplateShaderGenerator(GameCacheContext cacheContext, RenderMethodTemplate.ShaderMode drawmode, Int32[] args, Int32 arg_pos = 0) : base(
                 drawmode,
                 (Blending)GetNextTemplateArg(args, ref arg_pos),
                 (Environment_Map)GetNextTemplateArg(args, ref arg_pos),

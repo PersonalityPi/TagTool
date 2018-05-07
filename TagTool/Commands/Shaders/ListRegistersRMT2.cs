@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using static TagTool.Tags.Definitions.RenderMethodTemplate.DrawModeRegisterOffsetBlock;
 using static TagTool.Tags.Definitions.RenderMethodTemplate;
+using System.Reflection;
 
 namespace TagTool.Commands.Shaders
 {
@@ -51,7 +52,7 @@ namespace TagTool.Commands.Shaders
             bool specific_tag = false;
             string specific_tag_id = "";
 
-            for (int i=0;i<args.Count;i++)
+            for (int i = 0; i < args.Count; i++)
             {
                 switch (args[i])
                 {
@@ -105,11 +106,11 @@ namespace TagTool.Commands.Shaders
             var stream = CacheContext.OpenTagCacheRead();
 
             HashSet<string> strings = new HashSet<string>();
-            strings.Add($"name,register_index,register_type,argument_index,offset_name,array_size,shader_mode,tag_name");
+            strings.Add($"name,register_index,register_type,argument_index,argument_mapping_name,array_size,shader_mode,tag_name,argument_list_count");
 
             IEnumerable<CachedTagInstance> tags;
 
-            if(specific_tag)
+            if (specific_tag)
             {
                 tags = new CachedTagInstance[] { CacheContext.TagCache.Index[Convert.ToInt32(specific_tag_id, 16)] };
             }
@@ -132,7 +133,7 @@ namespace TagTool.Commands.Shaders
                 {
                     var tag_index = CacheContext.TagCache.Index.ToList().IndexOf(instance);
                     var name = CacheContext.TagNames.ContainsKey(tag_index) ? CacheContext.TagNames[tag_index] : null;
-                    if(_template_type != null)
+                    if (_template_type != null)
                     {
                         if (name == null) continue;
                         if (!name.Contains("\\")) continue; // Probbaly an unnamed tag
@@ -146,40 +147,63 @@ namespace TagTool.Commands.Shaders
 
                 var shader_modes = GetShaderModes(rmt2.DrawModeBitmask);
 
-                foreach (var drawmode_register_map in rmt2.DrawModeRegisterOffsets)
+                var drawmode_argument_offsets_variables = typeof(DrawModeRegisterOffsetBlock).GetFields();
+
+                //foreach (var drawmode in rmt2.DrawModes)
+                for(var shader_mode_index = 0; shader_mode_index < rmt2.DrawModes.Count; shader_mode_index++)
                 {
-                    var drawmode_index = rmt2.DrawModeRegisterOffsets.IndexOf(drawmode_register_map);
-                    if (drawmode_index >= shader_modes.Count) continue;
+                    var drawmode = rmt2.DrawModes[shader_mode_index];
+                    var shader_mode = (ShaderMode)shader_mode_index;
 
-                    var shader_mode = shader_modes[drawmode_index];
-                    if (!IsShaderModeUsed(shader_mode)) continue;
 
-                    for (DrawModeRegisterOffsetType offset_type = 0; offset_type < DrawModeRegisterOffsetType.DrawModeRegisterOffsetType_Count; offset_type++)
+                    // NOTE: These are all cases of globally defined shaders and going out of bounds because they're not even stored as null
+                    // in the PIXL tag
+                    // We don't even have an index for this in PIXL, which means it must be globally defined
+                    if (shader_mode_index >= pixl.DrawModes.Count) continue; 
+
+                    var shader_drawmode = pixl.DrawModes[shader_mode_index];
+
+                    // TODO: This is a globally defined shader mode, we'll sort this out later on
+                    if (shader_mode == ShaderMode.Shadow_Generate && shader_drawmode.Count == 0) continue;
+
+                    for (var drawmode_index = 0; drawmode_index < drawmode.Count; drawmode_index++)
                     {
-                        var num_registers = drawmode_register_map.GetCount(offset_type);
+                        var drawmode_offset = drawmode.Offset + drawmode_index;
+                        var drawmode_argument_map = rmt2.DrawModeRegisterOffsets[drawmode_offset];
 
-                        for (var arguement_mapping_index = 0; arguement_mapping_index < num_registers; arguement_mapping_index++)
+                        //NOTE: Assuming these match up!!!
+                        var shader_offset = shader_drawmode.Index + drawmode_index;
+                        if (shader_drawmode.Count != drawmode.Count) throw new Exception("We assumed wrong!!!");
+
+                        foreach (var argument_offset_count_field in drawmode_argument_offsets_variables)
                         {
-                            var index = drawmode_register_map.GetOffset(offset_type) + arguement_mapping_index;
-                            var argument = rmt2.ArgumentMappings[index];
+                            var argument_offset_count = argument_offset_count_field.GetValue(drawmode_argument_map) as RMT2PackedUInt16;
 
-                            var shader_index = pixl.DrawModes[(int)shader_mode].Index;
-                            var shader = pixl.Shaders[shader_index];
+                            var arguments_offset = argument_offset_count.Offset;
+                            var arguments_count = argument_offset_count.Count;
+                            var arguments_end_offset = arguments_offset + arguments_count;
 
-                            foreach(var param in shader.PCParameters)
+                            for (var argument_offset = arguments_offset; argument_offset < arguments_end_offset; argument_offset++)
                             {
-                                if(param.RegisterIndex == argument.RegisterIndex)
+                                var argument = rmt2.ArgumentMappings[argument_offset];
+                                var shader = pixl.Shaders[shader_offset];
+
+                                foreach (var param in shader.PCParameters)
                                 {
-                                    var name = CacheContext.GetString(param.ParameterName);
-                                    var register_index = param.RegisterIndex;
-                                    var register_type = param.RegisterType.ToString();
-                                    var argument_index = argument.ArgumentIndex;
-                                    var offset_name = offset_type.ToString();
-                                    var array_size = param.RegisterCount;
-                                    var shader_mode_str = shader_mode.ToString();
+                                    if (param.RegisterIndex == argument.RegisterIndex)
+                                    {
+                                        var name = CacheContext.GetString(param.ParameterName);
+                                        var register_index = param.RegisterIndex;
+                                        var register_type = param.RegisterType.ToString();
+                                        var argument_index = argument.ArgumentIndex;
+                                        var argument_mapping_name = argument_offset_count_field.Name;
+                                        var array_size = param.RegisterCount;
+                                        var shader_mode_str = shader_mode.ToString();
 
+                                        var argument_list_count = rmt2.Arguments.Count();
 
-                                    strings.Add($"{name},{register_index},{register_type},{argument_index},{offset_name},{array_size},{shader_mode_str},{tag_name}");
+                                        strings.Add($"{name},{register_index},{register_type},{argument_index},{argument_mapping_name},{array_size},{shader_mode_str},{tag_name},{argument_list_count}");
+                                    }
                                 }
                             }
                         }
@@ -205,7 +229,7 @@ namespace TagTool.Commands.Shaders
             {
                 Console.WriteLine("Failed to export file");
             }
-            if(specific_tag)
+            if (specific_tag)
             {
                 foreach (var line in strings)
                 {

@@ -8,6 +8,7 @@ using TagTool.Direct3D.Functions;
 using TagTool.ShaderGenerator.Types;
 using TagTool.Shaders;
 using TagTool.Util;
+using TagTool.Tags.Definitions;
 
 namespace TagTool.ShaderGenerator
 {
@@ -20,7 +21,7 @@ namespace TagTool.ShaderGenerator
             new DirectX.MacroDefine {Name = "_debug_color", Definition = "float4(1, 0, 0, 0)" }
         };
 
-        public WaterTemplateShaderGenerator(GameCacheContext cacheContext, TemplateShaderGenerator.Drawmode drawmode, Int32[] args, Int32 arg_pos = 0) : base(
+        public WaterTemplateShaderGenerator(GameCacheContext cacheContext, RenderMethodTemplate.ShaderMode drawmode, Int32[] args, Int32 arg_pos = 0) : base(
                 drawmode,
                 (Wave_Shape)GetNextTemplateArg(args, ref arg_pos),
 				(Water_Color)GetNextTemplateArg(args, ref arg_pos),

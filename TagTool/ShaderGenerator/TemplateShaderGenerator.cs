@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,37 +9,15 @@ using TagTool.Direct3D.Functions;
 using TagTool.ShaderGenerator.Types;
 using TagTool.Shaders;
 using TagTool.Util;
+using static TagTool.Tags.Definitions.RenderMethodTemplate;
 
 namespace TagTool.ShaderGenerator
 {
     public abstract class TemplateShaderGenerator : IShaderGenerator
     {
-        public enum Drawmode
-        {
-            Default,
-            Albedo,
-            Static_Default,
-            Static_Per_Pixel,
-            Static_Per_Vertex,
-            Static_Sh,
-            Static_Prt_Ambient,
-            Static_Prt_Linear,
-            Static_Prt_Quadratic,
-            Dynamic_Light,
-            Shadow_Generate,
-            Shadow_Apply,
-            Active_Camo,
-            Lightmap_Debug_Mode,
-            Static_Per_Vertex_Color,
-            Water_Tessellation,
-            Water_Shading,
-            Dynamic_Light_Cinematic,
-            Z_Only,
-            Sfx_Distort
-        }
-        protected Drawmode drawMode { get; set; }
+        protected ShaderMode drawMode { get; set; }
 
-        protected TemplateShaderGenerator(Drawmode drawmode, params object[] enums)
+        protected TemplateShaderGenerator(ShaderMode drawmode, params object[] enums)
         {
             this.drawMode = drawmode;
             this.EnumValues = enums;
@@ -66,7 +45,7 @@ namespace TagTool.ShaderGenerator
         abstract protected MultiValueDictionary<Type, object> ImplementedEnums { get; }
         abstract protected MultiValueDictionary<object, TemplateParameter> Uniforms { get; }
 
-        public ShaderGeneratorResult Generate()
+        public virtual ShaderGeneratorResult Generate()
         {
 
 #if DEBUG
@@ -84,7 +63,7 @@ namespace TagTool.ShaderGenerator
             definitions.AddRange(GenerateFunctionDefinition());
             definitions.AddRange(GenerateCompilationFlagDefinitions());
             definitions.AddRange(GenerateParameterDefinitions(shader_parameters));
-            definitions.Add(new DirectX.MacroDefine { Name = ShaderGeneratorType, Definition="1" });
+            definitions.Add(new DirectX.MacroDefine { Name = ShaderGeneratorType, Definition = "1" });
             definitions.AddRange(TemplateDefinitions);
 
             var entrypoint = $"{Enum.GetName(drawMode.GetType(), drawMode).ToLower()}_ps";
@@ -109,6 +88,70 @@ namespace TagTool.ShaderGenerator
             Console.WriteLine();
             Console.WriteLine(disassembly);
             Console.WriteLine();
+
+            shader_parameters = new List<ShaderParameter>();
+
+            using (var reader = new StringReader(disassembly))
+            {
+                bool found_registers_check1 = false;
+                bool found_registers_check2 = false;
+                for (string src_line = reader.ReadLine(); src_line != null; src_line = reader.ReadLine())
+                {
+                    var line = src_line.Replace("//", "").Trim();
+
+                    if (!found_registers_check1)
+                    {
+                        if (line.Contains("Registers"))
+                        {
+                            found_registers_check1 = true;
+                        }
+                        continue;
+                    }
+
+                    if(!found_registers_check2)
+                    {
+                        if (line.Contains("---------"))
+                        {
+                            found_registers_check2 = true;
+                        }
+                        continue;
+                    }
+
+                    if (string.IsNullOrEmpty(line)) break;
+
+                    var param = new ShaderParameter();
+
+                    var args = line.Split(new string[] { " "}, StringSplitOptions.RemoveEmptyEntries);
+                    var name = args[0];
+                    var reg = args[1];
+                    var size = args[2];
+
+                    var reg_type = reg[0];
+                    switch(reg_type)
+                    {
+                        case 's':
+                            param.RegisterType = ShaderParameter.RType.Sampler;
+                            break;
+                        case 'b':
+                            param.RegisterType = ShaderParameter.RType.Boolean;
+                            break;
+                        case 'c':
+                            param.RegisterType = ShaderParameter.RType.Vector;
+                            break;
+                        case 'i':
+                            param.RegisterType = ShaderParameter.RType.Integer;
+                            break;
+                        default:
+                            throw new NotImplementedException();
+                    }
+
+                    param.ParameterName = CacheContext.GetStringId(name);
+                    param.RegisterCount = (byte)Convert.ToInt32(size);
+                    param.RegisterIndex = (ushort)Convert.ToInt32(reg.Substring(1));
+                    shader_parameters.Add(param);
+
+                }
+            }
 
             return new ShaderGeneratorResult { ByteCode = ShaderBytecode, Parameters = shader_parameters };
         }
@@ -381,7 +424,7 @@ namespace TagTool.ShaderGenerator
 
             foreach (var param in parameters)
             {
-                definitions.Add(new DirectX.MacroDefine { Name = $"param_{CacheContext.GetString(param.ParameterName).ToLower()}", Definition="1" });
+                definitions.Add(new DirectX.MacroDefine { Name = $"param_{CacheContext.GetString(param.ParameterName).ToLower()}", Definition = "1" });
             }
 
             return definitions;

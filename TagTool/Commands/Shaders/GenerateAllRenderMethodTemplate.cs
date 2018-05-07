@@ -13,55 +13,65 @@ using TagTool.ShaderGenerator.Types;
 using System.Linq;
 using static TagTool.Tags.Definitions.RenderMethodTemplate.DrawModeRegisterOffsetBlock;
 using TagTool.ShaderGenerator.RegisterFixups;
+using TagTool.Tags;
 
 namespace TagTool.Commands.Shaders
 {
-    class GenerateRenderMethodTemplate : Command
+    class GenerateAllRMT2 : Command
     {
         private GameCacheContext CacheContext { get; }
-        private CachedTagInstance rmt2_cachedtaginstance { get; }
-        private RenderMethodTemplate rmt2 { get; }
 
-        public GenerateRenderMethodTemplate(GameCacheContext cacheContext, CachedTagInstance tag, RenderMethodTemplate definition) :
+        public GenerateAllRMT2(GameCacheContext cacheContext) :
             base(CommandFlags.Inherit,
 
-                "Generate",
-                "Compiles HLSL source file from scratch :D",
-                "Generate <shader_type> <parameters...>",
-                "Compiles HLSL source file from scratch :D")
+                "GenerateAllRMT2",
+                "Finds all RMT2's and generates them again",
+                "GenerateAllRMT2 <shader_type>",
+                "Finds all RMT2's and generates them again")
         {
             CacheContext = cacheContext;
-            rmt2_cachedtaginstance = tag;
-            rmt2 = definition;
         }
 
         public override object Execute(List<string> args)
         {
-            if (args.Count <= 0)
-                return false;
+            string check_template = null;
+            if (args.Count > 0) check_template = args[0];
 
-            if(args.Count < 2)
+
+            var rmt2_cached_tags = CacheContext.TagCache.Index.NonNull().Where(t => TagDefinition.Find(t.Group.Tag) == typeof(RenderMethodTemplate)).ToList();
+
+            foreach (var rmt2_cachedtaginstance in rmt2_cached_tags)
             {
-                Console.WriteLine("Invalid number of args");
-                return false;
+                RenderMethodTemplate rmt2;
+                using (var stream = CacheContext.OpenTagCacheRead())
+                {
+                    rmt2 = CacheContext.Deserializer.Deserialize<RenderMethodTemplate>(new TagSerializationContext(stream, CacheContext, rmt2_cachedtaginstance));
+                }
+
+                if (!CacheContext.TagNames.ContainsKey(rmt2_cachedtaginstance.Index)) continue;
+
+                var name = CacheContext.TagNames[rmt2_cachedtaginstance.Index];
+
+                var strings = name.Trim().Split(new string[] { "\\" }, StringSplitOptions.RemoveEmptyEntries);
+                if (strings.Length < 3) continue;
+
+                int[] template_args;
+                string template;
+                try
+                {
+                    template = strings[1];
+                    template_args = strings[2].Split(new string[] { "_" }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+                } catch
+                {
+                    continue;
+                }
+
+                if (check_template != null && template != check_template) continue;
+
+                RMT2Generator generator = new RMT2Generator(CacheContext, rmt2, rmt2_cachedtaginstance, template, template_args);
+                generator.Generate();
             }
 
-            string shader_type;
-            try
-            {
-                shader_type = args[0].ToLower();
-            } catch
-            {
-                Console.WriteLine("Invalid index, type, and drawmode combination");
-                return false;
-            }
-
-            Int32[] shader_args;
-			try { shader_args = Array.ConvertAll(args.Skip(1).ToArray(), Int32.Parse); }
-			catch { Console.WriteLine("Invalid shader arguments! (could not parse to Int32[].)"); return false; }
-
-            RMT2Generator generator = new RMT2Generator(CacheContext, rmt2, rmt2_cachedtaginstance, shader_type, shader_args);
-            generator.Generate();
 
             return true;
         }

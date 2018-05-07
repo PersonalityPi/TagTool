@@ -1206,8 +1206,8 @@ namespace TagTool.Commands.Porting
             // 
 
             edProperty.Unknown2 = h3Property.Unknown2;
-            edProperty.BitmapTransparency = h3Property.BitmapTransparency;
-            edProperty.Unknown7 = h3Property.Unknown7;
+            edProperty.BlendingModeA = h3Property.BlendingModeA;
+            edProperty.BlendingModeB = h3Property.BlendingModeB;
             edProperty.Unknown8 = h3Property.Unknown8;
             edProperty.Unknown9 = h3Property.Unknown9;
             edProperty.Unknown10 = h3Property.Unknown10;

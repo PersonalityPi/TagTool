@@ -60,13 +60,13 @@ namespace TagTool.Commands.Shaders
                 return false;
             }
 
-            var drawmode = TemplateShaderGenerator.Drawmode.Default;
+            var drawmode = RenderMethodTemplate.ShaderMode.Default;
             {
                 bool found_drawmode = false;
-                var drawmode_enums = Enum.GetValues(typeof(TemplateShaderGenerator.Drawmode)).Cast<TemplateShaderGenerator.Drawmode>();
+                var drawmode_enums = Enum.GetValues(typeof(RenderMethodTemplate.ShaderMode)).Cast<RenderMethodTemplate.ShaderMode>();
                 foreach (var drawmode_enum in drawmode_enums)
                 {
-                    var enum_name = Enum.GetName(typeof(TemplateShaderGenerator.Drawmode), drawmode_enum).ToLower();
+                    var enum_name = Enum.GetName(typeof(RenderMethodTemplate.ShaderMode), drawmode_enum).ToLower();
                     if (drawmode_str == enum_name)
                     {
                         drawmode = drawmode_enum;
@@ -79,7 +79,7 @@ namespace TagTool.Commands.Shaders
                 {
                     //try
                     //{
-                    //    drawmode = (TemplateShaderGenerator.Drawmode)Int32.Parse(drawmode_str);
+                    //    drawmode = (RenderMethodTemplate.ShaderMode)Int32.Parse(drawmode_str);
                     //}
                     //catch
                     {

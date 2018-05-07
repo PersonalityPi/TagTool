@@ -357,7 +357,7 @@ namespace TagTool.Commands.Files
                 foreach (var a in edMode.Materials)
                     a.RenderMethod = CacheContext.GetTag(0x101F);
 
-                using (var stream = CacheContext.TagCacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
+                using (var stream = CacheContext.OpenTagCacheReadWrite())
                 {
                     var context = new TagSerializationContext(stream, CacheContext, edTag);
                     CacheContext.Serializer.Serialize(context, edMode);
@@ -378,7 +378,7 @@ namespace TagTool.Commands.Files
 
                 Console.WriteLine("Nuked shaders.");
 
-                using (var stream = CacheContext.TagCacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
+                using (var stream = CacheContext.OpenTagCacheReadWrite())
                 {
                     var context = new TagSerializationContext(stream, CacheContext, edTag);
                     CacheContext.Serializer.Serialize(context, instance);
@@ -1258,7 +1258,7 @@ namespace TagTool.Commands.Files
                     case "rmbk":
                     case "rmd ":
                     case "rmw ":
-                        using (var cacheStream = CacheContext.TagCacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
+                        using (var cacheStream = CacheContext.OpenTagCacheReadWrite())
                         {
                             var edContext = new TagSerializationContext(cacheStream, CacheContext, edInstance);
                             var rm2 = CacheContext.Deserializer.Deserialize<RenderMethodFast>(edContext);
@@ -1283,7 +1283,7 @@ namespace TagTool.Commands.Files
                         break;
                 }
 
-                using (var cacheStream = CacheContext.TagCacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
+                using (var cacheStream = CacheContext.OpenTagCacheReadWrite())
                 {
                     var edContext = new TagSerializationContext(cacheStream, CacheContext, edInstance);
                     rm = CacheContext.Deserializer.Deserialize(new TagSerializationContext(cacheStream, CacheContext, edInstance), TagDefinition.Find(edInstance.Group.Tag));

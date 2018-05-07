@@ -23,7 +23,7 @@ namespace TagTool.Commands.Shaders
                 "ListRegisters",
                 "List Registers",
 
-                "ListRegisters <template_type>",
+                "ListRegisters <shader_index i> <template_type>",
                 "List Registers")
         {
             CacheContext = cacheContext;
@@ -43,14 +43,46 @@ namespace TagTool.Commands.Shaders
 
         public override object Execute(List<string> args)
         {
-            if (args.Count <= 0) return false;
+            string _template_type = "*";
+            int? shader_index = null;
 
-            ListType(args[0]);
+            if(args.Count > 0)
+            {
+                for(var i=0;i<args.Count;i++)
+                {
+                    var current_arg = args[i];
+                    switch(current_arg.ToLower())
+                    {
+                        case "index":
+                        case "shader_index":
+                            string shader_index_str = args[++i].ToLower();
+                            if(shader_index_str.StartsWith("0x"))
+                            {
+                                shader_index = Convert.ToInt32(shader_index_str, 16);
+                            }
+                            else
+                            {
+                                int _shader_index;
+                                if (!int.TryParse(shader_index_str, out _shader_index))
+                                {
+                                    Console.WriteLine("Couldn't parse shader_index");
+                                    return false;
+                                }
+                                shader_index = _shader_index;
+                            }
+                            break;
+                    }
+                }
+
+                if (args.Count % 2 == 1) _template_type = args[args.Count - 1];
+            }
+
+            ListType(_template_type, shader_index);
 
             return true;
         }
 
-        public void ListType(string _template_type)
+        public void ListType(string _template_type, int? shader_index)
         {
 
             // Probbaly a better way to do this, but nobody has made this easy...
@@ -85,8 +117,20 @@ namespace TagTool.Commands.Shaders
 
                             if (pixel_shader?.Shaders == null || pixel_shader.Shaders.Count == 0) continue;
                             if (pixel_shader.Shaders[0].PCParameters.Count == 0) continue;
-                            parameters.AddRange(pixel_shader.Shaders[0].PCParameters);
 
+                            if (shader_index != null)
+                            {
+                                parameters.AddRange(pixel_shader.Shaders[shader_index ?? 0].PCParameters);
+                            }
+                            else
+                            {
+                                
+                                foreach (var shader in pixel_shader.Shaders)
+                                {
+                                    parameters.AddRange(shader.PCParameters);
+                                }
+                            }
+                            
                             break;
                     }
 
@@ -157,7 +201,7 @@ namespace TagTool.Commands.Shaders
                             Console.WriteLine($"uniform sampler {ParameterName}[{RegisterCount}] : register(s{RegisterIndex});");
                             break;
                         case ShaderParameter.RType.Vector:
-                            Console.WriteLine($"uniform float4 {ParameterName}[{RegisterCount}] : register(s{RegisterIndex});");
+                            Console.WriteLine($"uniform float4 {ParameterName}[{RegisterCount}] : register(c{RegisterIndex});");
                             break;
                     }
                 }
