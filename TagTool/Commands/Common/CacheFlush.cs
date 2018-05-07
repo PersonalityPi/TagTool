@@ -42,7 +42,6 @@ namespace TagTool.Commands.Shaders
                     case "manual":
                         Console.WriteLine("Setting cache flushing mode to manual. Use CacheFlush without arguments to flush.");
                         CacheContext.TagCacheFile.AutomaticFlushing = false;
-
                         break;
                     case "automatic":
                         Console.WriteLine("Setting cache flushing mode to automatic.");
@@ -51,11 +50,18 @@ namespace TagTool.Commands.Shaders
                     case "manual_resources":
                         Console.WriteLine("Setting resource cache flushing mode to manual. Use CacheFlush without arguments to flush.");
                         CacheContext.UseResourceAutomaticFlushing = false;
-
                         break;
                     case "automatic_resources":
                         Console.WriteLine("Setting resource cache flushing mode to automatic.");
                         CacheContext.UseResourceAutomaticFlushing = true;
+                        break;
+                    case "manual_stringids":
+                        Console.WriteLine("Setting stringid cache flushing mode to manual. Use CacheFlush without arguments to flush.");
+                        CacheContext.StringIdCacheFile.AutomaticFlushing = false;
+                        break;
+                    case "automatic_stringids":
+                        Console.WriteLine("Setting stringid cache flushing mode to automatic.");
+                        CacheContext.StringIdCacheFile.AutomaticFlushing = true;
                         break;
                     default:
                         Console.WriteLine($"Unknown option {option}");
