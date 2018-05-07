@@ -538,6 +538,9 @@ namespace TagTool.ShaderGenerator
                             shader_fixups[shader] = fixupInformation;
                         }
                         break;
+                    default:
+                        Console.WriteLine($"Couldn't fixup {dependancy.GetType()}");
+                        break;
                 }
             }
             return false;

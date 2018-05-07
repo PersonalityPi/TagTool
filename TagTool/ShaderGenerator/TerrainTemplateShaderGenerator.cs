@@ -36,7 +36,7 @@ namespace TagTool.ShaderGenerator
             {
                 var definitions = new List<DirectX.MacroDefine>
                 {
-                    new DirectX.MacroDefine {Name = "_debug_color", Definition = "float4(1, 0, 0, 0)" },
+                    new DirectX.MacroDefine {Name = "_debug_color", Definition = "float4(1, 0, 0, 1.0)" },
                     new DirectX.MacroDefine {Name = "Albedo", Definition = "albedo_terrain"},
                     new DirectX.MacroDefine {Name = "Bump_Mapping", Definition = "bump_mapping_terrain"}
                 };
