@@ -9,7 +9,6 @@ using TagTool.Geometry;
 using TagTool.ShaderGenerator.Types;
 using TagTool.Shaders;
 using TagTool.Util;
-using TagTool.Tags.Definitions;
 
 namespace TagTool.ShaderGenerator
 {
@@ -18,10 +17,10 @@ namespace TagTool.ShaderGenerator
         protected override string ShaderGeneratorType => "shader_template";
         protected override List<DirectX.MacroDefine> TemplateDefinitions => new List<DirectX.MacroDefine>
         {
-            new DirectX.MacroDefine {Name = "_debug_color", Definition = "float4(1, 0, 0, 1)" }
+            new DirectX.MacroDefine {Name = "_debug_color", Definition = "float4(1, 0, 0, 0)" }
         };
 
-        public ShaderTemplateShaderGenerator(GameCacheContext cacheContext, RenderMethodTemplate.ShaderMode drawmode, Int32[] args, Int32 arg_pos = 0) : base(
+        public ShaderTemplateShaderGenerator(GameCacheContext cacheContext, TemplateShaderGenerator.Drawmode drawmode, Int32[] args, Int32 arg_pos = 0) : base(
                 drawmode,
                 (Albedo)GetNextTemplateArg(args, ref arg_pos),
                 (Bump_Mapping)GetNextTemplateArg(args, ref arg_pos),
@@ -37,25 +36,6 @@ namespace TagTool.ShaderGenerator
                 (Soft_Fade)GetNextTemplateArg(args, ref arg_pos))
         {
             this.CacheContext = cacheContext;
-        }
-
-        public override ShaderGeneratorResult Generate()
-        {
-            switch (drawMode)
-            {
-                // Handled by global shader
-                case RenderMethodTemplate.ShaderMode.Shadow_Generate:
-
-                // Unsupported Modes causing crashes. TODO: Investigate
-                //case RenderMethodTemplate.ShaderMode.Static_Per_Vertex:
-                //case RenderMethodTemplate.ShaderMode.Static_Prt_Ambient:
-                //case RenderMethodTemplate.ShaderMode.Static_Prt_Linear:
-                //case RenderMethodTemplate.ShaderMode.Static_Prt_Quadratic:
-
-                return null;
-            }
-
-            return base.Generate();
         }
 
         #region Implemented Features Check
@@ -85,7 +65,7 @@ namespace TagTool.ShaderGenerator
         protected override MultiValueDictionary<object, TemplateParameter> Uniforms => new MultiValueDictionary<object, TemplateParameter>
         {
             {Albedo.Default,  new TemplateParameter(typeof(Albedo), "base_map", ShaderParameter.RType.Sampler) },
-            //{Albedo.Default,  new TemplateParameter(typeof(Albedo), "albedo_unknown_s1", ShaderParameter.RType.Sampler) { Enabled = false } }, // Manually added (Unknown bitmap)
+            {Albedo.Default,  new TemplateParameter(typeof(Albedo), "albedo_unknown_s1", ShaderParameter.RType.Sampler) { Enabled = false } }, // Manually added (Unknown bitmap)
             {Albedo.Default,  new TemplateParameter(typeof(Albedo), "detail_map", ShaderParameter.RType.Sampler) },
             {Albedo.Default,  new TemplateParameter(typeof(Albedo), "albedo_color", ShaderParameter.RType.Vector) },
             {Albedo.Default,  new TemplateParameter(typeof(Albedo), "base_map_xform", ShaderParameter.RType.Vector) }, // Manually added

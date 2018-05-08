@@ -76,7 +76,7 @@ namespace TagTool.Commands.Models
             //
 
             RenderModel renderModel;
-            using (var cacheStream = CacheContext.OpenTagCacheRead())
+            using (var cacheStream = CacheContext.TagCacheFile.OpenRead())
             {
                 var renderModelContext = new TagSerializationContext(cacheStream, CacheContext, Definition.RenderModel);
                 renderModel = CacheContext.Deserializer.Deserialize<RenderModel>(renderModelContext);

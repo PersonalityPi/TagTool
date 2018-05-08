@@ -69,7 +69,7 @@ namespace TagTool.Commands.Sounds
 
             try
             {
-                using (var stream = File.OpenRead(CacheContext.Directory + "\\" + cachePath))
+                using (var stream = File.OpenRead(CacheContext.TagCacheFile.DirectoryName + "\\" + cachePath))
                 {
                     var cache = new ResourceCache(stream);
                     using (var outStream = File.Open(filePath, FileMode.Create, FileAccess.Write))

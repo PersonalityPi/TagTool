@@ -52,7 +52,7 @@ namespace TagTool.Commands.Models
                     return false;
             }
 
-            using (var cacheStream = CacheContext.OpenTagCacheRead())
+            using (var cacheStream = CacheContext.TagCacheFile.OpenRead())
             {
                 var context = new TagSerializationContext(cacheStream, CacheContext, Definition.RenderModel);
                 var renderModel = CacheContext.Deserializer.Deserialize<RenderModel>(context);

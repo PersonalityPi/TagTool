@@ -96,16 +96,6 @@ float3 bump_mapping_standard(float3 tangentspace_x, float3 tangentspace_y, float
 
 #ifdef flag_bump_mapping_detail
 
-float3 bump_mapping_detail(float3 tangentspace_x, float3 tangentspace_y, float3 tangentspace_z, float2 texcoord)
-{
-	float3 bump_map_sample = sample_normal_2d(bump_map, apply_xform(texcoord, bump_map_xform));
-	float3 bump_detail_map_sample = sample_normal_2d(bump_detail_map, apply_xform(texcoord, bump_detail_map_xform));
-
-	float3 normal = bump_map_sample + bump_detail_map_sample * bump_detail_coefficient.x;
-
-	return normal_transform(tangentspace_x, tangentspace_y, tangentspace_z, normal);
-}
-
 float3 bump_mapping_detail_ext(float3 tangentspace_x, float3 tangentspace_y, float3 tangentspace_z, float2 texcoord)
 {
 	float3 bump_map_sample = sample_normal_2d(bump_map, apply_xform(texcoord, bump_map_xform));

@@ -65,9 +65,7 @@ namespace TagTool.Commands.Files
             var srcResourceCaches = new Dictionary<ResourceLocation, ResourceCache>();
 
             var destTagCache = CacheContext.CreateTagCache(destDirectory);
-            //CacheContext.StringIdCacheFile.CopyTo(Path.Combine(destDirectory.FullName, CacheContext.StringIdCacheFile.Name));
-            CacheContext.StringIdCacheFile.FlushData();
-
+            CacheContext.StringIdCacheFile.CopyTo(Path.Combine(destDirectory.FullName, CacheContext.StringIdCacheFile.Name));
             var destResourceCaches = new Dictionary<ResourceLocation, ResourceCache>();
 
             foreach (var value in Enum.GetValues(typeof(ResourceLocation)))

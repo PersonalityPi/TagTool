@@ -12,15 +12,14 @@ using TagTool.ShaderGenerator;
 using TagTool.ShaderGenerator.Types;
 using System.Linq;
 using static TagTool.Tags.Definitions.RenderMethodTemplate.DrawModeRegisterOffsetBlock;
-using TagTool.ShaderGenerator.RegisterFixups;
 
 namespace TagTool.Commands.Shaders
 {
     class GenerateRenderMethodTemplate : Command
     {
         private GameCacheContext CacheContext { get; }
-        private CachedTagInstance rmt2_cachedtaginstance { get; }
-        private RenderMethodTemplate rmt2 { get; }
+        private CachedTagInstance Tag { get; }
+        private RenderMethodTemplate Definition { get; }
 
         public GenerateRenderMethodTemplate(GameCacheContext cacheContext, CachedTagInstance tag, RenderMethodTemplate definition) :
             base(CommandFlags.Inherit,
@@ -31,9 +30,11 @@ namespace TagTool.Commands.Shaders
                 "Compiles HLSL source file from scratch :D")
         {
             CacheContext = cacheContext;
-            rmt2_cachedtaginstance = tag;
-            rmt2 = definition;
+            Tag = tag;
+            Definition = definition;
         }
+
+
 
         public override object Execute(List<string> args)
         {
@@ -60,8 +61,100 @@ namespace TagTool.Commands.Shaders
 			try { shader_args = Array.ConvertAll(args.Skip(1).ToArray(), Int32.Parse); }
 			catch { Console.WriteLine("Invalid shader arguments! (could not parse to Int32[].)"); return false; }
 
-            RMT2Generator generator = new RMT2Generator(CacheContext, rmt2, rmt2_cachedtaginstance, shader_type, shader_args);
-            generator.Generate();
+			// runs the appropriate shader-generator for the template type.
+            switch(shader_type)
+            {
+                case "beam_templates":
+                case "beam_template":
+                    {
+                        var result_default = new BeamTemplateShaderGenerator(CacheContext, TemplateShaderGenerator.Drawmode.Default, shader_args)?.Generate();
+
+                        //TODO: Figure out the rest of RMT2 rip
+
+                        Definition.DrawModeBitmask = 0;
+                        Definition.DrawModeBitmask |= RenderMethodTemplate.ShaderModeBitmask.Default;
+
+                        //TODO: Replace Vertex and Pixl Shaders
+                        //VertexShader;
+                        //PixelShader
+
+                        Definition.DrawModes = new List<RenderMethodTemplate.DrawMode>();
+                        Definition.ArgumentMappings = new List<RenderMethodTemplate.ArgumentMapping>();
+                        Definition.DrawModeRegisterOffsets = new List<RenderMethodTemplate.DrawModeRegisterOffsetBlock>();
+
+                        Definition.Arguments = new List<RenderMethodTemplate.ShaderArgument>();
+                        Definition.Unknown5 = new List<RenderMethodTemplate.ShaderArgument>();
+                        Definition.GlobalArguments = new List<RenderMethodTemplate.ShaderArgument>();
+                        Definition.ShaderMaps = new List<RenderMethodTemplate.ShaderArgument>();
+
+                        foreach(var param in result_default.Parameters)
+                        {
+                            var param_name = CacheContext.GetString(param.ParameterName);
+
+                            var mapping = GlobalUniformMappings.GetMapping(param_name, param.RegisterType, RenderMethodTemplate.ShaderMode.Default);
+
+                            if(mapping != null)
+                            {
+                                Console.WriteLine($"SUCCESS: Found parameter {param_name} register_index:{param.RegisterIndex} argument_index:{mapping.ArgumentIndex}");
+                            }
+                            else
+                            {
+                                Console.WriteLine("WARNING: Missing parameter " + param_name);
+                            }
+                        }
+                        
+                        
+
+
+        //                        public List<DrawMode> DrawModes; // Entries in here correspond to an enum in the EXE
+        //                        public List<UnknownBlock2> Unknown3;
+        //                        public List<ArgumentMapping> ArgumentMappings;
+        //                        public List<Argument> Arguments;
+        //                        public List<UnknownBlock4> Unknown5;
+        //                        public List<UnknownBlock5> Unknown6;
+        //                        public List<ShaderMap> ShaderMaps;
+
+
+
+
+
+
+        //Definition.ShaderMaps = new List<RenderMethodTemplate.ShaderMap>();
+
+
+
+                    }
+					break;
+				case "contrail_templates":
+                case "contrail_template":
+				case "cortana_templates":
+				case "cortana_template":
+				case "custom_templates":
+				case "custom_template":
+				case "decal_templates":
+                case "decal_template":
+                case "foliage_templates":
+                case "foliage_template":
+                case "halogram_templates":
+                case "halogram_template":
+                case "light_volume_templates":
+                case "light_volume_template":
+				case "particle_templates":
+				case "particle_template":
+				case "screen_templates":
+				case "screen_template":
+				case "shader_templates":
+                case "shader_template":
+                case "terrain_templates":
+                case "terrain_template":
+                case "water_templates":
+                case "water_template":
+                    Console.WriteLine($"{shader_type} is not implemented");
+                    return false;
+                default:
+                    Console.WriteLine($"Unknown template {shader_type}");
+                    return false;
+            }
 
             return true;
         }

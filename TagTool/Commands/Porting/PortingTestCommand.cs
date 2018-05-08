@@ -555,14 +555,14 @@ namespace TagTool.Commands.Porting
             edModel.LodModel = null;
 
             // Serialize ED weap tag
-            using (var stream = CacheContext.OpenTagCacheReadWrite())
+            using (var stream = CacheContext.TagCacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
             {
                 var context = new TagSerializationContext(stream, CacheContext, edWeapInstance);
                 CacheContext.Serializer.Serialize(context, edWeap);
             }
 
             // Serialize ED hlmt tag
-            using (var stream = CacheContext.OpenTagCacheReadWrite())
+            using (var stream = CacheContext.TagCacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
             {
                 var context = new TagSerializationContext(stream, CacheContext, edWeap.Model);
                 CacheContext.Serializer.Serialize(context, edModel);
@@ -672,7 +672,7 @@ namespace TagTool.Commands.Porting
             }
 
             // Serialize ED weap tag
-            using (var stream = CacheContext.OpenTagCacheReadWrite())
+            using (var stream = CacheContext.TagCacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
             {
                 var context = new TagSerializationContext(stream, CacheContext, edWeapInstance);
                 CacheContext.Serializer.Serialize(context, edWeap);
@@ -771,7 +771,7 @@ namespace TagTool.Commands.Porting
                 }
 
                 // Serialize ED weap tag
-                using (var stream = CacheContext.OpenTagCacheReadWrite())
+                using (var stream = CacheContext.TagCacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
                 {
                     var context = new TagSerializationContext(stream, CacheContext, edWeapTag);
                     CacheContext.Serializer.Serialize(context, edWeap);
@@ -849,7 +849,7 @@ namespace TagTool.Commands.Porting
             }
 
             // Serialize ED effe tag
-            using (var stream = CacheContext.OpenTagCacheReadWrite())
+            using (var stream = CacheContext.TagCacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
             {
                 var context = new TagSerializationContext(stream, CacheContext, edWeap.Barrels[0].FiringEffects[0].FiringEffect2);
                 CacheContext.Serializer.Serialize(context, edEffe);
@@ -927,7 +927,7 @@ namespace TagTool.Commands.Porting
 
             }
 
-            using (var stream = CacheContext.OpenTagCacheReadWrite())
+            using (var stream = CacheContext.TagCacheFile.Open(FileMode.Open, FileAccess.ReadWrite))
             {
                 var context = new TagSerializationContext(stream, CacheContext, edTag);
                 CacheContext.Serializer.Serialize(context, cisc);

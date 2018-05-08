@@ -7,7 +7,7 @@ namespace TagTool.Tags.Definitions
     public class ShaderTerrain : RenderMethod
     {
         [TagField(Length = 4)]
-        public StringId[] MaterialNames;
+        public StringId MaterialNames;
 
         [TagField(Length = 4)]
         public short[] GlobalMaterialIndices;

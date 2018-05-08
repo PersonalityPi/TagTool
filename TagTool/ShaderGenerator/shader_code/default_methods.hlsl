@@ -34,7 +34,3 @@
 #ifndef Soft_Fade
 #define Soft_Fade soft_fade_off
 #endif
-#ifndef Black_Point
-#define flag_black_point_off
-#define Black_Point black_point_off
-#endif

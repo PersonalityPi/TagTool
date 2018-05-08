@@ -35,7 +35,6 @@ namespace TagTool.Tags.Definitions
 
         public enum ShaderModeBitmask : uint
         {
-            None,
             Default = 1 << 0,
             Albedo = 1 << 1,
             Static_Default = 1 << 2,
@@ -61,7 +60,7 @@ namespace TagTool.Tags.Definitions
         public CachedTagInstance VertexShader;
         public CachedTagInstance PixelShader;
         public ShaderModeBitmask DrawModeBitmask;
-        public List<RMT2PackedUInt16> DrawModes; // Entries in here correspond to an enum in the EXE
+        public List<DrawMode> DrawModes; // Entries in here correspond to an enum in the EXE
         public List<DrawModeRegisterOffsetBlock> DrawModeRegisterOffsets;
         public List<ArgumentMapping> ArgumentMappings;
         public List<ShaderArgument> Arguments;
@@ -76,31 +75,83 @@ namespace TagTool.Tags.Definitions
         public byte[] Unused;
 
         [TagStructure(Size = 0x2)]
-        public class RMT2PackedUInt16 : PackedIntegerBase
+        public class DrawMode
         {
-            public ushort Value;
-
-            public ushort Offset { get => GetValue(0, 10); set => SetValue(0, 10, value); }
-            public ushort Count { get => GetValue(10, 6); set => SetValue(10, 6, value); }
+            public ShaderMode PixelShaderMode;
+            public ShaderMode VertexShaderMode;
         }
 
         [TagStructure(Size = 0x1C)]
         public class DrawModeRegisterOffsetBlock
         {
-            public RMT2PackedUInt16 Textures_Samplers;
-            public RMT2PackedUInt16 Water_Vectors;
-            public RMT2PackedUInt16 Unidentified_RegsiterOffset1;
-            public RMT2PackedUInt16 Unidentified_RegsiterOffset2;
-            public RMT2PackedUInt16 Arguments_Vectors;
-            public RMT2PackedUInt16 Unidentified_RegsiterOffset3;
-            public RMT2PackedUInt16 Global_Arguments;
-            public RMT2PackedUInt16 Render_Method_Extern_Generic;
-            public RMT2PackedUInt16 Unidentified_RegsiterOffset4;
-            public RMT2PackedUInt16 Unidentified_RegsiterOffset5;
-            public RMT2PackedUInt16 Render_Method_Extern_Vectors;
-            public RMT2PackedUInt16 Unidentified_RegsiterOffset6;
-            public RMT2PackedUInt16 Unidentified_RegsiterOffset7;
-            public RMT2PackedUInt16 Unidentified_RegsiterOffset8;
+            public enum DrawModeRegisterOffsetType
+            {
+                ShaderMapSamplerRegisters,
+                UnknownVectorRegisters,
+                Unknown1,
+                Unknown2,
+                ArgumentsVectorRegisters,
+                Unknown3,
+                GlobalArgumentsVectorRegisters,
+                RenderBufferSamplerRegisters,
+                Unknown4,
+                Unknown5,
+                DebugVectorRegisters,
+                Unknown6,
+                Unknown7,
+                Unknown8,
+                DrawModeRegisterOffsetType_Count
+            }
+
+            public enum DrawModeRegisterOffsetTypeBits
+            {
+                ShaderMapSamplerRegisters = 1 << 0,
+                UnknownVectorRegisters = 1 << 1,
+                Unknown1 = 1 << 2,
+                Unknown2 = 1 << 3,
+                ArgumentsVectorRegisters = 1 << 4,
+                Unknown3 = 1 << 5,
+                GlobalArgumentsVectorRegisters = 1 << 6,
+                RenderBufferSamplerRegisters = 1 << 7,
+                Unknown4 = 1 << 8,
+                Unknown5 = 1 << 9,
+                DebugVectorRegisters = 1 << 10,
+                Unknown6 = 1 << 11,
+                Unknown7 = 1 << 12,
+                Unknown8 = 1 << 13
+            }
+
+            private ushort GetValue(DrawModeRegisterOffsetType offset) => (ushort)this.GetType().GetField($"RegisterMapping{(int)offset}").GetValue(this);
+            private void SetValue(DrawModeRegisterOffsetType offset, ushort value) => this.GetType().GetField($"RegisterMapping{(int)offset}").SetValue(this, value);
+            public ushort GetCount(DrawModeRegisterOffsetType offset) => (ushort)(GetValue(offset) >> 10);
+            public ushort GetOffset(DrawModeRegisterOffsetType offset) => (ushort)(GetValue(offset) & 0x3FFu);
+            public void SetCount(DrawModeRegisterOffsetType offset, ushort count)
+            {
+                if (count > 0x3Fu) throw new System.Exception("Out of range");
+                var value = (ushort) (GetOffset(offset) & ((count & 0x3F) << 10));
+                SetValue(offset, value);
+            }
+            public void SetOffset(DrawModeRegisterOffsetType offset, ushort _offset)
+            {
+                if (_offset > 0x3FFu) throw new System.Exception("Out of range");
+                var value = (ushort)((_offset & 0x3FF) & ((GetCount(offset) & 0x3F) << 10));
+                SetValue(offset, value);
+            }
+
+            public ushort RegisterMapping0;
+            public ushort RegisterMapping1;
+            public ushort RegisterMapping2;
+            public ushort RegisterMapping3;
+            public ushort RegisterMapping4;
+            public ushort RegisterMapping5;
+            public ushort RegisterMapping6;
+            public ushort RegisterMapping7;
+            public ushort RegisterMapping8;
+            public ushort RegisterMapping9;
+            public ushort RegisterMapping10;
+            public ushort RegisterMapping11;
+            public ushort RegisterMapping12;
+            public ushort RegisterMapping13;
         }
 
         /// <summary>

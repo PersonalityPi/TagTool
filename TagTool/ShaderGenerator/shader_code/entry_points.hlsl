@@ -182,7 +182,7 @@ float4 water_shading_ps() : COLOR
 	return float4(_debug_color);
 }
 
-float4 dynamic_light_cinematic_ps() : COLOR
+float4 dynamic_light_cine_ps() : COLOR
 {
 	return float4(_debug_color);
 }

@@ -77,7 +77,7 @@ namespace TagTool.Commands.RenderModels
                     case "audio":
                     case "textures":
                     case "textures_b":
-                        using (var stream = File.OpenRead(CacheContext.Directory + "\\" + cacheType + ".dat"))
+                        using (var stream = File.OpenRead(CacheContext.TagCacheFile.DirectoryName + "\\" + cacheType + ".dat"))
                         {
                             var cache = new ResourceCache(stream);
                             using (var outStream = File.Open(filePath, FileMode.Create, FileAccess.Write))

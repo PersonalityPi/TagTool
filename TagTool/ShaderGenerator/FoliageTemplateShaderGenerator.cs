@@ -7,7 +7,6 @@ using TagTool.Cache;
 using TagTool.Direct3D.Functions;
 using TagTool.ShaderGenerator.Types;
 using TagTool.Util;
-using TagTool.Tags.Definitions;
 
 namespace TagTool.ShaderGenerator
 {
@@ -19,7 +18,7 @@ namespace TagTool.ShaderGenerator
             new DirectX.MacroDefine {Name = "_debug_color", Definition = "float4(1, 0, 0, 0)" }
         };
 
-        public FoliageTemplateShaderGenerator(GameCacheContext cacheContext, RenderMethodTemplate.ShaderMode drawmode, Int32[] args, Int32 arg_pos = 0) : base(
+        public FoliageTemplateShaderGenerator(GameCacheContext cacheContext, TemplateShaderGenerator.Drawmode drawmode, Int32[] args, Int32 arg_pos = 0) : base(
                 drawmode,
                 (Albedo)GetNextTemplateArg(args, ref arg_pos),
 				(Alpha_Test)GetNextTemplateArg(args, ref arg_pos),
