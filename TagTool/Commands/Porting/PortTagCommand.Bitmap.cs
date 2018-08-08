@@ -300,6 +300,166 @@ namespace TagTool.Commands.Porting
 
         private byte[] CompressBitmap(BlamBitmap blamBitmap, BitmapFormat format, byte[] image, bool noMips)
         {
+            // todo: there might be a better way to do this
+            // but this is quick and dirty, just like the rest 
+            // of this entire idea to move this into a dll
+            byte[] input_data = null;
+            using (MemoryStream tempDDS = new MemoryStream())
+            {
+                var header = CreateDdsHeader(blamBitmap, true);
+                header.WriteTo(tempDDS);
+                tempDDS.Write(image, 0, image.Length);
+
+
+                tempDDS.Position = 0;
+                input_data = tempDDS.ToArray();
+            }
+
+            // all of the argument defaults
+			bool alpha = false;
+            bool normal = false;
+            bool color2normal = false;
+            bool wrapRepeat = false;
+            bool noMipmaps = false;
+            bool fast = false;
+            bool nocuda = false;
+            bool bc1n = false;
+            bool luminance = false;
+            NvidiaTextureTools.Tools.Format nv_format = NvidiaTextureTools.Tools.Format.Format_BC1;
+			bool premultiplyAlpha = false;
+            NvidiaTextureTools.Tools.MipmapFilter nv_mipmapFilter = NvidiaTextureTools.Tools.MipmapFilter.MipmapFilter_Box;
+			bool loadAsFloat = false;
+            bool rgbm = false;
+            bool rangescale = false;
+            bool srgb = false;
+            bool silent = false;
+            bool dds10 = false;
+            bool ktx = false;
+
+            if (format == BitmapFormat.Dxn)
+            {
+                //args += "-normal ";
+                //args += "-resize ";
+                normal = true;
+                // resize : TODO
+            }
+
+            if (noMips)
+            {
+                //args += "-nomips ";
+                noMipmaps = true;
+            }
+
+            //args += "-fast ";
+            fast = true;
+
+            switch (format)
+            {
+                case BitmapFormat.Dxn:
+                    nv_format = NvidiaTextureTools.Tools.Format.Format_BC5;
+                    //args += "-bc5 ";
+                    break;
+
+                case BitmapFormat.Dxt1:
+                    nv_format = NvidiaTextureTools.Tools.Format.Format_BC1;
+                    //args += "-bc1 ";
+                    break;
+                case BitmapFormat.Dxt3:
+                    nv_format = NvidiaTextureTools.Tools.Format.Format_BC3;
+                    //args += "-bc2 ";
+                    break;
+                case BitmapFormat.Dxt5:
+                    nv_format = NvidiaTextureTools.Tools.Format.Format_BC3;
+                    //args += "-bc3 ";
+                    break;
+
+                default:
+                    return null;
+            }
+
+            //args += @"Temp\bitmap.dds " + @"Temp\bitmap.dds";
+
+            //ProcessStartInfo info = new ProcessStartInfo(@"Tools\nvcompress.exe")
+            //{
+            //    Arguments = args,
+            //    CreateNoWindow = true,
+            //    WindowStyle = ProcessWindowStyle.Hidden,
+            //    UseShellExecute = false,
+            //    RedirectStandardError = false,
+            //    RedirectStandardOutput = false,
+            //    RedirectStandardInput = false
+            //};
+            //Process nvcompress = Process.Start(info);
+            //nvcompress.WaitForExit();
+
+            byte[] result = NvidiaTextureTools.Tools.Compress(
+                input_data,
+                alpha,
+                normal,
+                color2normal,
+                wrapRepeat,
+                noMipmaps,
+                fast,
+                nocuda,
+                bc1n,
+                luminance,
+                nv_format,
+                premultiplyAlpha,
+                nv_mipmapFilter,
+                loadAsFloat,
+                rgbm,
+                rangescale,
+                srgb,
+                silent,
+                dds10,
+                ktx);
+            
+            //using (var ddsStream = File.OpenRead(tempBitmap))
+            using(var ddsStream = new MemoryStream(result, false))
+            {
+                var dds = DdsHeader.Read(ddsStream);
+                var dataSize = (int)(ddsStream.Length - ddsStream.Position);
+
+
+                blamBitmap.Type = BitmapDdsFormatDetection.DetectType(dds);
+                blamBitmap.Format = BitmapDdsFormatDetection.DetectFormat(dds);
+                blamBitmap.Height = (int)dds.Height;
+                blamBitmap.Width = (int)dds.Width;
+                blamBitmap.MipMapCount = (int)dds.MipMapCount - 1;
+                if (blamBitmap.MipMapCount < 0)
+                    blamBitmap.MipMapCount = 0;
+                blamBitmap.RawSize = dataSize;
+
+                if (format == BitmapFormat.Dxn)
+                {
+                    if (!noMips)
+                    {
+                        var width = blamBitmap.Width;
+                        var height = blamBitmap.Height;
+                        dataSize = width * height;
+                        blamBitmap.MipMapCount = 0;
+                        while ((width >= 8) && (height >= 8))
+                        {
+                            width /= 2;
+                            height /= 2;
+                            dataSize += width * height;
+                            blamBitmap.MipMapCount++;
+                        }
+                    }
+                }
+
+                //Read the raw from the dds container
+                byte[] raw = new byte[dataSize];
+                ddsStream.Read(raw, 0, dataSize);
+                result = raw;
+
+            }
+
+            return result;
+        }
+
+        private byte[] CompressBitmap_OLD(BlamBitmap blamBitmap, BitmapFormat format, byte[] image, bool noMips)
+        {
             string tempBitmap = @"Temp\bitmap.dds";
 
             if (!File.Exists(@"Temp"))
