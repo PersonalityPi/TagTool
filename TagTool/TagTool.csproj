@@ -167,6 +167,12 @@
     <Compile Include="Analysis\TagBlockGuess.cs" />
     <Compile Include="Analysis\TagLayoutGuess.cs" />
     <Compile Include="Analysis\TagReferenceGuess.cs" />
+    <Compile Include="Audio\ffmpeg\FFmpegBinariesHelper.cs" />
+    <Compile Include="Audio\ffmpeg\FFmpegHelper.cs" />
+    <Compile Include="Audio\ffmpeg\H264VideoStreamEncoder.cs" />
+    <Compile Include="Audio\ffmpeg\MediaDecoder.cs" />
+    <Compile Include="Audio\ffmpeg\VideoStreamDecoder.cs" />
+    <Compile Include="Audio\ffmpeg\TranscodeXMA.cs" />
     <Compile Include="Bitmaps\BitmapCurveMode.cs" />
     <Compile Include="Bitmaps\BitmapDdsExtractor.cs" />
     <Compile Include="Bitmaps\BitmapDdsFormatDetection.cs" />
@@ -713,6 +719,9 @@
     <Reference Include="AssimpNet, Version=3.3.2.0, Culture=neutral, PublicKeyToken=3edc10cb77b1bca2, processorArchitecture=MSIL">
       <HintPath>..\packages\AssimpNet.3.3.2\lib\net45\AssimpNet.dll</HintPath>
     </Reference>
+    <Reference Include="FFmpeg.AutoGen, Version=4.0.0.4, Culture=neutral, PublicKeyToken=9b7632533a381715, processorArchitecture=MSIL">
+      <HintPath>..\packages\FFmpeg.AutoGen.4.0.0.4\lib\net45\FFmpeg.AutoGen.dll</HintPath>
+    </Reference>
     <Reference Include="HaloShaderGeneratorLib">
       <HintPath>..\Tools\HaloShaderGeneratorLib.dll</HintPath>
     </Reference>
@@ -727,6 +736,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data.Entity.Design" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>

@@ -12,6 +12,7 @@ using System.Linq;
 using TagTool.Tags;
 using TagTool.Audio;
 using System.Threading;
+using FFmpeg.AutoGen.Example;
 
 namespace TagTool.Commands.Porting
 {
@@ -97,6 +98,9 @@ namespace TagTool.Commands.Porting
 
         public static string ConvertSoundPermutation(byte[] buffer, int index, int count, int fileSize, byte channelCount, SampleRate sampleRate, bool loop)
         {
+            FFmpegBinariesHelper.RegisterFFmpegBinaries();
+
+
             Directory.CreateDirectory(@"Temp");
 
             if (!File.Exists(@"Tools\ffmpeg.exe") || !File.Exists(@"Tools\towav.exe") || !File.Exists(@"Tools\mp3loop.exe"))
