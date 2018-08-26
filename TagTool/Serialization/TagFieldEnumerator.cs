@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using TagTool.Common;
 using TagTool.Shaders;
+using System.Threading;
 
 namespace TagTool.Serialization
 {
@@ -15,6 +16,7 @@ namespace TagTool.Serialization
     /// </summary>
     public class TagFieldEnumerator : IDisposable
     {
+        public static Mutex Mutex = new Mutex();
         private static readonly TagFieldAttribute DefaultFieldAttribute = new TagFieldAttribute();
 
         private readonly List<TagFieldInfo> _tagFieldInfos = new List<TagFieldInfo> { };

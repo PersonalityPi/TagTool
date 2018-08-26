@@ -153,7 +153,7 @@ namespace TagTool.Commands.Porting
                 CacheContext.TagNames[edWeap.FirstPerson[0].FirstPersonAnimations.Index] = $"{CacheContext.TagNames[edWeap.FirstPerson[0].FirstPersonAnimations.Index]}_HO";
 
             // Port FP mode
-            var portTagCommand = new PortTagCommand(CacheContext, BlamCache);
+            var portTagCommand = new PortTag2Command(CacheContext, BlamCache);
             portTagCommand.Execute(new List<string> { "replace", "jmad", blamFPmodeName });
 
             // Set new model animations
@@ -194,7 +194,7 @@ namespace TagTool.Commands.Porting
             var blamWeapName = args[1];
             var blamWeapTag = BlamCache.IndexItems.Find(x => x.Name == blamWeapName);
 
-            var portTagCommand = new PortTagCommand(CacheContext, BlamCache);
+            var portTagCommand = new PortTag2Command(CacheContext, BlamCache);
             
             if (blamWeapTag == null)
             {
@@ -1115,7 +1115,7 @@ script name (innacurate),
             var blamContext = new CacheSerializationContext(ref BlamCache, blamTag);
             var scnr = BlamCache.Deserializer.Deserialize<Scenario>(blamContext);
 
-            var PortTagCommand = new Porting.PortTagCommand(CacheContext, null);
+            var PortTagCommand = new Porting.PortTag2Command(CacheContext, null);
 
             debugConsoleWrite = true;
             var csvFileName = "scriptsDumpOutput.csv";

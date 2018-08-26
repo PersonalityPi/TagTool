@@ -278,8 +278,27 @@
     <Compile Include="Commands\Porting\OpenCacheFileCommand.cs" />
     <Compile Include="Commands\Porting\PortArmorVariantCommand.cs" />
     <Compile Include="Commands\Porting\PortingContextFactory.cs" />
+    <Compile Include="Commands\Porting\PortingFlags.cs" />
     <Compile Include="Commands\Porting\PortingTestCommand.cs" />
     <Compile Include="Commands\Porting\PortMultiplayerEventsCommand.cs" />
+    <Compile Include="Commands\Porting\PortTag2\PortTag2.Multithreading.cs" />
+    <Compile Include="Commands\Porting\PortTag2\PortTag2.Misc.cs" />
+    <Compile Include="Commands\Porting\PortTag2\PortTagCommand.AI.cs" />
+    <Compile Include="Commands\Porting\PortTag2\PortTagCommand.Animation.cs" />
+    <Compile Include="Commands\Porting\PortTag2\PortTagCommand.Bitmap.cs" />
+    <Compile Include="Commands\Porting\PortTag2\PortTagCommand.Bsp.cs" />
+    <Compile Include="Commands\Porting\PortTag2\PortTagCommand.BspCollision.cs" />
+    <Compile Include="Commands\Porting\PortTag2\PortTagCommand.BspPathfinding.cs" />
+    <Compile Include="Commands\Porting\PortTag2\PortTagCommand.cs" />
+    <Compile Include="Commands\Porting\PortTag2\PortTagCommand.Globals.cs" />
+    <Compile Include="Commands\Porting\PortTag2\PortTagCommand.HUD.cs" />
+    <Compile Include="Commands\Porting\PortTag2\PortTagCommand.Lighting.cs" />
+    <Compile Include="Commands\Porting\PortTag2\PortTagCommand.Models.cs" />
+    <Compile Include="Commands\Porting\PortTag2\PortTagCommand.Physics.cs" />
+    <Compile Include="Commands\Porting\PortTag2\PortTagCommand.Scenario.cs" />
+    <Compile Include="Commands\Porting\PortTag2\PortTagCommand.Shader.cs" />
+    <Compile Include="Commands\Porting\PortTag2\PortTagCommand.Sound.cs" />
+    <Compile Include="Commands\Porting\PortTag2\PortTagCommand.Strings.cs" />
     <Compile Include="Commands\Porting\PortTagCommand.AI.cs" />
     <Compile Include="Commands\Porting\PortTagCommand.Animation.cs" />
     <Compile Include="Commands\Porting\PortTagCommand.Bitmap.cs" />
@@ -728,6 +747,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data.Entity.Design" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>

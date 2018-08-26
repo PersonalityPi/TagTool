@@ -68,7 +68,7 @@ namespace TagTool.Commands.Porting
                 oldMulgDefinition = CacheContext.Deserializer.Deserialize<MultiplayerGlobals>(edContext);
             }
 
-            new PortTagCommand(CacheContext, BlamCache).Execute(new List<string> { "replace", "mulg", @"multiplayer\multiplayer_globals" });
+            new PortTag2Command(CacheContext, BlamCache).Execute(new List<string> { "replace", "mulg", @"multiplayer\multiplayer_globals" });
 
             using (var stream = CacheContext.OpenTagCacheReadWrite())
             {

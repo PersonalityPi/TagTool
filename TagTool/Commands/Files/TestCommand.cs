@@ -2774,7 +2774,7 @@ namespace TagTool.Commands.Files
                 scnr = CacheContext.Deserializer.Deserialize<Scenario>(edContext);
             }
 
-            var PortTagCommand = new Porting.PortTagCommand(CacheContext, null);
+            var PortTagCommand = new Porting.PortTag2Command(CacheContext, null);
 
             debugConsoleWrite = true;
             var csvFileName = "scriptsDumpOutput.csv";

@@ -14,7 +14,7 @@ namespace TagTool.Cache
     {
         private const uint CacheHeaderSize = 0x20;
 
-        private readonly List<CachedTagInstance> _tags = new List<CachedTagInstance>();
+        private readonly SynchronizedCollection<CachedTagInstance> _tags = new SynchronizedCollection<CachedTagInstance>();
 
         /// <summary>
         /// Gets the tags in the file.

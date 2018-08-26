@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TagTool.Tags;
+using System.Threading;
 
 namespace TagTool.Cache
 {
@@ -11,7 +12,28 @@ namespace TagTool.Cache
     /// </summary>
     public class TagCacheIndex : IEnumerable<CachedTagInstance>
     {
-        private IList<CachedTagInstance> Tags { get; }
+        private IList<CachedTagInstance> _Tags { get; }
+        private Mutex mutex = new Mutex();
+        private IList<CachedTagInstance> Tags { get {
+                IList<CachedTagInstance> result = null;
+                mutex.WaitOne();
+                //TODO: This is fucked, produces LOTS of errors lol
+                while (true)
+                {
+                    try
+                    {
+                        result = _Tags.ToList();
+                        break;
+                    }
+                    catch
+                    {
+
+                    }
+                }
+                mutex.ReleaseMutex();
+                return result;
+            }
+        }
 
         /// <summary>
         /// Gets the number of tags in the list.
@@ -35,7 +57,7 @@ namespace TagTool.Cache
         /// <param name="tags">The list of tags to wrap.</param>
         public TagCacheIndex(IList<CachedTagInstance> tags)
         {
-            Tags = tags;
+            _Tags = tags;
         }
 
         public IEnumerator<CachedTagInstance> GetEnumerator() =>

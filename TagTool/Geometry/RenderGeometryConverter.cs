@@ -32,7 +32,7 @@ namespace TagTool.Geometry
             CurrentWaterBuffer = 0;
         }
 
-        public RenderGeometry Convert(Stream cacheStream, RenderGeometry geometry, Dictionary<ResourceLocation, Stream> resourceStreams, PortTagCommand.PortingFlags portingFlags)
+        public RenderGeometry Convert(Stream cacheStream, RenderGeometry geometry, Dictionary<ResourceLocation, Stream> resourceStreams, PortingFlags portingFlags)
         {
             if (BlamCache.ResourceGestalt == null || BlamCache.ResourceLayoutTable == null)
                 BlamCache.LoadResourceTags();
@@ -314,11 +314,11 @@ namespace TagTool.Geometry
 
                 if (!resourceStreams.ContainsKey(ResourceLocation.Resources))
                 {
-                    resourceStreams[ResourceLocation.Resources] = portingFlags.HasFlag(PortTagCommand.PortingFlags.Memory) ?
+                    resourceStreams[ResourceLocation.Resources] = portingFlags.HasFlag(PortingFlags.Memory) ?
                         new MemoryStream() :
                         (Stream)CacheContext.OpenResourceCacheReadWrite(ResourceLocation.Resources);
 
-                    if (portingFlags.HasFlag(PortTagCommand.PortingFlags.Memory))
+                    if (portingFlags.HasFlag(PortingFlags.Memory))
                         using (var resourceStream = CacheContext.OpenResourceCacheRead(ResourceLocation.Resources))
                             resourceStream.CopyTo(resourceStreams[ResourceLocation.Resources]);
                 }

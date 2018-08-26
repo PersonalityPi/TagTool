@@ -37,25 +37,6 @@ namespace TagTool.Commands.Porting
             "rmt2"
         };
 
-        [Flags]
-        public enum PortingFlags
-        {
-            None,
-            Replace = 1 << 0,
-            Recursive = 1 << 1,
-            New = 1 << 2,
-            UseNull = 1 << 3,
-            NoAudio = 1 << 4,
-            NoElites = 1 << 5,
-            NoForgePalette = 1 << 6,
-            NoSquads = 1 << 7,
-            Scripts = 1 << 8,
-            ShaderTest = 1 << 9,
-            MatchShaders = 1 << 10,
-            Memory = 1 << 11,
-            NoRmhg = 1 << 12
-        }
-
         public PortTagCommand(HaloOnlineCacheContext cacheContext, CacheFile blamCache) :
             base(true,
 
@@ -148,8 +129,11 @@ namespace TagTool.Commands.Porting
                     using (var cacheFileStream = CacheContext.OpenTagCacheRead())
                         cacheFileStream.CopyTo(cacheStream);
 
-                foreach (var blamTag in ParseLegacyTag(args[0]))
+                var legacy_tags = ParseLegacyTag(args[0]);
+                foreach (var blamTag in legacy_tags)
+                {
                     ConvertTag(cacheStream, resourceStreams, blamTag);
+                }
 
                 if (Flags.HasFlag(PortingFlags.Memory))
                     using (var cacheFileStream = CacheContext.OpenTagCacheReadWrite())
