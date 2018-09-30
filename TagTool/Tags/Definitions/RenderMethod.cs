@@ -8,9 +8,9 @@ namespace TagTool.Tags.Definitions
     public class RenderMethod : TagStructure
 	{
         public CachedTagInstance BaseRenderMethod;
-        public List<RenderMethodDefinitionOptionIndex> RenderMethodDefinitionOptionIndices;
-        public List<ImportDatum> ImportData;
-        public List<ShaderProperty> ShaderProperties;
+        public TagBlock<RenderMethodDefinitionOptionIndex> RenderMethodDefinitionOptionIndices;
+        public TagBlock<ImportDatum> ImportData;
+        public TagBlock<ShaderProperty> ShaderProperties;
         public TagMapping.VariableTypeValue InputVariable;
         public TagMapping.VariableTypeValue RangeVariable;
         public TagMapping.OutputModifierValue OutputModifier;
@@ -52,21 +52,21 @@ namespace TagTool.Tags.Definitions
             public short Unknown8;
             public short Unknown9;
             public uint Unknown10;
-            public List<FunctionBlock> Functions;
+            public TagBlock<FunctionBlock> Functions;
         }
 
         [TagStructure(Size = 0x84)]
         public class ShaderProperty : TagStructure
 		{
             public CachedTagInstance Template;
-            public List<ShaderMap> ShaderMaps;
-            public List<Argument> Arguments;
-            public List<UnknownBlock1> Unknown;
+            public TagBlock<ShaderMap> ShaderMaps;
+            public TagBlock<Argument> Arguments;
+            public TagBlock<UnknownBlock1> Unknown;
             public uint Unknown2;
-            public List<RenderMethodTemplate.DrawMode> DrawModes;
-            public List<UnknownBlock3> Unknown3;
-            public List<ArgumentMapping> ArgumentMappings;
-            public List<FunctionBlock> Functions;
+            public TagBlock<RenderMethodTemplate.DrawMode> DrawModes;
+            public TagBlock<UnknownBlock3> Unknown3;
+            public TagBlock<ArgumentMapping> ArgumentMappings;
+            public TagBlock<FunctionBlock> Functions;
             public int BitmapTransparency;
             public int Unknown7;
             public uint Unknown8;

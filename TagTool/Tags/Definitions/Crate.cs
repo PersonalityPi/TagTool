@@ -9,7 +9,7 @@ namespace TagTool.Tags.Definitions
     {
         public ushort Flags2;
         public short Unknown6;
-        public List<CharacterMetagameProperties> MetagameProperties;
+        public TagBlock<CharacterMetagameProperties> MetagameProperties;
         public sbyte Unknown7;
         public sbyte Unknown8;
         public sbyte Unknown9;

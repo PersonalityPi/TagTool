@@ -32,13 +32,13 @@ namespace TagTool.Geometry
         public RenderModelBuilder(CacheVersion version)
         {
             _version = version;
-            _model.Regions = new List<RenderModel.Region>();
-            _model.Nodes = new List<RenderModel.Node>();
-            _model.RuntimeNodeOrientations = new List<RenderModel.RuntimeNodeOrientation>();
-            _model.Materials = new List<RenderMaterial>();
+            _model.Regions = new TagBlock<RenderModel.Region>();
+            _model.Nodes = new TagBlock<RenderModel.Node>();
+            _model.RuntimeNodeOrientations = new TagBlock<RenderModel.RuntimeNodeOrientation>();
+            _model.Materials = new TagBlock<RenderMaterial>();
             _model.Geometry = new RenderGeometry
             {
-                Meshes = new List<Mesh>(),
+                Meshes = new TagBlock<Mesh>(),
                 RuntimeFlags = (RenderGeometryRuntimeFlags)7 // TODO: Figure out what this does, if anything
             };
         }
@@ -88,7 +88,7 @@ namespace TagTool.Geometry
             _currentRegion = new RenderModel.Region
             {
                 Name = name,
-                Permutations = new List<RenderModel.Region.Permutation>(),
+                Permutations = new TagBlock<RenderModel.Region.Permutation>(),
             };
         }
 
@@ -176,8 +176,8 @@ namespace TagTool.Geometry
             {
                 Mesh = new Mesh
                 {
-                    Parts = new List<Mesh.Part>(),
-                    SubParts = new List<Mesh.SubPart>(),
+                    Parts = new TagBlock<Mesh.Part>(),
+                    SubParts = new TagBlock<Mesh.SubPart>(),
                     VertexBufferIndices = new ushort[8] { 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF },
                     IndexBufferIndices = new ushort[2] { 0xFFFF, 0xFFFF },
                     Flags = MeshFlags.None,
@@ -426,7 +426,7 @@ namespace TagTool.Geometry
                     result.V.Upper = Math.Max(result.V.Upper, texCoords.Max(v => v.J));
                 }
             }
-            _model.Geometry.Compression = new List<RenderGeometryCompression> { result };
+            _model.Geometry.Compression = new TagBlock<RenderGeometryCompression> { result };
             return result;
         }
 
@@ -434,8 +434,8 @@ namespace TagTool.Geometry
         {
             var definition = new RenderGeometryApiResourceDefinition
             {
-                VertexBuffers = new List<TagStructureReference<VertexBufferDefinition>>(),
-                IndexBuffers = new List<TagStructureReference<IndexBufferDefinition>>()
+                VertexBuffers = new TagBlock<TagStructureReference<VertexBufferDefinition>>(),
+                IndexBuffers = new TagBlock<TagStructureReference<IndexBufferDefinition>>()
             };
 
             foreach (var mesh in Meshes)
@@ -486,8 +486,8 @@ namespace TagTool.Geometry
                 Resource = new TagResource
                 {
                     Type = TagResourceType.RenderGeometry,
-                    ResourceFixups = new List<TagResource.ResourceFixup>(),
-                    ResourceDefinitionFixups = new List<TagResource.ResourceDefinitionFixup>(),
+                    ResourceFixups = new TagBlock<TagResource.ResourceFixup>(),
+                    ResourceDefinitionFixups = new TagBlock<TagResource.ResourceDefinitionFixup>(),
                     Unknown2 = 1
                 }
             };

@@ -21,10 +21,10 @@ namespace TagTool.Tags.Definitions
         public short StandardYUnknown;
         public short StandardXUnknown;
         public CachedTagInstance Animation;
-        public List<ListWidget> ListWidgets;
-        public List<TextWidget> TextWidgets;
-        public List<BitmapWidget> BitmapWidgets;
-        public List<ModelWidget> ModelWidgets;
+        public TagBlock<ListWidget> ListWidgets;
+        public TagBlock<TextWidget> TextWidgets;
+        public TagBlock<BitmapWidget> BitmapWidgets;
+        public TagBlock<ModelWidget> ModelWidgets;
 
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
         public uint Unknown2;
@@ -49,7 +49,7 @@ namespace TagTool.Tags.Definitions
             public StringId DataSourceName;
             public CachedTagInstance Skin;
             public int RowCount;
-            public List<ListWidgetItem> ListWidgetItems;
+            public TagBlock<ListWidgetItem> ListWidgetItems;
             public CachedTagInstance UpArrowBitmap;
             public CachedTagInstance DownArrowBitmap;
 
@@ -159,7 +159,7 @@ namespace TagTool.Tags.Definitions
             public short StandardYBoundsMax;
             public short StandardXBoundsMax;
             public CachedTagInstance Animation;
-            public List<UnknownBlock> Unknown3;
+            public TagBlock<UnknownBlock> Unknown3;
             public uint Unknown4;
             public uint Unknown5;
             public uint Unknown6;
@@ -167,7 +167,7 @@ namespace TagTool.Tags.Definitions
             public uint Unknown8;
             public uint Unknown9;
             public uint Unknown10;
-            public List<UnknownBlock2> Unknown11;
+            public TagBlock<UnknownBlock2> Unknown11;
             public short Unknown12;
             public short Unknown13;
             public short Unknown14;
@@ -180,7 +180,7 @@ namespace TagTool.Tags.Definitions
             public short Unknown21;
             public short Unknown22;
             public short Unknown23;
-            public List<UnknownBlock3> Unknown24;
+            public TagBlock<UnknownBlock3> Unknown24;
 
             [TagStructure(Size = 0xA0)]
             public class UnknownBlock : TagStructure
@@ -210,7 +210,7 @@ namespace TagTool.Tags.Definitions
                 public uint Unknown22;
                 public uint Unknown23;
                 public uint Unknown24;
-                public List<UnknownBlock2> Unknown25;
+                public TagBlock<UnknownBlock2> Unknown25;
                 public uint Unknown26;
                 public uint Unknown27;
                 public Angle Unknown28;

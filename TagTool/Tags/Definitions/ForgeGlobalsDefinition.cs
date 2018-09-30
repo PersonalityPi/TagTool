@@ -26,7 +26,7 @@ namespace TagTool.Tags.Definitions
         /// <summary>
         /// The collection of materials available to ReForge objects.
         /// </summary>
-        public List<ReForgeMaterial> ReForgeMaterials;
+        public TagBlock<ReForgeMaterial> ReForgeMaterials;
 
         /// <summary>
         /// The object designated as the "prematch camera" handle.
@@ -55,17 +55,17 @@ namespace TagTool.Tags.Definitions
         /// <summary>
         /// The list of items available to the Forge palette.
         /// </summary>
-        public List<PaletteItem> Palette;
+        public TagBlock<PaletteItem> Palette;
 
         /// <summary>
         /// The collection of weather effects used in Forge.
         /// </summary>
-        public List<WeatherEffect> WeatherEffects;
+        public TagBlock<WeatherEffect> WeatherEffects;
 
         /// <summary>
         /// The collection of skies used in Forge.
         /// </summary>
-        public List<Sky> Skies;
+        public TagBlock<Sky> Skies;
 
         /// <summary>
         /// A material reference for ReForge objects.
@@ -136,7 +136,7 @@ namespace TagTool.Tags.Definitions
             /// <summary>
             /// The list of property setters of the palette item.
             /// </summary>
-            public List<Setter> Setters;
+            public TagBlock<Setter> Setters;
 
             /// <summary>
             /// The type of a property being managed by a property setter.

@@ -43,7 +43,7 @@ namespace TagTool.Tags.Definitions
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
         public float Unknown3 = 1.0f;
 
-        public List<PlayerResponseBlock> PlayerResponses;
+        public TagBlock<PlayerResponseBlock> PlayerResponses;
         public CachedTagInstance DamageResponse;
         public float Duration;
         public FunctionType FadeFunction;

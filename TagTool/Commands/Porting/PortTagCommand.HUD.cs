@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TagTool.Cache;
 using TagTool.Common;
+using TagTool.Tags;
 using TagTool.Tags.Definitions;
 
 namespace TagTool.Commands.Porting
@@ -228,7 +229,7 @@ namespace TagTool.Commands.Porting
                     {
                         H3snd.LatchedTo = GetEquivalentFlags(H3snd.LatchedTo, H3snd.LatchedTo_H3);
 
-                        H3snd.Bipeds = new List<ChudGlobalsDefinition.HudGlobal.HudSound.BipedData>();
+                        H3snd.Bipeds = new TagBlock<ChudGlobalsDefinition.HudGlobal.HudSound.BipedData>();
 
                         if (H3snd.SpartanSound != null)
                         {

@@ -85,27 +85,27 @@ namespace TagTool.Tags.Definitions
         public float TightBoundsThreshold;
 
         [TagField(MinVersion = CacheVersion.HaloOnline106708, MaxVersion = CacheVersion.HaloOnline106708)]
-        public List<TightBinding> TightBoundsOld;
+        public TagBlock<TightBinding> TightBoundsOld;
 
-        public List<UsageOverride> UsageOverrides;
-        public List<Sequence> ManualSequences;
+        public TagBlock<UsageOverride> UsageOverrides;
+        public TagBlock<Sequence> ManualSequences;
 
         [TagField(MinVersion = CacheVersion.HaloReach)]
-        public List<TightBinding> TightBoundsNew;
+        public TagBlock<TightBinding> TightBoundsNew;
 
         public byte[] SourceData;
         public byte[] ProcessedPixelData;
-        public List<Sequence> Sequences;
-        public List<Image> Images;
+        public TagBlock<Sequence> Sequences;
+        public TagBlock<Image> Images;
         public byte[] XenonProcessedPixelData;
-        public List<Image> XenonImages;
+        public TagBlock<Image> XenonImages;
 
-        public List<BitmapResource> Resources;
+        public TagBlock<BitmapResource> Resources;
 
         [TagField(MaxVersion = CacheVersion.HaloOnline106708)]
-        public List<BitmapResource> InterleavedResourcesOld;
+        public TagBlock<BitmapResource> InterleavedResourcesOld;
         [TagField(MinVersion = CacheVersion.HaloReach)]
-        public List<BitmapResource> InterleavedResourcesNew;
+        public TagBlock<BitmapResource> InterleavedResourcesNew;
 
         [TagField(MaxVersion = CacheVersion.HaloOnline106708)]
         public int UnknownB4;
@@ -148,7 +148,7 @@ namespace TagTool.Tags.Definitions
             [TagField(Padding = true, Length = 16)]
             public byte[] Unused;
 
-            public List<Sprite> Sprites;
+            public TagBlock<Sprite> Sprites;
 
             [TagStructure(Size = 0x20)]
             public class Sprite : TagStructure

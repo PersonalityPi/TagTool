@@ -13,20 +13,20 @@ namespace TagTool.Tags.Definitions
         public AnimationInheritanceFlags InheritanceFlags;
         public AnimationPrivateFlags PrivateFlags;
         public short AnimationCodecPack;
-        public List<SkeletonNode> SkeletonNodes;
-        public List<AnimationTagReference> SoundReferences;
-        public List<AnimationTagReference> EffectReferences;
-        public List<BlendScreen> BlendScreens;
+        public TagBlock<SkeletonNode> SkeletonNodes;
+        public TagBlock<AnimationTagReference> SoundReferences;
+        public TagBlock<AnimationTagReference> EffectReferences;
+        public TagBlock<BlendScreen> BlendScreens;
 
         [TagField(MinVersion = CacheVersion.Halo3Retail)]
-        public List<Leg> Legs;
+        public TagBlock<Leg> Legs;
 
-        public List<Animation> Animations;
-        public List<Mode> Modes;
-        public List<VehicleSuspensionBlock> VehicleSuspension;
-        public List<ObjectOverlay> ObjectOverlays;
-        public List<Inheritance> InheritanceList;
-        public List<WeaponListBlock> WeaponList;
+        public TagBlock<Animation> Animations;
+        public TagBlock<Mode> Modes;
+        public TagBlock<VehicleSuspensionBlock> VehicleSuspension;
+        public TagBlock<ObjectOverlay> ObjectOverlays;
+        public TagBlock<Inheritance> InheritanceList;
+        public TagBlock<WeaponListBlock> WeaponList;
 
         [TagField(Length = 8)]
         public uint[] LeftArmNodes;
@@ -36,16 +36,16 @@ namespace TagTool.Tags.Definitions
 
         public byte[] LastImportResults;
 
-        public List<AdditionalNodeDataBlock> AdditionalNodeData;
+        public TagBlock<AdditionalNodeDataBlock> AdditionalNodeData;
 
         [TagField(MaxVersion = CacheVersion.Halo2Vista)]
-        public List<CacheBlock> CacheBlocks;
+        public TagBlock<CacheBlock> CacheBlocks;
 
         [TagField(MaxVersion = CacheVersion.Halo2Vista)]
-        public List<CacheUnknown> CacheUnknowns;
+        public TagBlock<CacheUnknown> CacheUnknowns;
 
         [TagField(MinVersion = CacheVersion.Halo3Retail)]
-        public List<ResourceGroup> ResourceGroups;
+        public TagBlock<ResourceGroup> ResourceGroups;
 
         [Flags]
         public enum AnimationInheritanceFlags : byte
@@ -322,17 +322,17 @@ namespace TagTool.Tags.Definitions
             [TagField(MaxVersion = CacheVersion.Halo2Vista)]
             public int CompressedData;
 
-            public List<FrameEvent> FrameEvents;
-            public List<SoundEvent> SoundEvents;
-            public List<EffectEvent> EffectEvents;
+            public TagBlock<FrameEvent> FrameEvents;
+            public TagBlock<SoundEvent> SoundEvents;
+            public TagBlock<EffectEvent> EffectEvents;
 
             [TagField(MinVersion = CacheVersion.Halo3Retail)]
-            public List<DialogueEvent> DialogueEvents;
+            public TagBlock<DialogueEvent> DialogueEvents;
 
-            public List<ObjectSpaceParentNode> ObjectSpaceParentNodes;
+            public TagBlock<ObjectSpaceParentNode> ObjectSpaceParentNodes;
 
             [TagField(MinVersion = CacheVersion.Halo3Retail)]
-            public List<LegAnchoringBlock> LegAnchoring;
+            public TagBlock<LegAnchoringBlock> LegAnchoring;
 
             [TagField(MinVersion = CacheVersion.Halo3Retail)]
             public float Unknown13;
@@ -533,7 +533,7 @@ namespace TagTool.Tags.Definitions
 			{
                 public short LegIndex;
                 public short Unknown;
-                public List<UnknownBlock> Unknown2;
+                public TagBlock<UnknownBlock> Unknown2;
 
                 [TagStructure(Size = 0x14)]
                 public class UnknownBlock : TagStructure
@@ -555,8 +555,8 @@ namespace TagTool.Tags.Definitions
 		{
             [TagField(Label = true)]
             public StringId Label;
-            public List<WeaponClassBlock> WeaponClass;
-            public List<ModeIkBlock> ModeIk;
+            public TagBlock<WeaponClassBlock> WeaponClass;
+            public TagBlock<ModeIkBlock> ModeIk;
 
             [TagField(MinVersion = CacheVersion.Halo3Retail)]
             public uint Unknown;
@@ -573,12 +573,12 @@ namespace TagTool.Tags.Definitions
                 [TagField(Label = true)]
                 public StringId Label;
 
-                public List<WeaponTypeBlock> WeaponType;
+                public TagBlock<WeaponTypeBlock> WeaponType;
 
-                public List<ModeIkBlock> WeaponIk;
+                public TagBlock<ModeIkBlock> WeaponIk;
 
                 [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-                public List<SyncActionGroup> SyncActionGroups;
+                public TagBlock<SyncActionGroup> SyncActionGroups;
 
                 [TagStructure(Size = 0x34)]
                 public class WeaponTypeBlock : TagStructure
@@ -586,16 +586,16 @@ namespace TagTool.Tags.Definitions
                     [TagField(Label = true)]
                     public StringId Label;
 
-                    public List<Entry> Actions;
-                    public List<Entry> Overlays;
-                    public List<DeathAndDamageBlock> DeathAndDamage;
-                    public List<Transition> Transitions;
+                    public TagBlock<Entry> Actions;
+                    public TagBlock<Entry> Overlays;
+                    public TagBlock<DeathAndDamageBlock> DeathAndDamage;
+                    public TagBlock<Transition> Transitions;
 
                     [TagField(MaxVersion = CacheVersion.Halo2Vista)]
-                    public List<PrecacheListBlock> HighPrecache;
+                    public TagBlock<PrecacheListBlock> HighPrecache;
 
                     [TagField(MaxVersion = CacheVersion.Halo2Vista)]
-                    public List<PrecacheListBlock> LowPrecache;
+                    public TagBlock<PrecacheListBlock> LowPrecache;
 
                     [TagStructure(Size = 0x8)]
                     public class Entry : TagStructure
@@ -613,13 +613,13 @@ namespace TagTool.Tags.Definitions
                         [TagField(Label = true)]
                         public StringId Label;
 
-                        public List<Direction> Directions;
+                        public TagBlock<Direction> Directions;
 
                         [TagStructure(Size = 0x8, MaxVersion = CacheVersion.Halo2Vista)]
                         [TagStructure(Size = 0xC, MinVersion = CacheVersion.Halo3Retail)]
                         public class Direction : TagStructure
 						{
-                            public List<Region> Regions;
+                            public TagBlock<Region> Regions;
 
                             [TagStructure(Size = 0x4)]
                             public class Region : TagStructure
@@ -640,7 +640,7 @@ namespace TagTool.Tags.Definitions
                         public short Unknown;
                         public sbyte IndexA;
                         public sbyte IndexB;
-                        public List<Destination> Destinations;
+                        public TagBlock<Destination> Destinations;
 
                         [TagStructure(Size = 0x14)]
                         public class Destination : TagStructure
@@ -679,15 +679,15 @@ namespace TagTool.Tags.Definitions
 				{
                     [TagField(Label = true)]
                     public StringId Name;
-                    public List<SyncAction> SyncActions;
+                    public TagBlock<SyncAction> SyncActions;
 
                     [TagStructure(Size = 0x1C)]
                     public class SyncAction : TagStructure
 					{
                         [TagField(Label = true)]
                         public StringId Name;
-                        public List<SameTypeParticipant> SameTypeParticipants;
-                        public List<OtherParticipant> OtherParticipants;
+                        public TagBlock<SameTypeParticipant> SameTypeParticipants;
+                        public TagBlock<OtherParticipant> OtherParticipants;
 
                         [TagStructure(Size = 0x30)]
                         public class SameTypeParticipant : TagStructure
@@ -790,8 +790,8 @@ namespace TagTool.Tags.Definitions
         public class Inheritance : TagStructure
 		{
             public CachedTagInstance InheritedGraph;
-            public List<NodeMapBlock> NodeMap;
-            public List<NodeMapFlag> NodeMapFlags;
+            public TagBlock<NodeMapBlock> NodeMap;
+            public TagBlock<NodeMapFlag> NodeMapFlags;
             public float RootZOffset;
             public InheritanceListFlags Flags;
 

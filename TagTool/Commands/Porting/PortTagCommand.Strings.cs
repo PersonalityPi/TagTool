@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using TagTool.Tags;
 
 namespace TagTool.Commands.Porting
 {
@@ -73,7 +74,7 @@ namespace TagTool.Commands.Porting
             var count = stringCount.Max();
 
             string data = "";
-            unic.Strings = new List<LocalizedString>();
+            unic.Strings = new TagBlock<LocalizedString>();
 
             for(int i = begin; i < begin + count; i++)
             {

@@ -10,11 +10,11 @@ namespace TagTool.Tags.Definitions
     [TagStructure(Name = "chud_globals_definition", Tag = "chgd", Size = 0x2C0, MinVersion = CacheVersion.HaloOnline106708)]
     public class ChudGlobalsDefinition : TagStructure
 	{
-		public List<HudGlobal> HudGlobals;
-		public List<HudShader> HudShaders;
-		public List<UnusedCortanaEffectBlock> UnusedCortanaEffect;
-		public List<UnknownBlock2> Unknown2;
-		public List<PlayerTrainingDatum> PlayerTrainingData;
+		public TagBlock<HudGlobal> HudGlobals;
+		public TagBlock<HudShader> HudShaders;
+		public TagBlock<UnusedCortanaEffectBlock> UnusedCortanaEffect;
+		public TagBlock<UnknownBlock2> Unknown2;
+		public TagBlock<PlayerTrainingDatum> PlayerTrainingData;
 		public CachedTagInstance StartMenuEmblems;
 		public CachedTagInstance CampaignMedals;
 		public CachedTagInstance CampaignMedalHudAnimation;
@@ -282,8 +282,8 @@ namespace TagTool.Tags.Definitions
 			public ArgbColor RNGItemOutline;
 			[TagField(MinVersion = CacheVersion.HaloOnline106708)]
 			public ArgbColor PWRItemOutline;
-			public List<HudAttribute> HudAttributes;
-			public List<HudSound> HudSounds;
+			public TagBlock<HudAttribute> HudAttributes;
+			public TagBlock<HudSound> HudSounds;
 			public CachedTagInstance Unknown;
 			public CachedTagInstance FragGrenadeSwapSound;
 			public CachedTagInstance PlasmaGrenadeSwapSound;
@@ -323,7 +323,7 @@ namespace TagTool.Tags.Definitions
 			public CachedTagInstance ForgeHud;
 			public CachedTagInstance HudStrings;
 			public CachedTagInstance Medals;
-			public List<MultiplayerMedal> MultiplayerMedals;
+			public TagBlock<MultiplayerMedal> MultiplayerMedals;
 			[TagField(MinVersion = CacheVersion.HaloOnline106708)]
 			public CachedTagInstance MedalHudAnimation2 = null;
 			public CachedTagInstance MedalHudAnimation;
@@ -571,7 +571,7 @@ namespace TagTool.Tags.Definitions
 
                 public float Scale;
                 [TagField(MinVersion = CacheVersion.Halo3ODST)]
-                public List<BipedData> Bipeds;
+                public TagBlock<BipedData> Bipeds;
 
                 [TagField(MaxVersion = CacheVersion.Halo3Retail)]
                 public CachedTagInstance EliteSound;
@@ -727,7 +727,7 @@ namespace TagTool.Tags.Definitions
 		public class UnknownBlock2 : TagStructure
 		{
 			public uint Unknown;
-			public List<UnknownBlock> Unknown2;
+			public TagBlock<UnknownBlock> Unknown2;
 
 			[TagStructure(Size = 0xE4)]
 			public class UnknownBlock : TagStructure

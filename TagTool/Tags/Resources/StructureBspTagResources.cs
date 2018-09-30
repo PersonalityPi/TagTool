@@ -8,15 +8,15 @@ namespace TagTool.Tags.Resources
     [TagStructure(Name = "structure_bsp_tag_resources", Size = 0x30)]
     public class StructureBspTagResources : TagStructure
 	{
-        public List<CollisionBspBlock> CollisionBsps;
+        public TagBlock<CollisionBspBlock> CollisionBsps;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<LargeCollisionBspBlock> LargeCollisionBsps;
+        public TagBlock<LargeCollisionBspBlock> LargeCollisionBsps;
 
-        public List<InstancedGeometryBlock> InstancedGeometry;
+        public TagBlock<InstancedGeometryBlock> InstancedGeometry;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<HavokDatum> HavokData;
+        public TagBlock<HavokDatum> HavokData;
 
         [TagStructure(Size = 0x60)]
         public class CollisionBspBlock : TagStructure
@@ -105,8 +105,8 @@ namespace TagTool.Tags.Resources
             public RealQuaternion Position;
             public float Radius;
             public CollisionBspBlock CollisionBsp;
-            public List<CollisionBspBlock> CollisionGeometries;
-            public List<CollisionMoppCodeResource> CollisionMoppCodes;
+            public TagBlock<CollisionBspBlock> CollisionGeometries;
+            public TagBlock<CollisionMoppCodeResource> CollisionMoppCodes;
             public TagBlock<Unknown1Block> Unknown1;
             public TagBlock<Unknown2Block> Unknown2;
             public TagBlock<Unknown3Block> Unknown3;
@@ -162,8 +162,8 @@ namespace TagTool.Tags.Resources
         public class HavokDatum : TagStructure
 		{
             public int PrefabIndex;
-            public List<HavokGeometry> HavokGeometries;
-            public List<HavokGeometry> HavokInvertedGeometries;
+            public TagBlock<HavokGeometry> HavokGeometries;
+            public TagBlock<HavokGeometry> HavokInvertedGeometries;
             public RealPoint3d ShapesBoundsMinimum;
             public RealPoint3d ShapesBoundsMaximum;
 

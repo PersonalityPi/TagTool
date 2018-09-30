@@ -22,7 +22,7 @@ namespace TagTool.Tags.Definitions
         public short StandardYBoundsMax;
         public short StandardXBoundsMax;
         public CachedTagInstance Animation;
-        public List<CameraRefinement> CameraControl;
+        public TagBlock<CameraRefinement> CameraControl;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
         public uint Unknown2;
@@ -39,7 +39,7 @@ namespace TagTool.Tags.Definitions
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
         public uint Unknown8;
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<UnknownBlock> ZoomFunction;
+        public TagBlock<UnknownBlock> ZoomFunction;
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
         public ushort MovementLeft;
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
@@ -65,7 +65,7 @@ namespace TagTool.Tags.Definitions
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
         public ushort Unknown21;
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<TexCam> TextureCameraSections;
+        public TagBlock<TexCam> TextureCameraSections;
 
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
         public uint Unknown23;
@@ -100,9 +100,9 @@ namespace TagTool.Tags.Definitions
             [TagField(MinVersion = CacheVersion.Halo3ODST)]
             public RealVector3d Unknown22;
 
-            public List<ZoomData> ZoomData1;
+            public TagBlock<ZoomData> ZoomData1;
             [TagField(MaxVersion = CacheVersion.Halo3Retail)]
-            public List<ZoomData> ZoomData2;
+            public TagBlock<ZoomData> ZoomData2;
 
             [TagField(MinVersion = CacheVersion.Halo3ODST)]
             public uint Unknown26;

@@ -16,9 +16,9 @@ namespace TagTool.Tags.Definitions
         public uint Unknown1;
         public byte[] ImportScript1;
 
-        public List<PuppetBlock> Puppets;
-        public List<ShotBlock> Shots;
-        public List<TextureCameraBlock> TextureCameras;
+        public TagBlock<PuppetBlock> Puppets;
+        public TagBlock<ShotBlock> Shots;
+        public TagBlock<TextureCameraBlock> TextureCameras;
 
         public byte[] importScript2;
         public uint Unknown3;
@@ -44,7 +44,7 @@ namespace TagTool.Tags.Definitions
 
             public byte[] ImportScript;
 
-            public List<UnknownBlock> Unknown7;
+            public TagBlock<UnknownBlock> Unknown7;
 
             [TagStructure(Size = 0x38)]
             public class UnknownBlock : TagStructure
@@ -71,18 +71,18 @@ namespace TagTool.Tags.Definitions
             public int Unknown1;
             public uint Unknown2;
             public float Unknown3;
-            public List<LightingBlock> Lighting;
-            public List<UnknownBlock> Unknown4;
-            public List<SoundBlock> Sounds;
-            public List<BackgroundSoundBlock> BackgroundSounds;
-            public List<EffectBlock> Effects;
-            public List<FunctionBlock> Functions;
+            public TagBlock<LightingBlock> Lighting;
+            public TagBlock<UnknownBlock> Unknown4;
+            public TagBlock<SoundBlock> Sounds;
+            public TagBlock<BackgroundSoundBlock> BackgroundSounds;
+            public TagBlock<EffectBlock> Effects;
+            public TagBlock<FunctionBlock> Functions;
 
             [TagField(MinVersion = CacheVersion.Halo3ODST)]
-            public List<ScreenEffectBlock> ScreenEffects;
+            public TagBlock<ScreenEffectBlock> ScreenEffects;
 
-            public List<CortanaEffectBlock> CortanaEffects;
-            public List<ImportScriptBlock> ImportScripts;
+            public TagBlock<CortanaEffectBlock> CortanaEffects;
+            public TagBlock<ImportScriptBlock> ImportScripts;
 
             //Might be an extra unused block
             [TagField(MinVersion = CacheVersion.Halo3ODST)]
@@ -94,7 +94,7 @@ namespace TagTool.Tags.Definitions
 
             public byte[] ImportScript1;
             public int LoadedFrameCount;
-            public List<FrameBlock> Frames;
+            public TagBlock<FrameBlock> Frames;
 
             [TagStructure(Size = 0x18, MaxVersion = CacheVersion.Halo3Retail)]
             [TagStructure(Size = 0x1C, MinVersion = CacheVersion.Halo3ODST)]
@@ -121,7 +121,7 @@ namespace TagTool.Tags.Definitions
                 public uint Unknown7;
                 public uint Unknown8;
 
-                public List<UnknownBlock2> Unknown9;
+                public TagBlock<UnknownBlock2> Unknown9;
 
                 [TagStructure(Size =0x4)]
                 public class UnknownBlock2 : TagStructure
@@ -168,7 +168,7 @@ namespace TagTool.Tags.Definitions
                 public int OwnerPuppetIndex;
                 [TagField(Label = true)]
                 public StringId TargetFunctionName;
-                public List<UnknownBlock2> Unknown;
+                public TagBlock<UnknownBlock2> Unknown;
 
                 [TagStructure(Size = 0x10)]
                 public class UnknownBlock2 : TagStructure
@@ -241,12 +241,12 @@ namespace TagTool.Tags.Definitions
             [TagField(Label = true)]
             public StringId Name;
             public StringId Unknown;
-            public List<CameraShotBlock> Shots;
+            public TagBlock<CameraShotBlock> Shots;
 
             [TagStructure(Size = 0xC)]
             public class CameraShotBlock : TagStructure
 			{
-                public List<FrameBlock> Frames;
+                public TagBlock<FrameBlock> Frames;
 
                 [TagStructure(Size = 0x48)]
                 public class FrameBlock : TagStructure

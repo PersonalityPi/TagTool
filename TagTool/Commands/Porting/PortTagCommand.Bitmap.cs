@@ -41,8 +41,8 @@ namespace TagTool.Commands.Porting
             // For each bitmaps, apply conversion process and create a new list of resources that will replace the one from H3.
             //
 
-            var resourceList = new List<Bitmap.BitmapResource>();
-            for (int i = 0; i < bitmap.Images.Count(); i++)
+            var resourceList = new TagBlock<Bitmap.BitmapResource>();
+            for (int i = 0; i < bitmap.Images.Count; i++)
             {
 #if !DEBUG
                 try
@@ -216,8 +216,8 @@ namespace TagTool.Commands.Porting
                 Page = new RawPage(),
                 Resource = new TagResource
                 {
-                    ResourceFixups = new List<TagResource.ResourceFixup>(),
-                    ResourceDefinitionFixups = new List<TagResource.ResourceDefinitionFixup>(),
+                    ResourceFixups = new TagBlock<TagResource.ResourceFixup>(),
+                    ResourceDefinitionFixups = new TagBlock<TagResource.ResourceDefinitionFixup>(),
                     Type = TagResourceType.Bitmap,
                     Unknown2 = 1
                 }

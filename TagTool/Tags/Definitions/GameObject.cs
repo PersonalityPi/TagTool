@@ -28,7 +28,7 @@ namespace TagTool.Tags.Definitions
         public CachedTagInstance CrateObject;
 
         public CachedTagInstance CollisionDamage;
-        public List<EarlyMoverProperty> EarlyMoverProperties;
+        public TagBlock<EarlyMoverProperty> EarlyMoverProperties;
         public CachedTagInstance CreationEffect;
         public CachedTagInstance MaterialEffects;
 
@@ -36,33 +36,33 @@ namespace TagTool.Tags.Definitions
         public CachedTagInstance ArmorSounds;
 
         public CachedTagInstance MeleeImpact;
-        public List<AiProperty> AiProperties;
-        public List<Function> Functions;
+        public TagBlock<AiProperty> AiProperties;
+        public TagBlock<Function> Functions;
         public short HudTextMessageIndex;
 
         [TagField(Padding = true, Length = 2)]
         public byte[] Unused1;
 
-        public List<Attachment> Attachments;
-        public List<TagReferenceBlock> Widgets;
-        public List<ChangeColor> ChangeColors;
+        public TagBlock<Attachment> Attachments;
+        public TagBlock<TagReferenceBlock> Widgets;
+        public TagBlock<ChangeColor> ChangeColors;
 
         [TagField(MaxVersion = CacheVersion.Halo3ODST)]
-        public List<PredictedResource> PredictedResources;
+        public TagBlock<PredictedResource> PredictedResources;
 
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<NodeMap> NodeMaps;
+        public TagBlock<NodeMap> NodeMaps;
 
-        public List<MultiplayerObjectProperty> MultiplayerObjectProperties;
+        public TagBlock<MultiplayerObjectProperty> MultiplayerObjectProperties;
 
         [TagField(MinVersion = CacheVersion.HaloOnline498295)]
         public CachedTagInstance SimulationInterpolation;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<TagReferenceBlock> RevivingEquipment;
+        public TagBlock<TagReferenceBlock> RevivingEquipment;
 
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<ModelObjectDatum> ModelObjectData;
+        public TagBlock<ModelObjectDatum> ModelObjectData;
         
         public enum LightmapShadowModeValue : short
         {
@@ -217,8 +217,8 @@ namespace TagTool.Tags.Definitions
         [TagStructure(Size = 0x18)]
         public class ChangeColor : TagStructure
 		{
-            public List<InitialPermutation> InitialPermutations;
-            public List<Function> Functions;
+            public TagBlock<InitialPermutation> InitialPermutations;
+            public TagBlock<Function> Functions;
 
             [TagStructure(Size = 0x20)]
             public class InitialPermutation : TagStructure

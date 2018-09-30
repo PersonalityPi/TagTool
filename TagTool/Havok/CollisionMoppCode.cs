@@ -6,7 +6,7 @@ namespace TagTool.Havok
     [TagStructure(Size = 0x10, Align = 0x10)]
     public class CollisionMoppCode : MoppCode
     {
-        public List<Datum> Data;
+        public TagBlock<Datum> Data;
         public sbyte MoppBuildType;
 
         [TagField(Padding = true, Length = 3)]

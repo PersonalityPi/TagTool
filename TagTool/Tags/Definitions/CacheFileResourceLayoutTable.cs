@@ -9,11 +9,11 @@ namespace TagTool.Tags.Definitions
     [TagStructure(Name = "cache_file_resource_layout_table", Size = 0x3C, Tag = "play")]
     public class CacheFileResourceLayoutTable : TagStructure
 	{
-        public List<CompressionCodec> CompressionCodecs;
-        public List<ExternalCacheReference> ExternalCacheReferences;
-        public List<RawPage> RawPages;
-        public List<Size> Sizes;
-        public List<Segment> Segments;
+        public TagBlock<CompressionCodec> CompressionCodecs;
+        public TagBlock<ExternalCacheReference> ExternalCacheReferences;
+        public TagBlock<RawPage> RawPages;
+        public TagBlock<Size> Sizes;
+        public TagBlock<Segment> Segments;
 
         [TagField(Runtime = true)]
         public bool InteropDataBuilt = false;
@@ -84,7 +84,7 @@ namespace TagTool.Tags.Definitions
 
             [TagField(Runtime = true)]
             public List<int> SegmentOffsets = new List<int>();
-
+			
             [TagField(Runtime = true)]
             public List<int> SegmentSizes = new List<int>();
 
@@ -189,7 +189,7 @@ namespace TagTool.Tags.Definitions
         public class Size : TagStructure
 		{
             public int OverallSize;
-            public List<Part> Parts;
+            public TagBlock<Part> Parts;
 
             [TagStructure(Size = 0x8)]
             public class Part : TagStructure
@@ -215,7 +215,7 @@ namespace TagTool.Tags.Definitions
             [TagField(Runtime = true)]
             public int OptionalSize = -1;
 
-            public void UpdatePageData(List<RawPage> pages)
+            public void UpdatePageData(TagBlock<RawPage> pages)
             {
                 if (RequiredPageIndex != -1)
                     pages[RequiredPageIndex].AddSegment(RequiredSegmentOffset);
@@ -224,7 +224,7 @@ namespace TagTool.Tags.Definitions
                     pages[OptionalPageIndex].AddSegment(OptionalSegmentOffset);
             }
 
-            public void UpdateSegmentData(List<RawPage> pages)
+            public void UpdateSegmentData(TagBlock<RawPage> pages)
             {
                 if (RequiredPageIndex != -1)
                     RequiredSize = pages[RequiredPageIndex].GetSegmentSize(RequiredSegmentOffset);

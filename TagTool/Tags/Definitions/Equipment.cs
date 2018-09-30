@@ -18,52 +18,52 @@ namespace TagTool.Tags.Definitions
         public float Unknown11;
 
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<EquipmentCameraBlock> EquipmentCamera;
+        public TagBlock<EquipmentCameraBlock> EquipmentCamera;
 
-        public List<HealthPackBlock> HealthPack;
-        public List<PowerupBlock> Powerup;
-        public List<ObjectCreationBlock> ObjectCreation;
-        public List<DestructionBlock> Destruction;
-        public List<RadarManipulationBlock> RadarManipulation;
+        public TagBlock<HealthPackBlock> HealthPack;
+        public TagBlock<PowerupBlock> Powerup;
+        public TagBlock<ObjectCreationBlock> ObjectCreation;
+        public TagBlock<DestructionBlock> Destruction;
+        public TagBlock<RadarManipulationBlock> RadarManipulation;
         //Probably a unused tagblock
         public uint Unknown12;
         public uint Unknown13;
         public uint Unknown14;
-        public List<InvisibilityBlock> Invisibility;
-        public List<InvincibilityBlock> Invincibility;
-        public List<RegeneratorBlock> Regenerator;
+        public TagBlock<InvisibilityBlock> Invisibility;
+        public TagBlock<InvincibilityBlock> Invincibility;
+        public TagBlock<RegeneratorBlock> Regenerator;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<NewHealthPackBlock> NewHealthPack;
+        public TagBlock<NewHealthPackBlock> NewHealthPack;
 
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<ForcedReloadBlock> ForcedReload;
+        public TagBlock<ForcedReloadBlock> ForcedReload;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<ConcussiveBlastBlock> ConcussiveBlast;
+        public TagBlock<ConcussiveBlastBlock> ConcussiveBlast;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<TankModeBlock> TankMode;
+        public TagBlock<TankModeBlock> TankMode;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<MagPulseBlock> MagPulse;
+        public TagBlock<MagPulseBlock> MagPulse;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<HologramBlock> Hologram;
+        public TagBlock<HologramBlock> Hologram;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<ReactiveArmorBlock> ReactiveArmor;
+        public TagBlock<ReactiveArmorBlock> ReactiveArmor;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<BombRunBlock> BombRun;
+        public TagBlock<BombRunBlock> BombRun;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<ArmorLockBlock> ArmorLock;
+        public TagBlock<ArmorLockBlock> ArmorLock;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<AdrenalineBlock> Adrenaline;
+        public TagBlock<AdrenalineBlock> Adrenaline;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<LightningStrikeBlock> LightningStrike;
+        public TagBlock<LightningStrikeBlock> LightningStrike;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<ScramblerBlock> Scrambler;
+        public TagBlock<ScramblerBlock> Scrambler;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<WeaponJammerBlock> WeaponJammer;
+        public TagBlock<WeaponJammerBlock> WeaponJammer;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<AmmoPackBlock> AmmoPack;
+        public TagBlock<AmmoPackBlock> AmmoPack;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<VisionBlock> Vision;
+        public TagBlock<VisionBlock> Vision;
 
         public CachedTagInstance HudInterface;
         public CachedTagInstance PickupSound;
@@ -95,11 +95,11 @@ namespace TagTool.Tags.Definitions
             public Angle PitchAutoLevel;
             public Angle PitchRangeMin;
             public Angle PitchRangeMax;
-            public List<CameraTrack> CameraTracks;
+            public TagBlock<CameraTrack> CameraTracks;
             public Angle Unknown2;
             public Angle Unknown3;
             public Angle Unknown4;
-            public List<UnknownBlock> Unknown5;
+            public TagBlock<UnknownBlock> Unknown5;
 
             [TagStructure(Size = 0x10)]
             public class CameraTrack : TagStructure
@@ -347,7 +347,7 @@ namespace TagTool.Tags.Definitions
             public uint Unknown4;
             public int Unknown5;
             public int Unknown6;
-            public List<Weapon> Weapons;
+            public TagBlock<Weapon> Weapons;
             public CachedTagInstance Unknown7;
 
             [TagStructure(Size = 0x18)]

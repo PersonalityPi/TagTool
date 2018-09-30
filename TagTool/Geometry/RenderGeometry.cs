@@ -16,35 +16,35 @@ namespace TagTool.Geometry
         /// <summary>
         /// The meshes of the render geometry.
         /// </summary>
-        public List<Mesh> Meshes;
+        public TagBlock<Mesh> Meshes;
 
         /// <summary>
         /// The compression information of the render geometry.
         /// </summary>
-        public List<RenderGeometryCompression> Compression;
+        public TagBlock<RenderGeometryCompression> Compression;
 
         /// <summary>
         /// The bounding spheres of the render geometry.
         /// </summary>
-        public List<BoundingSphere> BoundingSpheres;
+        public TagBlock<BoundingSphere> BoundingSpheres;
 
-        public List<UnknownBlock> Unknown2;
+        public TagBlock<UnknownBlock> Unknown2;
 
         public uint Unknown3;
         public uint Unknown4;
         public uint Unknown5;
 
-        public List<UnknownSection> UnknownSections;
+        public TagBlock<UnknownSection> UnknownSections;
 
         /// <summary>
         /// The per-mesh node mappings of the render geometry.
         /// </summary>
-        public List<PerMeshNodeMap> PerMeshNodeMaps;
+        public TagBlock<PerMeshNodeMap> PerMeshNodeMaps;
 
         /// <summary>
         /// The per-mesh subpart visibility of the render geometry.
         /// </summary>
-        public List<PerMeshSubpartVisibilityBlock> PerMeshSubpartVisibility;
+        public TagBlock<PerMeshSubpartVisibilityBlock> PerMeshSubpartVisibility;
 
         public uint Unknown7;
         public uint Unknown8;
@@ -53,7 +53,7 @@ namespace TagTool.Geometry
         /// <summary>
         /// The per-mesh level-of-detail data of the render geometry.
         /// </summary>
-        public List<PerMeshLodDatum> PerMeshLodData;
+        public TagBlock<PerMeshLodDatum> PerMeshLodData;
         
         /// <summary>
         /// The resource containing the raw geometry data.
@@ -99,7 +99,7 @@ namespace TagTool.Geometry
             [TagField(Align = 0x10)]
             public byte[] Unknown;
 
-            public List<UnknownBlock> Unknown2;
+            public TagBlock<UnknownBlock> Unknown2;
 
             [TagStructure(Size = 0x2)]
 			public /*was_struct*/ class UnknownBlock : TagStructure
@@ -111,7 +111,7 @@ namespace TagTool.Geometry
         [TagStructure(Size = 0xC)]
 		public /*was_struct*/ class PerMeshNodeMap : TagStructure
 		{
-            public List<NodeIndex> NodeIndices;
+            public TagBlock<NodeIndex> NodeIndices;
 
             [TagStructure(Size = 0x1)]
 			public /*was_struct*/ class NodeIndex : TagStructure
@@ -123,13 +123,13 @@ namespace TagTool.Geometry
         [TagStructure(Size = 0xC)]
         public class PerMeshSubpartVisibilityBlock : TagStructure
 		{
-            public List<BoundingSphere> BoundingSpheres;
+            public TagBlock<BoundingSphere> BoundingSpheres;
         }
 
         [TagStructure(Size = 0x10)]
         public class PerMeshLodDatum : TagStructure
 		{
-            public List<Index> Indices;
+            public TagBlock<Index> Indices;
 
             public short VertexBufferIndex;
 

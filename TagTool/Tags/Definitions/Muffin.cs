@@ -12,8 +12,8 @@ namespace TagTool.Tags.Definitions
         public uint Unknown2;
         public uint Unknown3;
         public int Unknown4;
-        public List<LocationsBlock> Locations;
-        public List<UnknownBlock> Unknown5;
+        public TagBlock<LocationsBlock> Locations;
+        public TagBlock<UnknownBlock> Unknown5;
 
         [TagStructure(Size = 0x8)]
         public class LocationsBlock : TagStructure

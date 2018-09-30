@@ -18,7 +18,7 @@ namespace TagTool.Tags.Definitions
         public float StartingBend;
         public float EndingBend;
         public float RuntimeTotalLength;
-        public List<Vertex> Vertices;
+        public TagBlock<Vertex> Vertices;
 
         [TagField(Padding = true, Length = 4, MinVersion = CacheVersion.HaloOnline106708)]
         public byte[] Unused;

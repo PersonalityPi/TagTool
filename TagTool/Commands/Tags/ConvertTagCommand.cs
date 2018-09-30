@@ -491,7 +491,7 @@ namespace TagTool.Commands.Tags
             FixScripts(data);
         }
 
-        private void FixSandboxMenu(List<Scenario.SandboxObject> menu)
+        private void FixSandboxMenu(TagBlock<Scenario.SandboxObject> menu)
         {
             for (var i = 0; i < menu.Count; i++)
             {
@@ -677,7 +677,7 @@ namespace TagTool.Commands.Tags
             // We don't need to recompile these because vtsh tags will never actually be used in a ported map
         }
 
-        private void FixDrawModeList<T>(IList<T> modes)
+        private void FixDrawModeList<T>(TagBlock<T> modes) where T : TagStructure
         {
             if (modes.Count > 12)
                 modes.RemoveAt(12);

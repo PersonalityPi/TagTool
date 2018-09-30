@@ -37,6 +37,6 @@ namespace TagTool.Ai
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
         public float SkipFraction;
         public StringId SampleLine;
-        public List<AiVocalizationResponse> Responses;
+        public TagBlock<AiVocalizationResponse> Responses;
     }
 }

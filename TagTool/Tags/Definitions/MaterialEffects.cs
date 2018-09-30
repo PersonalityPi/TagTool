@@ -7,14 +7,14 @@ namespace TagTool.Tags.Definitions
     [TagStructure(Name = "material_effects", Tag = "foot", Size = 0xC)]
     public class MaterialEffects : TagStructure
 	{
-        public List<Effect> Effects;
+        public TagBlock<Effect> Effects;
 
         [TagStructure(Size = 0x24)]
         public class Effect : TagStructure
 		{
-            public List<EffectReference> OldMaterials;
-            public List<EffectReference> Sounds;
-            public List<EffectReference> Effects;
+            public TagBlock<EffectReference> OldMaterials;
+            public TagBlock<EffectReference> Sounds;
+            public TagBlock<EffectReference> Effects;
 
             [TagStructure(Size = 0x28, MaxVersion = CacheVersion.Halo3Retail)]
             [TagStructure(Size = 0x2C, MinVersion = CacheVersion.Halo3ODST)]

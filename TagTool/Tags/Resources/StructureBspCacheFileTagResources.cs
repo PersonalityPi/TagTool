@@ -9,7 +9,7 @@ namespace TagTool.Tags.Resources
         public TagBlock<ScenarioStructureBsp.UnknownRaw6th> UnknownRaw6ths;
         public TagBlock<ScenarioStructureBsp.Plane> Planes;
         public TagBlock<ScenarioStructureBsp.UnknownRaw7th> UnknownRaw7ths;
-        public List<PathfindingDatum> PathfindingData;
+        public TagBlock<PathfindingDatum> PathfindingData;
 
         [TagStructure(Size = 0x94)]
         public class PathfindingDatum : TagStructure
@@ -19,20 +19,20 @@ namespace TagTool.Tags.Resources
             public TagBlock<ScenarioStructureBsp.PathfindingDatum.Reference> References;
             public TagBlock<ScenarioStructureBsp.PathfindingDatum.Bsp2dNode> Bsp2dNodes;
             public TagBlock<ScenarioStructureBsp.PathfindingDatum.Vertex> Vertices;
-            public List<ObjectReference> ObjectReferences;
+            public TagBlock<ObjectReference> ObjectReferences;
             public TagBlock<ScenarioStructureBsp.PathfindingDatum.PathfindingHint> PathfindingHints;
             public TagBlock<ScenarioStructureBsp.PathfindingDatum.InstancedGeometryReference> InstancedGeometryReferences;
             public int StructureChecksum;
             public TagBlock<ScenarioStructureBsp.PathfindingDatum.Unknown1Block> Unknown1s;
-            public List<Unknown2Block> Unknown2s;
-            public List<Unknown3Block> Unknown3s;
+            public TagBlock<Unknown2Block> Unknown2s;
+            public TagBlock<Unknown3Block> Unknown3s;
             public TagBlock<ScenarioStructureBsp.PathfindingDatum.Unknown4Block> Unknown4s;
 
             [TagStructure(Size = 0x18)]
             public class ObjectReference : TagStructure
 			{
                 public int Unknown;
-                public List<Unknown1Block> Unknown2;
+                public TagBlock<Unknown1Block> Unknown2;
                 public int Unknown3;
                 public short Unknown4;
                 public short Unknown5;

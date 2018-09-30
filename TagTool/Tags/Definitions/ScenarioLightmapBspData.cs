@@ -69,20 +69,20 @@ namespace TagTool.Tags.Definitions
         public uint Unknown50;
         public CachedTagInstance PrimaryMap;
         public CachedTagInstance IntensityMap;
-        public List<InstancedMesh> InstancedMeshes;
-        public List<UnknownBlock> Unknown51;
-        public List<InstancedGeometryBlock> InstancedGeometry;
-        public List<UnknownBBlock> UnknownB;
+        public TagBlock<InstancedMesh> InstancedMeshes;
+        public TagBlock<UnknownBlock> Unknown51;
+        public TagBlock<InstancedGeometryBlock> InstancedGeometry;
+        public TagBlock<UnknownBBlock> UnknownB;
         public RenderGeometry Geometry;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<ScenarioLightmap.Airprobe> Airprobes;
+        public TagBlock<ScenarioLightmap.Airprobe> Airprobes;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<ScenarioLightmap.UnknownBlock2> Unknown64;
+        public TagBlock<ScenarioLightmap.UnknownBlock2> Unknown64;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<ScenarioLightmap.UnknownBlock3> Unknown65;
+        public TagBlock<ScenarioLightmap.UnknownBlock3> Unknown65;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
         public uint Unknown66;
@@ -164,13 +164,13 @@ namespace TagTool.Tags.Definitions
     [TagStructure(Size = 0x18)]
     public class ScenarioLightmapBspDataSection : TagStructure
 	{
-        public List<Header> Headers;
+        public TagBlock<Header> Headers;
         public VertexList VertexLists;
 
         [TagStructure(Size = 0xC)]
         public class VertexList : TagStructure
 		{
-            public List<Datum> Vertex;
+            public TagBlock<Datum> Vertex;
 
             [TagStructure(Size = 0x1)]
 			public /*was_struct*/ class Datum : TagStructure

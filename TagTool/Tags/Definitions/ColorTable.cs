@@ -8,7 +8,7 @@ namespace TagTool.Tags.Definitions
     [TagStructure(Name = "color_table", Tag = "colo", Size = 0x10, MinVersion = CacheVersion.HaloOnline106708)]
     public class ColorTable : TagStructure
 	{
-        public List<ColorTableBlock> ColorTables;
+        public TagBlock<ColorTableBlock> ColorTables;
 
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
         public uint Unknown;

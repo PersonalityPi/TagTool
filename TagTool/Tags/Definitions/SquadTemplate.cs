@@ -10,7 +10,7 @@ namespace TagTool.Tags.Definitions
     public class SquadTemplate : TagStructure
 	{
         public StringId Name;
-        public List<CellTemplate> CellTemplates;
+        public TagBlock<CellTemplate> CellTemplates;
         
         [TagStructure(Size = 0x60)]
         public class CellTemplate : TagStructure
@@ -30,10 +30,10 @@ namespace TagTool.Tags.Definitions
             public short Count;
             public short Unknown4;
 
-            public List<ObjectBlock> Characters;
-            public List<ObjectBlock> InitialWeapons;
-            public List<ObjectBlock> InitialSecondaryWeapons;
-            public List<ObjectBlock> InitialEquipment;
+            public TagBlock<ObjectBlock> Characters;
+            public TagBlock<ObjectBlock> InitialWeapons;
+            public TagBlock<ObjectBlock> InitialSecondaryWeapons;
+            public TagBlock<ObjectBlock> InitialEquipment;
 
             public CharacterGrenadeType GrenadeType;
 

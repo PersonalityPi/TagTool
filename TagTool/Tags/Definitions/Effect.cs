@@ -28,10 +28,10 @@ namespace TagTool.Tags.Definitions
         public uint Unknown5;
         [TagField(MinVersion = CacheVersion.HaloReach)]
         public uint Unknown6;
-        public List<Location> Locations;
-        public List<Event> Events;
+        public TagBlock<Location> Locations;
+        public TagBlock<Event> Events;
         [TagField(MinVersion = CacheVersion.HaloReach)]
-        public List<LoopingSounds> LoopingSoundBlock;
+        public TagBlock<LoopingSounds> LoopingSoundBlock;
         [TagField(MaxVersion = CacheVersion.HaloOnline700123)]
         public CachedTagInstance LoopingSound;
         [TagField(MaxVersion = CacheVersion.HaloOnline700123)]
@@ -44,7 +44,7 @@ namespace TagTool.Tags.Definitions
         public float NeverPlayDistance;
         public float RuntimeLightprobeDeathDelay;
         public float RuntimeLocalSpaceDeathDelay;
-        public List<ConicalDistribution> ConicalDistributions;
+        public TagBlock<ConicalDistribution> ConicalDistributions;
 
         [TagField(Padding = true, Length = 8, MinVersion = CacheVersion.HaloOnline106708)]
         public byte[] Unused;
@@ -89,9 +89,9 @@ namespace TagTool.Tags.Definitions
             public float DelayBoundsMax;
             public float DurationBoundsMin;
             public float DurationBoundsMax;
-            public List<Part> Parts;
-            public List<Acceleration> Accelerations;
-            public List<ParticleSystem> ParticleSystems;
+            public TagBlock<Part> Parts;
+            public TagBlock<Acceleration> Accelerations;
+            public TagBlock<ParticleSystem> ParticleSystems;
 
             [TagStructure(Size = 0x60, MaxVersion = CacheVersion.HaloOnline700123)]
             [TagStructure(Size = 0x64, MinVersion = CacheVersion.HaloReach)]
@@ -185,7 +185,7 @@ namespace TagTool.Tags.Definitions
                 public float LodFeatherInDelta;
                 [TagField(MinVersion = CacheVersion.HaloReach)]
                 public float Unknown15;
-                public List<Emitter> Emitters;
+                public TagBlock<Emitter> Emitters;
                 public float Unknown16;
                 [TagField(MinVersion = CacheVersion.HaloReach)]
                 public float Unknown17;
@@ -362,7 +362,7 @@ namespace TagTool.Tags.Definitions
 
                         public FlagsValue Flags;
 
-                        public List<Movement> Movements;
+                        public TagBlock<Movement> Movements;
 
                         [TagField(ValidTags = new[] { "bitm" }, MinVersion = CacheVersion.HaloReach)]
                         public CachedTagInstance TurbulenceTexture;
@@ -394,7 +394,7 @@ namespace TagTool.Tags.Definitions
                             [TagField(Padding = true, Length = 1)]
                             public byte[] Unused;
 
-                            public List<Parameter> Parameters;
+                            public TagBlock<Parameter> Parameters;
 
                             public int RuntimeMConstantParameters;
                             public int RuntimeMUsedParticleStates;
@@ -440,9 +440,9 @@ namespace TagTool.Tags.Definitions
                         public int ConstantPerParticleProperties;
                         public int ConstantOverTimeProperties;
                         public int UsedParticleStates;
-                        public List<Property> Properties;
-                        public List<Function> Functions;
-                        public List<Color> Colors;
+                        public TagBlock<Property> Properties;
+                        public TagBlock<Function> Functions;
+                        public TagBlock<Color> Colors;
 
                         [TagStructure(Size = 0x10)]
 						public /*was_struct*/ class Property : TagStructure

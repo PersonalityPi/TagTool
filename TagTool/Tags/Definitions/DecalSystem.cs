@@ -31,7 +31,7 @@ namespace TagTool.Tags.Definitions
         /// </summary>
         public RealPoint2d DecalScaleOverride;
 
-        public List<DecalDefinitionBlock> Decal;
+        public TagBlock<DecalDefinitionBlock> Decal;
 
         public float RuntimeMaxRadius;
 

@@ -31,7 +31,7 @@ namespace TagTool.Tags.Definitions
         public CachedTagInstance MatchmakingPartyUpSound;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<AtlasSound> AtlasSounds;
+        public TagBlock<AtlasSound> AtlasSounds;
 
         [TagField(Padding = true, Length = 4, MinVersion = CacheVersion.HaloOnline106708)]
         public byte[] Unused;

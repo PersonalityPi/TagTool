@@ -7,7 +7,7 @@ namespace TagTool.Tags.Definitions
     public class GuiWidgetColorAnimationDefinition : TagStructure
 	{
         public uint AnimationFlags;
-        public List<AnimationDefinitionBlock> AnimationDefinition;
+        public TagBlock<AnimationDefinitionBlock> AnimationDefinition;
         public TagFunction Function;
 
         [TagStructure(Size = 0x20)]

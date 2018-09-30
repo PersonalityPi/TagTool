@@ -28,20 +28,20 @@ namespace TagTool.Tags.Definitions
 
         public VehicleFlagsValue VehicleFlags;
 
-        public List<TankEngineMotionProperty> TankEngineMotionProperties;
-        public List<EngineMotionProperty> EngineMotionProperties;
-        public List<DropshipMotionProperty> DropshipMotionProperties;
-        public List<AntigravityMotionProperty> AntigravityMotionProperties;
-        public List<JetEngineMotionProperty> JetEngineMotionProperties;
-        public List<TurretProperty> TurretProperties;
+        public TagBlock<TankEngineMotionProperty> TankEngineMotionProperties;
+        public TagBlock<EngineMotionProperty> EngineMotionProperties;
+        public TagBlock<DropshipMotionProperty> DropshipMotionProperties;
+        public TagBlock<AntigravityMotionProperty> AntigravityMotionProperties;
+        public TagBlock<JetEngineMotionProperty> JetEngineMotionProperties;
+        public TagBlock<TurretProperty> TurretProperties;
 
         public float Unknown20;
         public float Unknown21;
         public float Unknown22;
 
-        public List<HelicopterMotionProperty> HelicopterMotionProperties;
-        public List<AntigravityEngineMotionProperty> AntigravityEngineMotionProperties;
-        public List<AutoturretEquipmentBlock> AutoturretEquipment;
+        public TagBlock<HelicopterMotionProperty> HelicopterMotionProperties;
+        public TagBlock<AntigravityEngineMotionProperty> AntigravityEngineMotionProperties;
+        public TagBlock<AutoturretEquipmentBlock> AutoturretEquipment;
 
         public uint Flags6;
         public float GroundFriction;
@@ -59,9 +59,9 @@ namespace TagTool.Tags.Definitions
         public float Unknown25;
         public float Unknown26;
 
-        public List<AntiGravityPoint> AntiGravityPoints;
-        public List<FrictionPoint> FrictionPoints;
-        public List<PhantomShape> PhantomShapes;
+        public TagBlock<AntiGravityPoint> AntiGravityPoints;
+        public TagBlock<FrictionPoint> FrictionPoints;
+        public TagBlock<PhantomShape> PhantomShapes;
 
         public PlayerTrainingVehicleTypeValue PlayerTrainingVehicleType;
         public VehicleSizeValue VehicleSize;
@@ -103,7 +103,7 @@ namespace TagTool.Tags.Definitions
             public float TurningSpeedRight2;
             public float EngineMomentum;
             public float EngineMaximumAngularVelocity;
-            public List<Gear> Gears;
+            public TagBlock<Gear> Gears;
             public CachedTagInstance ChangeGearSound;
             public float Unknown2;
             public float Unknown3;
@@ -119,7 +119,7 @@ namespace TagTool.Tags.Definitions
             public Angle TurnRate;
             public float EngineMomentum;
             public float EngineMaximumAngularVelocity;
-            public List<Gear> Gears;
+            public TagBlock<Gear> Gears;
             public CachedTagInstance ChangeGearSound;
             public float Unknown;
             public float Unknown2;
@@ -271,7 +271,7 @@ namespace TagTool.Tags.Definitions
             public Angle TurnRate;
             public float EngineMomentum;
             public float EngineMaximumAngularVelocity;
-            public List<Gear> Gears;
+            public TagBlock<Gear> Gears;
             public CachedTagInstance ChangeGearSound;
             public float Unknown;
             public StringId Unknown2;

@@ -16,7 +16,7 @@ namespace TagTool.Commands.Porting
 {
     partial class PortTagCommand
     {
-        private List<CollisionMoppCode.Datum> ConvertCollisionMoppData(List<CollisionMoppCode.Datum> moppData)
+        private TagBlock<CollisionMoppCode.Datum> ConvertCollisionMoppData(TagBlock<CollisionMoppCode.Datum> moppData)
         {
             if (BlamCache.Version > CacheVersion.Halo3Retail)
                 return moppData;
@@ -260,8 +260,8 @@ namespace TagTool.Commands.Porting
                     Type = TagResourceType.Collision,
                     DefinitionData = new byte[0x30],
                     DefinitionAddress = new CacheAddress(CacheAddressType.Definition, 0),
-                    ResourceFixups = new List<TagResource.ResourceFixup>(),
-                    ResourceDefinitionFixups = new List<TagResource.ResourceDefinitionFixup>(),
+                    ResourceFixups = new TagBlock<TagResource.ResourceFixup>(),
+                    ResourceDefinitionFixups = new TagBlock<TagResource.ResourceDefinitionFixup>(),
                     Unknown2 = 1
                 }
             };
@@ -310,8 +310,8 @@ namespace TagTool.Commands.Porting
 
                 if (BlamCache.Version < CacheVersion.Halo3ODST)
                 {
-                    resourceDefinition.LargeCollisionBsps = new List<StructureBspTagResources.LargeCollisionBspBlock>();
-                    resourceDefinition.HavokData = new List<StructureBspTagResources.HavokDatum>();
+                    resourceDefinition.LargeCollisionBsps = new TagBlock<StructureBspTagResources.LargeCollisionBspBlock>();
+                    resourceDefinition.HavokData = new TagBlock<StructureBspTagResources.HavokDatum>();
                 }
 
                 foreach (var instance in resourceDefinition.InstancedGeometry)
@@ -561,7 +561,7 @@ namespace TagTool.Commands.Porting
                         StreamUtil.Align(dataStream, 0x4);
                         blamResourceStream.Position = moppCode.Data.Address.Offset;
                         moppCode.Data.Address = new CacheAddress(CacheAddressType.Resource, (int)dataStream.Position);
-                        var moppData = resourceReader.ReadBytes(moppCode.Data.Count).Select(i => new CollisionMoppCode.Datum { Value = i }).ToList();
+                        var moppData = resourceReader.ReadBytes(moppCode.Data.Count).Select(i => new CollisionMoppCode.Datum { Value = i }).ToBlock();
                         if (BlamCache.Version < CacheVersion.Halo3ODST)
                             moppData = ConvertCollisionMoppData(moppData);
                         resourceWriter.Write(moppData.Select(i => i.Value).ToArray());

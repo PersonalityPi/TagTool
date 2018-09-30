@@ -23,9 +23,9 @@ namespace TagTool.Tags.Definitions
         public CachedTagInstance Strings;
         public CachedTagInstance Parent;
         public StringId DefaultKeyLegendString;
-        public List<DataSource> DataSources;
-        public List<GroupWidget> GroupWidgets;
-        public List<ButtonKeyLegend> ButtonKeyLegends;
+        public TagBlock<DataSource> DataSources;
+        public TagBlock<GroupWidget> GroupWidgets;
+        public TagBlock<ButtonKeyLegend> ButtonKeyLegends;
         public CachedTagInstance UiSounds;
         [TagField(Length = 32)] public string ScriptTitle;
         public short ScriptIndex;
@@ -54,10 +54,10 @@ namespace TagTool.Tags.Definitions
             public short StandardYUnknown;
             public short StandardXUnknown;
             public CachedTagInstance Animation;
-            public List<ListWidget> ListWidgets;
-            public List<TextWidget> TextWidgets;
-            public List<BitmapWidget> BitmapWidgets;
-            public List<ModelWidget> ModelWidgets;
+            public TagBlock<ListWidget> ListWidgets;
+            public TagBlock<TextWidget> TextWidgets;
+            public TagBlock<BitmapWidget> BitmapWidgets;
+            public TagBlock<ModelWidget> ModelWidgets;
 
             [TagStructure(Size = 0x2C)]
 			public /*was_struct*/ class WidgetData : TagStructure
@@ -85,7 +85,7 @@ namespace TagTool.Tags.Definitions
                 public StringId DataSourceName;
                 public CachedTagInstance Skin;
                 public int Unknown2;
-                public List<ListWidgetItem> ListWidgetItems;
+                public TagBlock<ListWidgetItem> ListWidgetItems;
                 public CachedTagInstance UpArrowBitmap;
                 public CachedTagInstance DownArrowBitmap;
 
@@ -150,9 +150,9 @@ namespace TagTool.Tags.Definitions
                 public WidgetData Data;
 
                 [TagField(MaxVersion = CacheVersion.Halo3Retail)]
-                public List<CameraRefinementOld> CameraRefinementsOld;
+                public TagBlock<CameraRefinementOld> CameraRefinementsOld;
                 [TagField(MinVersion = CacheVersion.Halo3ODST)]
-                public List<CameraRefinementNew> CameraRefinementsNew;
+                public TagBlock<CameraRefinementNew> CameraRefinementsNew;
 
                 [TagField(MinVersion = CacheVersion.Halo3ODST)]
                 public ModelWidgetData ModelData;
@@ -167,7 +167,7 @@ namespace TagTool.Tags.Definitions
                     public uint Unknown8;
                     public uint Unknown9;
                     public uint Unknown10;
-                    public List<UnknownBlock1> Unknown11;
+                    public TagBlock<UnknownBlock1> Unknown11;
                     public short Unknown12;
                     public short Unknown13;
                     public short Unknown14;
@@ -180,7 +180,7 @@ namespace TagTool.Tags.Definitions
                     public short Unknown21;
                     public short Unknown22;
                     public short Unknown23;
-                    public List<UnknownBlock2> Unknown24;
+                    public TagBlock<UnknownBlock2> Unknown24;
 
                     [TagStructure(Size = 0x14)]
                     public class UnknownBlock1 : TagStructure
@@ -211,8 +211,8 @@ namespace TagTool.Tags.Definitions
                     public float Unknown6;
                     public float Unknown7;
                     public float Unknown8;
-                    public List<ZoomData> ZoomData1;
-                    public List<ZoomData> ZoomData2;
+                    public TagBlock<ZoomData> ZoomData1;
+                    public TagBlock<ZoomData> ZoomData2;
 
                     [TagStructure(Size = 0x14)]
                     public class ZoomData : TagStructure
@@ -249,7 +249,7 @@ namespace TagTool.Tags.Definitions
                     public uint Unknown22;
                     public uint Unknown23;
                     public uint Unknown24;
-                    public List<UnknownBlock> Unknown25;
+                    public TagBlock<UnknownBlock> Unknown25;
                     public uint Unknown26;
                     public uint Unknown27;
                     public Angle Unknown28;

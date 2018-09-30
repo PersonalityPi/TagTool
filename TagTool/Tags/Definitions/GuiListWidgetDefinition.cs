@@ -23,7 +23,7 @@ namespace TagTool.Tags.Definitions
         public StringId DataSourceName;
         public CachedTagInstance Skin;
         public int RowCount;
-        public List<ListWidgetItem> ListWidgetItems;
+        public TagBlock<ListWidgetItem> ListWidgetItems;
         public CachedTagInstance UpArrowBitmap;
         public CachedTagInstance DownArrowBitmap;
 

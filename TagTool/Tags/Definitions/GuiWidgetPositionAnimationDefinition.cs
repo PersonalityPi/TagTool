@@ -6,7 +6,7 @@ namespace TagTool.Tags.Definitions
     public class GuiWidgetPositionAnimationDefinition : TagStructure
 	{
         public uint AnimationFlags;
-        public List<AnimationDefinitionBlock> AnimationDefinition;
+        public TagBlock<AnimationDefinitionBlock> AnimationDefinition;
         public TagFunction Function;
 
         [TagStructure(Size = 0x1C)]

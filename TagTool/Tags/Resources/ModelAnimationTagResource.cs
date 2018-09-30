@@ -7,7 +7,7 @@ namespace TagTool.Tags.Resources
     [TagStructure(Name = "model_animation_tag_resource", Size = 0xC)]
     public class ModelAnimationTagResource : TagStructure
 	{
-        public List<GroupMember> GroupMembers;
+        public TagBlock<GroupMember> GroupMembers;
 
         [TagStructure(Size = 0x30)]
         public class GroupMember : TagStructure
@@ -78,34 +78,34 @@ namespace TagTool.Tags.Resources
             [TagStructure(Size = 0x24)]
             public class Node : TagStructure
 			{
-                public List<RotationNode> RotationNodes;
-                public List<PositionNode> PositionNodes;
-                public List<ScaleNode> ScaleNodes;
+                public TagBlock<RotationNode> RotationNodes;
+                public TagBlock<PositionNode> PositionNodes;
+                public TagBlock<ScaleNode> ScaleNodes;
             }
 
             [TagStructure(Size = 0xC)]
             public class RotationNode : TagStructure
 			{
-                public List<RotationFrame> RotationFrames;
+                public TagBlock<RotationFrame> RotationFrames;
             }
 
             [TagStructure(Size = 0xC)]
             public class PositionNode : TagStructure
 			{
-                public List<PositionFrame> PositionFrames;
+                public TagBlock<PositionFrame> PositionFrames;
             }
 
             [TagStructure(Size = 0xC)]
             public class ScaleNode : TagStructure
 			{
-                public List<ScaleFrame> ScaleFrames;
+                public TagBlock<ScaleFrame> ScaleFrames;
             }
 
             [TagStructure(Size = 0x18)]
             public class FrameInfoNode : TagStructure
 			{
-                public List<FrameInfoDxDy> frameInfoDxDy;
-                public List<FrameInfoDxDyDyaw> frameInfoDxDyDyaw;
+                public TagBlock<FrameInfoDxDy> frameInfoDxDy;
+                public TagBlock<FrameInfoDxDyDyaw> frameInfoDxDyDyaw;
             }
 
             [TagStructure(Size = 0x8)]

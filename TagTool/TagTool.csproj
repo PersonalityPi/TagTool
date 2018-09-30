@@ -378,6 +378,7 @@
     <Compile Include="Common\ArrayUtil.cs" />
     <Compile Include="Common\Bitmask.cs" />
     <Compile Include="Common\Bounds.cs" />
+    <Compile Include="Extensions\EnumerableExtensions.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\FlipFlopDictionary.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />

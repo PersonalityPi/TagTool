@@ -20,18 +20,18 @@ namespace TagTool.Tags.Definitions
         public byte[] Unused1 = new byte[8];
 
         [TagField(MaxVersion = CacheVersion.Halo2Vista)]
-        public List<RenderGeometryCompression> Compression;
+        public TagBlock<RenderGeometryCompression> Compression;
         
-        public List<Region> Regions;
+        public TagBlock<Region> Regions;
 
         [TagField(MaxVersion = CacheVersion.Halo2Vista)]
-        public List<Section> Sections;
+        public TagBlock<Section> Sections;
 
         [TagField(MaxVersion = CacheVersion.Halo2Vista)]
-        public List<InvalidSectionPairBit> InvalidSectionPairBits;
+        public TagBlock<InvalidSectionPairBit> InvalidSectionPairBits;
 
         [TagField(MaxVersion = CacheVersion.Halo2Vista)]
-        public List<SectionGroup> SectionGroups;
+        public TagBlock<SectionGroup> SectionGroups;
 
         [TagField(Length = 6, MaxVersion = CacheVersion.Halo2Vista)]
         public sbyte[] LodSectionIndices = new sbyte[6];
@@ -46,16 +46,16 @@ namespace TagTool.Tags.Definitions
         public int InstanceStartingMeshIndex;
 
         [TagField(MinVersion = CacheVersion.Halo3Retail)]
-        public List<InstancePlacement> InstancePlacements;
+        public TagBlock<InstancePlacement> InstancePlacements;
 
         public int NodeListChecksum;
-        public List<Node> Nodes;
+        public TagBlock<Node> Nodes;
 
         [TagField(MaxVersion = CacheVersion.Halo2Vista)]
-        public List<NodeIndex> NodeMaps;
+        public TagBlock<NodeIndex> NodeMaps;
 
-        public List<MarkerGroup> MarkerGroups;
-        public List<RenderMaterial> Materials;
+        public TagBlock<MarkerGroup> MarkerGroups;
+        public TagBlock<RenderMaterial> Materials;
 
         [TagField(Padding = true, Length = 12)]
         public byte[] Unused; // "Errors" block
@@ -63,25 +63,25 @@ namespace TagTool.Tags.Definitions
         public float DontDrawOverCameraCosineAngle;
 
         [TagField(MaxVersion = CacheVersion.Halo2Vista)]
-        public List<PrtInfoBlock> PrtInfo;
+        public TagBlock<PrtInfoBlock> PrtInfo;
 
         [TagField(MaxVersion = CacheVersion.Halo2Vista)]
-        public List<SectionRenderLeaf> SectionRenderLeaves;
+        public TagBlock<SectionRenderLeaf> SectionRenderLeaves;
 
         [TagField(MinVersion = CacheVersion.Halo3Retail)]
         public RenderGeometry Geometry = new RenderGeometry();
 
         [TagField(MinVersion = CacheVersion.Halo3Retail)]
-        public List<TagBlock17> UnknownE8;
+        public TagBlock<TagBlock17> UnknownE8;
 
         [TagField(Length = 48, MinVersion = CacheVersion.Halo3Retail)]
         public float[] Unknowns = new float[48];
 
         [TagField(MinVersion = CacheVersion.Halo3Retail)]
-        public List<TagBlock18> Unknown1B4;
+        public TagBlock<TagBlock18> Unknown1B4;
 
         [TagField(MinVersion = CacheVersion.Halo3Retail)]
-        public List<RuntimeNodeOrientation> RuntimeNodeOrientations;
+        public TagBlock<RuntimeNodeOrientation> RuntimeNodeOrientations;
 
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
         public int Unknown1CC;
@@ -135,7 +135,7 @@ namespace TagTool.Tags.Definitions
             /// <summary>
             /// The permutations belonging to the region.
             /// </summary>
-            public List<Permutation> Permutations;
+            public TagBlock<Permutation> Permutations;
 
             /// <summary>
             /// A permutation of a region, associating a specific mesh with it.
@@ -219,7 +219,7 @@ namespace TagTool.Tags.Definitions
             public ushort ShadowCastingRigidTriangleCount;
             public RenderGeometryClassification GeometryClassification;
             public RenderGeometryCompressionFlags GeometryCompressionFlags;
-            public List<RenderGeometryCompression> Compression;
+            public TagBlock<RenderGeometryCompression> Compression;
             public byte HardwareNodeCount;
             public byte NodeMapSize;
             public ushort SoftwarePlaneSount;
@@ -227,12 +227,12 @@ namespace TagTool.Tags.Definitions
             public SectionLightingFlags LightingFlags;
             public short RigidNode;
             public SectionFlags Flags;
-            public List<Mesh> Meshes;
+            public TagBlock<Mesh> Meshes;
             public int BlockOffset;
             public int BlockSize;
             public uint SectionDataSize;
             public uint ResourceDataSize;
-            public List<ResourceGen2> Resources;
+            public TagBlock<ResourceGen2> Resources;
 
             [TagField(Short = true)]
             public CachedTagInstance Original;
@@ -256,7 +256,7 @@ namespace TagTool.Tags.Definitions
 		{
             public DetailLevelFlags DetailLevels;
             public short Unknown;
-            public List<CompoundNode> CompoundNodes;
+            public TagBlock<CompoundNode> CompoundNodes;
 
             [Flags]
             public enum DetailLevelFlags : ushort
@@ -352,7 +352,7 @@ namespace TagTool.Tags.Definitions
         public class MarkerGroup : TagStructure
 		{
             public StringId Name;
-            public List<Marker> Markers;
+            public TagBlock<Marker> Markers;
 
             [TagStructure(Size = 0x24)]
             public class Marker : TagStructure
@@ -379,15 +379,15 @@ namespace TagTool.Tags.Definitions
             public float LengthScale;
             public ushort NumberOfLodsInModel;
             public ushort Unknown;
-            public List<LodInfoBlock> LodInfo;
-            public List<ClusterBasisBlock> ClusterBasis;
-            public List<RawPcaDatum> RawPcaData;
-            public List<Mesh.VertexBuffer> VertexBuffers;
+            public TagBlock<LodInfoBlock> LodInfo;
+            public TagBlock<ClusterBasisBlock> ClusterBasis;
+            public TagBlock<RawPcaDatum> RawPcaData;
+            public TagBlock<Mesh.VertexBuffer> VertexBuffers;
             public int BlockOffset;
             public int BlockSize;
             public uint SectionDataSize;
             public uint ResourceDataSize;
-            public List<ResourceGen2> Resources;
+            public TagBlock<ResourceGen2> Resources;
 
             [TagField(Short = true)]
             public CachedTagInstance Original;
@@ -403,7 +403,7 @@ namespace TagTool.Tags.Definitions
             public class LodInfoBlock : TagStructure
 			{
                 public uint ClusterOffset;
-                public List<SectionInfoBlock> SectionInfo;
+                public TagBlock<SectionInfoBlock> SectionInfo;
 
                 [TagStructure(Size = 0x8)]
                 public class SectionInfoBlock : TagStructure
@@ -429,13 +429,13 @@ namespace TagTool.Tags.Definitions
         [TagStructure(Size = 0x8)]
         public class SectionRenderLeaf : TagStructure
 		{
-            public List<NodeRenderLeaf> NodeRenderLeaves;
+            public TagBlock<NodeRenderLeaf> NodeRenderLeaves;
 
             [TagStructure(Size = 0x10)]
             public class NodeRenderLeaf : TagStructure
 			{
-                public List<CollisionLeaf> CollisionLeaves;
-                public List<SurfaceReference> SurfaceReferences;
+                public TagBlock<CollisionLeaf> CollisionLeaves;
+                public TagBlock<SurfaceReference> SurfaceReferences;
 
                 [TagStructure(Size = 0x8)]
                 public class CollisionLeaf : TagStructure

@@ -22,7 +22,7 @@ namespace TagTool.Tags.Definitions
         public StringId SwitchToFromAiMessage;
         public StringId AllWeaponsEmptyMessage;
         public CachedTagInstance CollisionSound;
-        public List<TagReferenceBlock> PredictedBitmaps;
+        public TagBlock<TagReferenceBlock> PredictedBitmaps;
         public CachedTagInstance DetonationDamageEffect;
         public float DetonationDelayMin;
         public float DetonationDelayMax;

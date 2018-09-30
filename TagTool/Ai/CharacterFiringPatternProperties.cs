@@ -9,6 +9,6 @@ namespace TagTool.Ai
 	{
         [TagField(Label = true)]
         public CachedTagInstance Weapon;
-        public List<CharacterFiringPattern> FiringPatterns;
+        public TagBlock<CharacterFiringPattern> FiringPatterns;
     }
 }

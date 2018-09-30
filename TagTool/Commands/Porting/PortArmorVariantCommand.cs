@@ -128,11 +128,11 @@ namespace TagTool.Commands.Porting
                 Unknown2 = i.Unknown2,
                 Unknown3 = i.Unknown3,
                 Unknown4 = i.Unknown4
-            }).ToList();
+            }).ToBlock();
 
             edModeDefinition = (RenderModel)ConvertData(null, edModeDefinition, false);
 
-            var variantRegions = new List<RenderModel.Region>();
+            var variantRegions = new TagBlock<RenderModel.Region>();
 
             foreach (var region in edModeDefinition.Regions)
             {
@@ -142,7 +142,7 @@ namespace TagTool.Commands.Porting
                 var variantRegion = new RenderModel.Region
                 {
                     Name = region.Name,
-                    Permutations = new List<RenderModel.Region.Permutation>()
+                    Permutations = new TagBlock<RenderModel.Region.Permutation>()
                 };
 
                 foreach (var permutation in region.Permutations)
@@ -224,13 +224,13 @@ namespace TagTool.Commands.Porting
             }
 
             edModeDefinition.Regions = variantRegions;
-            edModeDefinition.Geometry.Meshes = edModeDefinition.Geometry.Meshes.Where(i => variantMeshes.Contains(edModeDefinition.Geometry.Meshes.IndexOf(i))).ToList();
+            edModeDefinition.Geometry.Meshes = edModeDefinition.Geometry.Meshes.Where(i => variantMeshes.Contains(edModeDefinition.Geometry.Meshes.IndexOf(i))).ToBlock();
 
             //
             // Port Blam render_model materials
             //
 
-            materials = materials.Where(i => variantMaterials.Contains(materials.IndexOf(i))).ToList();
+            materials = materials.Where(i => variantMaterials.Contains(materials.IndexOf(i))).ToBlock();
 
             using (var stream = CacheContext.OpenTagCacheReadWrite())
             {
@@ -285,8 +285,8 @@ namespace TagTool.Commands.Porting
 
             var resourceDefinition = new RenderGeometryApiResourceDefinition
             {
-                VertexBuffers = new List<TagStructureReference<VertexBufferDefinition>>(),
-                IndexBuffers = new List<TagStructureReference<IndexBufferDefinition>>()
+                VertexBuffers = new TagBlock<TagStructureReference<VertexBufferDefinition>>(),
+                IndexBuffers = new TagBlock<TagStructureReference<IndexBufferDefinition>>()
             };
 
             using (var definitionStream = new MemoryStream(BlamCache.ResourceGestalt.FixupInformation))
@@ -398,8 +398,8 @@ namespace TagTool.Commands.Porting
                     Console.WriteLine("done.");
                 }
 
-                resourceDefinition.VertexBuffers = resourceDefinition.VertexBuffers.Where(i => variantVertexBuffers.Contains(resourceDefinition.VertexBuffers.IndexOf(i))).ToList();
-                resourceDefinition.IndexBuffers = resourceDefinition.IndexBuffers.Where(i => variantIndexBuffers.Contains(resourceDefinition.IndexBuffers.IndexOf(i))).ToList();
+                resourceDefinition.VertexBuffers = resourceDefinition.VertexBuffers.Where(i => variantVertexBuffers.Contains(resourceDefinition.VertexBuffers.IndexOf(i))).ToBlock();
+                resourceDefinition.IndexBuffers = resourceDefinition.IndexBuffers.Where(i => variantIndexBuffers.Contains(resourceDefinition.IndexBuffers.IndexOf(i))).ToBlock();
 
                 //
                 // Finalize the new ElDorado geometry resource
@@ -413,8 +413,8 @@ namespace TagTool.Commands.Porting
                     Resource = new TagResource
                     {
                         Type = TagResourceType.RenderGeometry,
-                        ResourceFixups = new List<TagResource.ResourceFixup>(),
-                        ResourceDefinitionFixups = new List<TagResource.ResourceDefinitionFixup>(),
+                        ResourceFixups = new TagBlock<TagResource.ResourceFixup>(),
+                        ResourceDefinitionFixups = new TagBlock<TagResource.ResourceDefinitionFixup>(),
                         Unknown2 = 1
                     }
                 };
@@ -482,12 +482,12 @@ namespace TagTool.Commands.Porting
                 edHlmtDefinition.RenderModel = edModeTag;
                 edHlmtDefinition.ReduceToL1SuperLow = 36.38004f;
                 edHlmtDefinition.ReduceToL2Low = 27.28503f;
-                edHlmtDefinition.Variants = new List<Model.Variant>();
-                edHlmtDefinition.Materials = new List<Model.Material>();
-                edHlmtDefinition.NewDamageInfo = new List<Model.GlobalDamageInfoBlock>();
-                edHlmtDefinition.Targets = new List<Model.Target>();
+                edHlmtDefinition.Variants = new TagBlock<Model.Variant>();
+                edHlmtDefinition.Materials = new TagBlock<Model.Material>();
+                edHlmtDefinition.NewDamageInfo = new TagBlock<Model.GlobalDamageInfoBlock>();
+                edHlmtDefinition.Targets = new TagBlock<Model.Target>();
 
-                var collisionRegions = new List<Model.CollisionRegion>();
+                var collisionRegions = new TagBlock<Model.CollisionRegion>();
 
                 foreach (var collisionRegion in edHlmtDefinition.CollisionRegions)
                 {
@@ -536,7 +536,7 @@ namespace TagTool.Commands.Porting
                     if (permutation == null)
                         throw new KeyNotFoundException();
 
-                    collisionRegion.Permutations = new List<Model.CollisionRegion.Permutation> { permutation };
+                    collisionRegion.Permutations = new TagBlock<Model.CollisionRegion.Permutation> { permutation };
                 }
 
                 edHlmtDefinition.CollisionRegions = collisionRegions;
@@ -576,7 +576,7 @@ namespace TagTool.Commands.Porting
                     AccelerationScale = 1.2f,
                     SweetenerSize = GameObject.SweetenerSizeValue.Medium,
                     Model = edHlmtTag,
-                    ChangeColors = new List<GameObject.ChangeColor>
+                    ChangeColors = new TagBlock<GameObject.ChangeColor>
                     {
                         new GameObject.ChangeColor(),
                         new GameObject.ChangeColor(),
@@ -584,7 +584,7 @@ namespace TagTool.Commands.Porting
                         new GameObject.ChangeColor(),
                         new GameObject.ChangeColor()
                     },
-                    NodeMaps = new List<GameObject.NodeMap>()
+                    NodeMaps = new TagBlock<GameObject.NodeMap>()
                 };
 
                 for (sbyte i = 0; i < 51; i++)

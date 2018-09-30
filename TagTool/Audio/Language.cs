@@ -9,8 +9,8 @@ namespace TagTool.Audio
     public class LanguageBlock : TagStructure
 	{
         public GameLanguage Language;
-        public List<PermutationDurationBlock> PermutationDurations;
-        public List<PitchRangeDurationBlock> PitchRangeDurations;
+        public TagBlock<PermutationDurationBlock> PermutationDurations;
+        public TagBlock<PitchRangeDurationBlock> PitchRangeDurations;
 
         [TagStructure(Size = 0x2)]
         public class PermutationDurationBlock : TagStructure

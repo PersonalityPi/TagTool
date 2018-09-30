@@ -91,7 +91,7 @@ namespace TagTool.Tags.Definitions
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
         public uint Unknown15;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<TargetTrackingBlock> TargetTracking;
+        public TagBlock<TargetTrackingBlock> TargetTracking;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
         public uint Unknown16;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
@@ -149,12 +149,12 @@ namespace TagTool.Tags.Definitions
         [TagField(Padding = true, Length = 12, MaxVersion = CacheVersion.Halo3ODST)]
         public byte[] UnknownBlock;
         
-        public List<FirstPersonBlock> FirstPerson;
+        public TagBlock<FirstPersonBlock> FirstPerson;
         public CachedTagInstance HudInterface;
-        public List<PredictedResource> PredictedWeaponResources;
-        public List<Magazine> Magazines;
-        public List<Trigger> Triggers;
-        public List<Barrel> Barrels;
+        public TagBlock<PredictedResource> PredictedWeaponResources;
+        public TagBlock<Magazine> Magazines;
+        public TagBlock<Trigger> Triggers;
+        public TagBlock<Barrel> Barrels;
         public float Unknown25;
         public float Unknown26;
         public float MaximumMovementAcceleration;
@@ -171,7 +171,7 @@ namespace TagTool.Tags.Definitions
         public RealVector3d FirstPersonWeaponOffset;
 
         [TagField(MinVersion = CacheVersion.HaloOnline498295)]
-        public List<FirstPersonOffsetBlock> NewFirstPersonWeaponOffsets;
+        public TagBlock<FirstPersonOffsetBlock> NewFirstPersonWeaponOffsets;
 
         public RealVector2d FirstPersonScopeSize;
         public Bounds<float> ThirdPersonPitchBounds;
@@ -195,7 +195,7 @@ namespace TagTool.Tags.Definitions
         [TagStructure(Size = 0x38)]
         public class TargetTrackingBlock : TagStructure
 		{
-            public List<TrackingType> TrackingTypes;
+            public TagBlock<TrackingType> TrackingTypes;
             public float AcquireTime;
             public float GraceTime;
             public float DecayTime;
@@ -287,7 +287,7 @@ namespace TagTool.Tags.Definitions
             public CachedTagInstance ReloadingDamageEffect;
             public CachedTagInstance ChamberingEffect;
             public CachedTagInstance ChamberingDamageEffect;
-            public List<MagazineEquipmentBlock> MagazineEquipment;
+            public TagBlock<MagazineEquipmentBlock> MagazineEquipment;
 
             [TagStructure(Size = 0x14)]
             public class MagazineEquipmentBlock : TagStructure
@@ -426,27 +426,27 @@ namespace TagTool.Tags.Definitions
             [TagField(MinVersion = CacheVersion.HaloOnline106708)]
             public float JumpPenalty;
             [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-            public List<FiringPenaltyFunctionBlock> FiringPenaltyFunction;
+            public TagBlock<FiringPenaltyFunctionBlock> FiringPenaltyFunction;
             [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-            public List<FiringCrouchedPenaltyFunctionBlock> FiringCrouchedPenaltyFunction;
+            public TagBlock<FiringCrouchedPenaltyFunctionBlock> FiringCrouchedPenaltyFunction;
             [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-            public List<MovingPenaltyFunctionBlock> MovingPenaltyFunction;
+            public TagBlock<MovingPenaltyFunctionBlock> MovingPenaltyFunction;
             [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-            public List<TurningPenaltyFunctionBlock> TurningPenaltyFunction;
+            public TagBlock<TurningPenaltyFunctionBlock> TurningPenaltyFunction;
             [TagField(MinVersion = CacheVersion.HaloOnline106708)]
             public float ErrorAngleMaximumRotation;
             [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-            public List<DualFiringPenaltyFunctionBlock> DualFiringPenaltyFunction;
+            public TagBlock<DualFiringPenaltyFunctionBlock> DualFiringPenaltyFunction;
             [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-            public List<DualFiringCrouchedPenaltyFunctionBlock> DualFiringCrouchedPenaltyFunction;
+            public TagBlock<DualFiringCrouchedPenaltyFunctionBlock> DualFiringCrouchedPenaltyFunction;
             [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-            public List<DualMovingPenaltyFunctionBlock> DualMovingPenaltyFunction;
+            public TagBlock<DualMovingPenaltyFunctionBlock> DualMovingPenaltyFunction;
             [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-            public List<DualTurningPenaltyFunctionBlock> DualTurningPenaltyFunction;
+            public TagBlock<DualTurningPenaltyFunctionBlock> DualTurningPenaltyFunction;
             [TagField(MinVersion = CacheVersion.HaloOnline106708)]
             public float DualErrorAngleMaximumRotation;
 
-            public List<FirstPersonOffsetBlock> FirstPersonOffsets;
+            public TagBlock<FirstPersonOffsetBlock> FirstPersonOffsets;
             public DamageReportingType DamageReportingType;
             public sbyte Unknown3;
             public short Unknown4;
@@ -474,7 +474,7 @@ namespace TagTool.Tags.Definitions
             public float RateOfFireDecelerationTime;
             public uint Unknown9;
             public float BloomRateOfDecay;
-            public List<FiringEffect> FiringEffects;
+            public TagBlock<FiringEffect> FiringEffects;
 
             public enum PredictionTypeValue : short
             {

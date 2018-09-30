@@ -81,13 +81,13 @@ namespace TagTool.Geometry
 
                     var section = new ScenarioLightmapBspDataSection
                     {
-                        Headers = new List<ScenarioLightmapBspDataSection.Header>
+                        Headers = new TagBlock<ScenarioLightmapBspDataSection.Header>
                         {
                             header
                         },
                         VertexLists = new ScenarioLightmapBspDataSection.VertexList
                         {
-                            Vertex = new List<ScenarioLightmapBspDataSection.VertexList.Datum>()
+                            Vertex = new TagBlock<ScenarioLightmapBspDataSection.VertexList.Datum>()
                         }
                     };
 
@@ -151,8 +151,8 @@ namespace TagTool.Geometry
                     Type = TagResourceType.RenderGeometry,
                     DefinitionData = new byte[0x30],
                     DefinitionAddress = new CacheAddress(CacheAddressType.Definition, 0),
-                    ResourceFixups = new List<TagResource.ResourceFixup>(),
-                    ResourceDefinitionFixups = new List<TagResource.ResourceDefinitionFixup>(),
+                    ResourceFixups = new TagBlock<TagResource.ResourceFixup>(),
+                    ResourceDefinitionFixups = new TagBlock<TagResource.ResourceDefinitionFixup>(),
                     Unknown2 = 1
                 }
             };
@@ -172,8 +172,8 @@ namespace TagTool.Geometry
             {
                 resourceDefinition = new RenderGeometryApiResourceDefinition
                 {
-                    VertexBuffers = new List<TagStructureReference<VertexBufferDefinition>>(),
-                    IndexBuffers = new List<TagStructureReference<IndexBufferDefinition>>()
+                    VertexBuffers = new TagBlock<TagStructureReference<VertexBufferDefinition>>(),
+                    IndexBuffers = new TagBlock<TagStructureReference<IndexBufferDefinition>>()
                 };
             }
             else
@@ -242,7 +242,7 @@ namespace TagTool.Geometry
             using (var dataStream = new MemoryStream())
             using (var blamResourceStream = new MemoryStream(resourceData))
             {
-                for (int i = 0; i < geometry.Meshes.Count(); i++)
+                for (int i = 0; i < geometry.Meshes.Count; i++)
                 {
                     var mesh = geometry.Meshes[i];
 
@@ -264,7 +264,7 @@ namespace TagTool.Geometry
                             IndexBufferLength = indexCount,
                         };
 
-                        for (int j = 0; j < mesh.Parts.Count(); j++)
+                        for (int j = 0; j < mesh.Parts.Count; j++)
                         {
                             var part = mesh.Parts[j];
                             waterData.PartData.Add(new Tuple<int, int, bool>(part.FirstIndex, part.IndexCount, part.FlagsNew.HasFlag(Mesh.Part.PartFlagsNew.CanBeRenderedInDrawBundles)));

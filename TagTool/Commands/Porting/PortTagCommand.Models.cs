@@ -7,6 +7,7 @@ using TagTool.Common;
 using TagTool.Geometry;
 using TagTool.IO;
 using TagTool.Serialization;
+using TagTool.Tags;
 using TagTool.Tags.Definitions;
 
 namespace TagTool.Commands.Porting
@@ -528,7 +529,7 @@ namespace TagTool.Commands.Porting
                     if (mesh.RawVertices.Count > 0)
                         continue;
 
-                    mesh.RawVertices = new List<Mesh.RawVertex>(section.TotalVertexCount);
+                    mesh.RawVertices = new TagBlock<Mesh.RawVertex>(section.TotalVertexCount);
 
                     for (var i = 0; i < section.TotalVertexCount; i++)
                         mesh.RawVertices.Add(new Mesh.RawVertex

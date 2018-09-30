@@ -16,12 +16,12 @@ namespace TagTool.Tags.Definitions
         public short GridYDimension;
         public float GridSpacingX;
         public float GridSpacingY;
-        public List<CollisionSphere> CollisionSpheres;
+        public TagBlock<CollisionSphere> CollisionSpheres;
         public ClothProperties Properties;
-        public List<Vertex> Vertices;
+        public TagBlock<Vertex> Vertices;
         public List<short> Indices;
         public List<short> StripIndices;
-        public List<Link> Links;
+        public TagBlock<Link> Links;
 
         [TagStructure(Size = 0x8)]
         public class CollisionSphere : TagStructure

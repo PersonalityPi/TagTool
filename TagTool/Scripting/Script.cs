@@ -13,6 +13,6 @@ namespace TagTool.Scripting
         public ScriptType Type;
         public ScriptValueType ReturnType;
         public uint RootExpressionHandle;
-        public List<ScriptParameter> Parameters;
+        public TagBlock<ScriptParameter> Parameters;
     }
 }

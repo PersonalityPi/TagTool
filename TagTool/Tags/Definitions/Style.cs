@@ -20,8 +20,8 @@ namespace TagTool.Tags.Definitions
         [TagField(Length = 7)]
         public int[] Behaviors = new int[7];
 
-        public List<SpecialMovementBlock> SpecialMovement;
-        public List<BehaviorListBlock> BehaviorList;
+        public TagBlock<SpecialMovementBlock> SpecialMovement;
+        public TagBlock<BehaviorListBlock> BehaviorList;
 
         public enum CombatStatusDecayOptionsValue : short
         {

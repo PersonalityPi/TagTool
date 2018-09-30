@@ -8,8 +8,8 @@ namespace TagTool.Audio
     [TagStructure(Size = 0x30, MinVersion = CacheVersion.HaloOnline106708)]
     public class Promotion : TagStructure
 	{
-        public List<Rule> Rules;
-        public List<RuntimeTimer> RuntimeTimers;
+        public TagBlock<Rule> Rules;
+        public TagBlock<RuntimeTimer> RuntimeTimers;
         public int Unknown1;
         public uint Unknown2;
         public uint Unknown3;

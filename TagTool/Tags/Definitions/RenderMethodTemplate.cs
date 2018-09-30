@@ -113,13 +113,13 @@ namespace TagTool.Tags.Definitions
         public CachedTagInstance VertexShader;
         public CachedTagInstance PixelShader;
         public ShaderModeBitmask DrawModeBitmask;
-        public List<DrawMode> DrawModes; // Entries in here correspond to an enum in the EXE
-        public List<DrawModeRegisterOffsetBlock> RegisterOffsets;
-        public List<ArgumentMapping> ArgumentMappings;
-        public List<ShaderArgument> VectorArguments;
-        public List<ShaderArgument> IntegerArguments;
-        public List<ShaderArgument> BooleanArguments;
-        public List<ShaderArgument> SamplerArguments;
+        public TagBlock<DrawMode> DrawModes; // Entries in here correspond to an enum in the EXE
+        public TagBlock<DrawModeRegisterOffsetBlock> RegisterOffsets;
+        public TagBlock<ArgumentMapping> ArgumentMappings;
+        public TagBlock<ShaderArgument> VectorArguments;
+        public TagBlock<ShaderArgument> IntegerArguments;
+        public TagBlock<ShaderArgument> BooleanArguments;
+        public TagBlock<ShaderArgument> SamplerArguments;
 
         [TagField(Padding = true, Length = 12)]
         public byte[] Unused;

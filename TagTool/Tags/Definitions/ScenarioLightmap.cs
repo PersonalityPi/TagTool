@@ -13,13 +13,13 @@ namespace TagTool.Tags.Definitions
         public uint Unknown;
 
         [TagField(MaxVersion = CacheVersion.Halo3Retail)]
-        public List<ScenarioLightmapBspData> Lightmaps;
+        public TagBlock<ScenarioLightmapBspData> Lightmaps;
 
-        public List<LightmapDataReference> LightmapDataReferences;
-        public List<TagReferenceBlock> Unknown2;
-        public List<Airprobe> Airprobes;
-        public List<UnknownBlock2> Unknown3;
-        public List<UnknownBlock3> Unknown4;
+        public TagBlock<LightmapDataReference> LightmapDataReferences;
+        public TagBlock<TagReferenceBlock> Unknown2;
+        public TagBlock<Airprobe> Airprobes;
+        public TagBlock<UnknownBlock2> Unknown3;
+        public TagBlock<UnknownBlock3> Unknown4;
 
         public uint Unknown5;
         public uint Unknown6;
@@ -132,7 +132,7 @@ namespace TagTool.Tags.Definitions
             public float Unknown7;
             public float Unknown8;
             public float Unknown9;
-            public List<UnknownBlock> Unknown10;
+            public TagBlock<UnknownBlock> Unknown10;
 
             [TagStructure(Size = 0x54)]
             public class UnknownBlock : TagStructure

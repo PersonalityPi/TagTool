@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using TagTool.Tags;
+using System.Collections;
 
 namespace TagTool.Serialization
 {
@@ -186,89 +187,88 @@ namespace TagTool.Serialization
         /// <param name="valueType">Type of the value.</param>
         private void SerializeComplexValue(CacheVersion version, ISerializationContext context, MemoryStream tagStream, IDataBlock block, object value, TagFieldAttribute valueInfo, Type valueType)
         {
-            if (valueInfo != null && valueInfo.Pointer)
-                SerializeIndirectValue(version, context, tagStream, block, value, valueType);
-            else if (valueType.IsEnum)
-                SerializePrimitiveValue(block.Writer, value, valueType.GetEnumUnderlyingType());
-            else if (valueType == typeof(string))
-                SerializeString(block.Writer, (string)value, valueInfo);
-            else if (valueType == typeof(Tag))
-                SerializeTag(block, (Tag)value);
-            else if (valueType == typeof(CachedTagInstance))
-                SerializeTagReference(context, block.Writer, (CachedTagInstance)value, valueInfo);
-            else if (valueType == typeof(CacheAddress))
-                block.Writer.Write(((CacheAddress)value).Value);
-            else if (valueType == typeof(byte[]))
-            {
-                if (valueInfo.Padding == true || (value == null && valueInfo.Length > 0))
-                    block.Writer.Write(new byte[valueInfo.Length]);
-                else if (valueInfo.Length > 0)
-                    block.Writer.Write((byte[])value);
-                else
-                    SerializeDataReference(tagStream, block, (byte[])value, valueInfo);
-            }
-            else if (valueType == typeof(RealRgbColor))
-                SerializeColor(block, (RealRgbColor)value);
-            else if (valueType == typeof(RealArgbColor))
-                SerializeColor(block, (RealArgbColor)value);
-            else if (valueType == typeof(ArgbColor))
-                SerializeColor(block, (ArgbColor)value);
-            else if (valueType == typeof(ArgbColor))
-                SerializeColor(block, (ArgbColor)value);
-            else if (valueType == typeof(RealEulerAngles2d))
-                SerializeEulerAngles(block, (RealEulerAngles2d)value);
-            else if (valueType == typeof(RealEulerAngles3d))
-                SerializeEulerAngles(block, (RealEulerAngles3d)value);
-            else if (valueType == typeof(Point2d))
-                SerializePoint(block, (Point2d)value);
-            else if (valueType == typeof(Rectangle2d))
-                SerializeRectangle(block, (Rectangle2d)value);
-            else if (valueType == typeof(RealPoint2d))
-                SerializePoint(block, (RealPoint2d)value);
-            else if (valueType == typeof(RealPoint3d))
-                SerializePoint(block, (RealPoint3d)value);
-            else if (valueType == typeof(RealVector2d))
-                SerializeVector(block, (RealVector2d)value);
-            else if (valueType == typeof(RealVector3d))
-                SerializeVector(block, (RealVector3d)value);
-            else if (valueType == typeof(RealQuaternion))
-                SerializeVector(block, (RealQuaternion)value);
-            else if (valueType == typeof(RealPlane2d))
-                SerializePlane(block, (RealPlane2d)value);
-            else if (valueType == typeof(RealPlane3d))
-                SerializePlane(block, (RealPlane3d)value);
-            else if (valueType == typeof(RealMatrix4x3))
-                SerializeMatrix(block, (RealMatrix4x3)value);
-            else if (valueType == typeof(StringId))
-                block.Writer.Write(((StringId)value).Value);
-            else if (valueType == typeof(Angle))
-                block.Writer.Write(((Angle)value).Radians);
-            else if (valueType == typeof(VertexShaderReference))
-                block.Writer.Write(0); // TODO: fix  (not used in halo online)
-            else if (valueType == typeof(PixelShaderReference))
-                block.Writer.Write(0); // TODO: fix  (not used in halo online)
-            else if (valueType.IsArray)
-                SerializeInlineArray(version, context, tagStream, block, (Array)value, valueInfo, valueType);
-            else if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(List<>))
-                SerializeTagBlock(version, context, tagStream, block, value, valueType, valueInfo);
-            else if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(Bounds<>))
-                SerializeRange(version, context, tagStream, block, value);
-            else
-            {
-                if (value == null)
-                    value = Activator.CreateInstance(valueType);
+			if (valueInfo != null && valueInfo.Pointer)
+				SerializeIndirectValue(version, context, tagStream, block, value, valueType);
+			else if (valueType.IsEnum)
+				SerializePrimitiveValue(block.Writer, value, valueType.GetEnumUnderlyingType());
+			else if (valueType == typeof(string))
+				SerializeString(block.Writer, (string)value, valueInfo);
+			else if (valueType == typeof(Tag))
+				SerializeTag(block, (Tag)value);
+			else if (valueType == typeof(CachedTagInstance))
+				SerializeTagReference(context, block.Writer, (CachedTagInstance)value, valueInfo);
+			else if (valueType == typeof(CacheAddress))
+				block.Writer.Write(((CacheAddress)value).Value);
+			else if (valueType == typeof(byte[]))
+			{
+				if (valueInfo.Padding == true || (value == null && valueInfo.Length > 0))
+					block.Writer.Write(new byte[valueInfo.Length]);
+				else if (valueInfo.Length > 0)
+					block.Writer.Write((byte[])value);
+				else
+					SerializeDataReference(tagStream, block, (byte[])value, valueInfo);
+			}
+			else if (valueType == typeof(RealRgbColor))
+				SerializeRealRgbColor(block, (RealRgbColor)value);
+			else if (valueType == typeof(RealArgbColor))
+				SerializeRealArgbColor(block, (RealArgbColor)value);
+			else if (valueType == typeof(ArgbColor))
+				SerializeArgbColor(block, (ArgbColor)value);
+			else if (valueType == typeof(RealEulerAngles2d))
+				SerializeRealEulerAngles2d(block, (RealEulerAngles2d)value);
+			else if (valueType == typeof(RealEulerAngles3d))
+				SerializeRealEulerAngles3d(block, (RealEulerAngles3d)value);
+			else if (valueType == typeof(Point2d))
+				SerializePoint2d(block, (Point2d)value);
+			else if (valueType == typeof(Rectangle2d))
+				SerializeRectangle2d(block, (Rectangle2d)value);
+			else if (valueType == typeof(RealPoint2d))
+				SerializeRealPoint2d(block, (RealPoint2d)value);
+			else if (valueType == typeof(RealPoint3d))
+				SerializeRealPoint3d(block, (RealPoint3d)value);
+			else if (valueType == typeof(RealVector2d))
+				SerializeRealVector2d(block, (RealVector2d)value);
+			else if (valueType == typeof(RealVector3d))
+				SerializeRealVector3d(block, (RealVector3d)value);
+			else if (valueType == typeof(RealQuaternion))
+				SerializeRealQuaternion(block, (RealQuaternion)value);
+			else if (valueType == typeof(RealPlane2d))
+				SerializeRealPlane2d(block, (RealPlane2d)value);
+			else if (valueType == typeof(RealPlane3d))
+				SerializeRealPlane3d(block, (RealPlane3d)value);
+			else if (valueType == typeof(RealMatrix4x3))
+				SerializeRealMatrix4x3(block, (RealMatrix4x3)value);
+			else if (valueType == typeof(StringId))
+				block.Writer.Write(((StringId)value).Value);
+			else if (valueType == typeof(Angle))
+				block.Writer.Write(((Angle)value).Radians);
+			else if (valueType == typeof(VertexShaderReference))
+				block.Writer.Write(0); // TODO: fix  (not used in halo online)
+			else if (valueType == typeof(PixelShaderReference))
+				block.Writer.Write(0); // TODO: fix  (not used in halo online)
+			else if (valueType.IsArray)
+				SerializeInlineArray(version, context, tagStream, block, (Array)value, valueInfo, valueType);
+			else if (typeof(TagBlock).IsAssignableFrom(valueType))
+				SerializeTagBlock(version, context, tagStream, block, (TagBlock)value, valueType, valueInfo);
+			else if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(Bounds<>))
+				SerializeRange(version, context, tagStream, block, value);
+			else
+			{
+				if (value == null)
+					value = Activator.CreateInstance(valueType);
 
-                SerializeStruct(context, tagStream, block, TagStructure.GetTagStructureInfo(valueType, version), value);
-            }
-        }
+				SerializeStruct(context, tagStream, block, TagStructure.GetTagStructureInfo(valueType, version), value);
+			}
 
-        /// <summary>
-        /// Serializes a string.
-        /// </summary>
-        /// <param name="writer">The writer to write to.</param>
-        /// <param name="str">The string to serialize.</param>
-        /// <param name="valueInfo">Information about the value.</param>
-        private void SerializeString(BinaryWriter writer, string str, TagFieldAttribute valueInfo)
+		}
+
+		/// <summary>
+		/// Serializes a string.
+		/// </summary>
+		/// <param name="writer">The writer to write to.</param>
+		/// <param name="str">The string to serialize.</param>
+		/// <param name="valueInfo">Information about the value.</param>
+		private void SerializeString(BinaryWriter writer, string str, TagFieldAttribute valueInfo)
         {
             if (valueInfo == null || valueInfo.Length == 0)
                 throw new ArgumentException("Cannot serialize a string with no length set");
@@ -378,64 +378,44 @@ namespace TagTool.Serialization
                 SerializeValue(version, context, tagStream, block, element, null, elementType);
         }
 
-        /// <summary>
-        /// Serializes a tag block.
-        /// </summary>
-        /// <param name="version"></param>
-        /// <param name="context">The serialization context to use.</param>
-        /// <param name="tagStream">The stream to write completed blocks of tag data to.</param>
-        /// <param name="block">The temporary block to write incomplete tag data to.</param>
-        /// <param name="list">The list of values in the tag block.</param>
-        /// <param name="listType">Type of the list.</param>
-        /// <param name="valueInfo">Information about the value. Can be <c>null</c>.</param>
-        private void SerializeTagBlock(CacheVersion version, ISerializationContext context, MemoryStream tagStream, IDataBlock block, object list, Type listType, TagFieldAttribute valueInfo)
-        {
-            var writer = block.Writer;
-            var count = 0;
-            if (list != null)
-            {
-                // Use reflection to get the number of elements in the list
-                var countProperty = listType.GetProperty("Count");
-                count = (int)countProperty.GetValue(list);
-            }
-            if (count == 0)
-            {
-                writer.Write(0);
-                writer.Write(0);
-                writer.Write(0);
-                return;
-            }
+		/// <summary>
+		/// Serializes a tag block.
+		/// </summary>
+		/// <param name="version"></param>
+		/// <param name="context">The serialization context to use.</param>
+		/// <param name="tagStream">The stream to write completed blocks of tag data to.</param>
+		/// <param name="block">The temporary block to write incomplete tag data to.</param>
+		/// <param name="tagBlock">The list of values in the tag block.</param>
+		/// <param name="tagBlockType">Type of the list.</param>
+		/// <param name="valueInfo">Information about the value. Can be <c>null</c>.</param>
+		private void SerializeTagBlock(CacheVersion version, ISerializationContext context, MemoryStream tagStream, IDataBlock block, TagBlock tagBlock, Type tagBlockType, TagFieldAttribute valueInfo)
+		{
+			var writer = block.Writer;
 
-            var elementType = listType.GenericTypeArguments[0];
-            TagStructureAttribute structure;
+			if (tagBlock is null || tagBlock.Count == 0)
+			{
+				writer.Write(0);
+				writer.Write(0);
+				writer.Write(0);
+				return;
+			}
 
-            try
-            {
-                structure = TagStructure.GetTagStructureInfo(elementType, Version).Structure;
-            }
-            catch
-            {
-                structure = null;
-            }
-            
-            // Serialize each value in the list to a data block
-            var tagBlock = context.CreateBlock();
-            var enumerableList = (System.Collections.IEnumerable)list;
+			// Serialize each value in the list to a data block
+			var dataBlock = context.CreateBlock();
+			foreach (var element in tagBlock)
+				SerializeValue(version, context, tagStream, dataBlock, element, null, tagBlock.ElementType);
 
-            foreach (var val in enumerableList)
-                SerializeValue(version, context, tagStream, tagBlock, val, null, elementType);
+			// Ensure the block is aligned correctly
+			var align = Math.Max(DefaultBlockAlign, (valueInfo != null) ? valueInfo.Align : 0);
+			StreamUtil.Align(tagStream, (int)align);
 
-            // Ensure the block is aligned correctly
-            var align = Math.Max(DefaultBlockAlign, (valueInfo != null) ? valueInfo.Align : 0);
-            StreamUtil.Align(tagStream, (int)align);
+			// Finalize the block and write the tag block reference
+			writer.Write(tagBlock.Count);
+			block.WritePointer(dataBlock.Finalize(tagStream), tagBlockType);
+			writer.Write(0);
+		}
 
-            // Finalize the block and write the tag block reference
-            writer.Write(count);
-            block.WritePointer(tagBlock.Finalize(tagStream), listType);
-            writer.Write(0);
-        }
-
-        private void SerializeIndirectValue(CacheVersion version, ISerializationContext context, MemoryStream tagStream, IDataBlock block, object val, Type valueType)
+		private void SerializeIndirectValue(CacheVersion version, ISerializationContext context, MemoryStream tagStream, IDataBlock block, object val, Type valueType)
         {
             var writer = block.Writer;
             if (val == null)
@@ -452,22 +432,14 @@ namespace TagTool.Serialization
             block.WritePointer(valueBlock.Finalize(tagStream), valueType);
         }
 
-        private void SerializeColor(IDataBlock block, RealRgbColor color)
+        private void SerializeRealRgbColor(IDataBlock block, RealRgbColor color)
         {
             block.Writer.Write(color.Red);
             block.Writer.Write(color.Green);
             block.Writer.Write(color.Blue);
         }
 
-        private void SerializeColor(IDataBlock block, RealArgbColor color)
-        {
-            block.Writer.Write(color.Alpha);
-            block.Writer.Write(color.Red);
-            block.Writer.Write(color.Green);
-            block.Writer.Write(color.Blue);
-        }
-
-        private void SerializeColor(IDataBlock block, ArgbColor color)
+        private void SerializeRealArgbColor(IDataBlock block, RealArgbColor color)
         {
             block.Writer.Write(color.Alpha);
             block.Writer.Write(color.Red);
@@ -475,26 +447,34 @@ namespace TagTool.Serialization
             block.Writer.Write(color.Blue);
         }
 
-        private void SerializeEulerAngles(IDataBlock block, RealEulerAngles2d angles)
+        private void SerializeArgbColor(IDataBlock block, ArgbColor color)
+        {
+            block.Writer.Write(color.Alpha);
+            block.Writer.Write(color.Red);
+            block.Writer.Write(color.Green);
+            block.Writer.Write(color.Blue);
+        }
+
+        private void SerializeRealEulerAngles2d(IDataBlock block, RealEulerAngles2d angles)
         {
             block.Writer.Write(angles.Yaw.Radians);
             block.Writer.Write(angles.Pitch.Radians);
         }
 
-        private void SerializeEulerAngles(IDataBlock block, RealEulerAngles3d angles)
+        private void SerializeRealEulerAngles3d(IDataBlock block, RealEulerAngles3d angles)
         {
             block.Writer.Write(angles.Yaw.Radians);
             block.Writer.Write(angles.Pitch.Radians);
             block.Writer.Write(angles.Roll.Radians);
         }
 
-        private void SerializePoint(IDataBlock block, Point2d point)
+        private void SerializePoint2d(IDataBlock block, Point2d point)
         {
             block.Writer.Write(point.X);
             block.Writer.Write(point.Y);
         }
 
-        private void SerializeRectangle(IDataBlock block, Rectangle2d rect)
+        private void SerializeRectangle2d(IDataBlock block, Rectangle2d rect)
         {
             block.Writer.Write(rect.Top);
             block.Writer.Write(rect.Left);
@@ -502,33 +482,33 @@ namespace TagTool.Serialization
             block.Writer.Write(rect.Right);
         }
 
-        private void SerializePoint(IDataBlock block, RealPoint2d point)
+        private void SerializeRealPoint2d(IDataBlock block, RealPoint2d point)
         {
             block.Writer.Write(point.X);
             block.Writer.Write(point.Y);
         }
 
-        private void SerializePoint(IDataBlock block, RealPoint3d point)
+        private void SerializeRealPoint3d(IDataBlock block, RealPoint3d point)
         {
             block.Writer.Write(point.X);
             block.Writer.Write(point.Y);
             block.Writer.Write(point.Z);
         }
 
-        private void SerializeVector(IDataBlock block, RealVector2d vec)
+        private void SerializeRealVector2d(IDataBlock block, RealVector2d vec)
         {
             block.Writer.Write(vec.I);
             block.Writer.Write(vec.J);
         }
 
-        private void SerializeVector(IDataBlock block, RealVector3d vec)
+        private void SerializeRealVector3d(IDataBlock block, RealVector3d vec)
         {
             block.Writer.Write(vec.I);
             block.Writer.Write(vec.J);
             block.Writer.Write(vec.K);
         }
 
-        private void SerializeVector(IDataBlock block, RealQuaternion vec)
+        private void SerializeRealQuaternion(IDataBlock block, RealQuaternion vec)
         {
             block.Writer.Write(vec.I);
             block.Writer.Write(vec.J);
@@ -536,14 +516,14 @@ namespace TagTool.Serialization
             block.Writer.Write(vec.W);
         }
         
-        private void SerializePlane(IDataBlock block, RealPlane2d plane)
+        private void SerializeRealPlane2d(IDataBlock block, RealPlane2d plane)
         {
             block.Writer.Write(plane.I);
             block.Writer.Write(plane.J);
             block.Writer.Write(plane.D);
         }
 
-        private void SerializePlane(IDataBlock block, RealPlane3d plane)
+        private void SerializeRealPlane3d(IDataBlock block, RealPlane3d plane)
         {
             block.Writer.Write(plane.I);
             block.Writer.Write(plane.J);
@@ -551,7 +531,7 @@ namespace TagTool.Serialization
             block.Writer.Write(plane.D);
         }
 
-        private void SerializeMatrix(IDataBlock block, RealMatrix4x3 mat)
+        private void SerializeRealMatrix4x3(IDataBlock block, RealMatrix4x3 mat)
         {
             block.Writer.Write(mat.m11);
             block.Writer.Write(mat.m12);

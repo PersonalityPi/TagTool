@@ -75,7 +75,7 @@ namespace TagTool.Commands.Sounds
                         Type = TagResourceType.Sound,
                         DefinitionData = new byte[20],
                         DefinitionAddress = new CacheAddress(CacheAddressType.Definition, 536870912),
-                        ResourceFixups = new List<TagResource.ResourceFixup>
+                        ResourceFixups = new TagBlock<TagResource.ResourceFixup>
                         {
                             new TagResource.ResourceFixup
                             {
@@ -83,7 +83,7 @@ namespace TagTool.Commands.Sounds
                                 Address = new CacheAddress(CacheAddressType.Resource, 1073741824)
                             }
                         },
-                        ResourceDefinitionFixups = new List<TagResource.ResourceDefinitionFixup>(),
+                        ResourceDefinitionFixups = new TagBlock<TagResource.ResourceDefinitionFixup>(),
                         Unknown2 = 1
                     }
                 };
@@ -109,7 +109,7 @@ namespace TagTool.Commands.Sounds
 
             var permutation = Definition.PitchRanges[0].Permutations[0];
 
-            permutation.PermutationChunks = new List<PermutationChunk>
+            permutation.PermutationChunks = new TagBlock<PermutationChunk>
             {
                 permutationChunk
             };
@@ -118,7 +118,7 @@ namespace TagTool.Commands.Sounds
             permutation.SampleSize = 0;
             permutation.IsNotFirstPermutation = 0;
 
-            Definition.PitchRanges[0].Permutations = new List<Permutation>
+            Definition.PitchRanges[0].Permutations = new TagBlock<Permutation>
             {
                 permutation
             };

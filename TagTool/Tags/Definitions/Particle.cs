@@ -10,7 +10,7 @@ namespace TagTool.Tags.Definitions
     public class Particle : TagStructure
 	{
         public int Flags;
-        public List<Attachment> Attachments;
+        public TagBlock<Attachment> Attachments;
         public AppearanceFlagsValue AppearanceFlags;
         public ParticleBillboardStyleValue ParticleBillboardStyle;
         public short RuntimeMTextureArraySize;
@@ -36,8 +36,8 @@ namespace TagTool.Tags.Definitions
         public uint RuntimeMUsedParticleStates;
         public uint RuntimeMConstantPerParticleProperties;
         public uint RuntimeMConstantOverTimeProperties;
-        public List<RuntimeMSpritesBlock> RuntimeMSprites;
-        public List<RuntimeMFramesBlock> RuntimeMFrames;
+        public TagBlock<RuntimeMSpritesBlock> RuntimeMSprites;
+        public TagBlock<RuntimeMFramesBlock> RuntimeMFrames;
 
         [TagField(Padding = true, Length = 12, MinVersion = CacheVersion.HaloOnline106708)]
         public byte[] Unused;

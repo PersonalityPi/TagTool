@@ -21,8 +21,8 @@ namespace TagTool.Tags.Definitions
         public short StandardXBoundsMax;
         public CachedTagInstance Animation;
         public CachedTagInstance Strings;
-        public List<TextWidget> TextWidgets;
-        public List<BitmapWidget> BitmapWidgets;
+        public TagBlock<TextWidget> TextWidgets;
+        public TagBlock<BitmapWidget> BitmapWidgets;
 
         [TagStructure(Size = 0x4C)]
         public class TextWidget : TagStructure

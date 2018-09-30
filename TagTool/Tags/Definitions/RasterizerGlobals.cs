@@ -8,11 +8,11 @@ namespace TagTool.Tags.Definitions
     [TagStructure(Name = "rasterizer_globals", Size = 0xBC, Tag = "rasg", MinVersion = CacheVersion.HaloOnline106708)]
     public class RasterizerGlobals : TagStructure
 	{
-        public List<DefaultBitmap> DefaultBitmaps;
-        public List<DefaultRasterizerBitmap> DefaultRasterizerBitmaps;
+        public TagBlock<DefaultBitmap> DefaultBitmaps;
+        public TagBlock<DefaultRasterizerBitmap> DefaultRasterizerBitmaps;
         public CachedTagInstance VertexShaderSimple;
         public CachedTagInstance PixelShaderSimple;
-        public List<DefaultShader> DefaultShaders;
+        public TagBlock<DefaultShader> DefaultShaders;
         public uint Unknown;
         public uint Unknown2;
         public uint Unknown3;

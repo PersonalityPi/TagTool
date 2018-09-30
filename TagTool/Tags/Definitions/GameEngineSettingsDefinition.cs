@@ -10,17 +10,17 @@ namespace TagTool.Tags.Definitions
     public class GameEngineSettingsDefinition : TagStructure
 	{
         public FlagsValue Flags;
-        public List<TraitProfile> TraitProfiles;
-        public List<SlayerVariant> SlayerVariants;
-        public List<OddballVariant> OddballVariants;
-        public List<CaptureTheFlagVariant> CaptureTheFlagVariants;
-        public List<AssaultVariant> AssaultVariants;
-        public List<InfectionVariant> InfectionVariants;
-        public List<KingOfTheHillVariant> KingOfTheHillVariants;
-        public List<TerritoriesVariant> TerritoriesVariants;
-        public List<JuggernautVariant> JuggernautVariants;
-        public List<VipVariant> VipVariants;
-        public List<SandboxEditorVariant> SandboxEditorVariants;
+        public TagBlock<TraitProfile> TraitProfiles;
+        public TagBlock<SlayerVariant> SlayerVariants;
+        public TagBlock<OddballVariant> OddballVariants;
+        public TagBlock<CaptureTheFlagVariant> CaptureTheFlagVariants;
+        public TagBlock<AssaultVariant> AssaultVariants;
+        public TagBlock<InfectionVariant> InfectionVariants;
+        public TagBlock<KingOfTheHillVariant> KingOfTheHillVariants;
+        public TagBlock<TerritoriesVariant> TerritoriesVariants;
+        public TagBlock<JuggernautVariant> JuggernautVariants;
+        public TagBlock<VipVariant> VipVariants;
+        public TagBlock<SandboxEditorVariant> SandboxEditorVariants;
 
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
         public uint Unknown2;
@@ -37,11 +37,11 @@ namespace TagTool.Tags.Definitions
 		{
             [TagField(Label = true)]
             public StringId Name;
-            public List<ShieldsAndHealthBlock> ShieldsAndHealth;
-            public List<WeaponsAndDamageBlock> WeaponsAndDamage;
-            public List<MovementBlock> Movement;
-            public List<AppearanceBlock> Appearance;
-            public List<Sensor> Sensors;
+            public TagBlock<ShieldsAndHealthBlock> ShieldsAndHealth;
+            public TagBlock<WeaponsAndDamageBlock> WeaponsAndDamage;
+            public TagBlock<MovementBlock> Movement;
+            public TagBlock<AppearanceBlock> Appearance;
+            public TagBlock<Sensor> Sensors;
 
             [TagStructure(Size = 0x8)]
             public class ShieldsAndHealthBlock : TagStructure
@@ -306,10 +306,10 @@ namespace TagTool.Tags.Definitions
             [TagField(Label = true)]
             public StringId Name;
             public StringId Description;
-            public List<GeneralSetting> GeneralSettings;
-            public List<RespawnSetting> RespawnSettings;
-            public List<SocialSetting> SocialSettings;
-            public List<MapOverride> MapOverrides;
+            public TagBlock<GeneralSetting> GeneralSettings;
+            public TagBlock<RespawnSetting> RespawnSettings;
+            public TagBlock<SocialSetting> SocialSettings;
+            public TagBlock<MapOverride> MapOverrides;
 
             [TagStructure(Size = 0x8)]
             public class GeneralSetting : TagStructure

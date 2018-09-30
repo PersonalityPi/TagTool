@@ -32,15 +32,15 @@ namespace TagTool.Commands.Porting
             //ho_cortana_shader.ShaderProperties = shader.ShaderProperties;
 
             var shader_properties = shaderCortana.ShaderProperties[0];
-            shader_properties.ShaderMaps = new List<RenderMethod.ShaderProperty.ShaderMap>();
-            shader_properties.Arguments = new List<RenderMethod.ShaderProperty.Argument>();
-            shader_properties.Unknown = new List<RenderMethod.ShaderProperty.UnknownBlock1>();
-            shader_properties.DrawModes = new List<RenderMethodTemplate.DrawMode>();
-            shader_properties.Unknown3 = new List<RenderMethod.ShaderProperty.UnknownBlock3>();
-            shader_properties.ArgumentMappings = new List<RenderMethod.ShaderProperty.ArgumentMapping>();
-            shader_properties.Functions = new List<RenderMethod.FunctionBlock>();
+            shader_properties.ShaderMaps = new TagBlock<RenderMethod.ShaderProperty.ShaderMap>();
+            shader_properties.Arguments = new TagBlock<RenderMethod.ShaderProperty.Argument>();
+            shader_properties.Unknown = new TagBlock<RenderMethod.ShaderProperty.UnknownBlock1>();
+            shader_properties.DrawModes = new TagBlock<RenderMethodTemplate.DrawMode>();
+            shader_properties.Unknown3 = new TagBlock<RenderMethod.ShaderProperty.UnknownBlock3>();
+            shader_properties.ArgumentMappings = new TagBlock<RenderMethod.ShaderProperty.ArgumentMapping>();
+            shader_properties.Functions = new TagBlock<RenderMethod.FunctionBlock>();
 
-            List<RenderMethodOption.OptionBlock> templateOptions = new List<RenderMethodOption.OptionBlock>();
+            TagBlock<RenderMethodOption.OptionBlock> templateOptions = new TagBlock<RenderMethodOption.OptionBlock>();
 
             for (int i = 0; i < rmdf.Methods.Count; i++)
             {
@@ -76,10 +76,10 @@ namespace TagTool.Commands.Porting
             }
             //shader_properties.DrawModes = rmt2.DrawModes;
 
-            var shaderFunctions = new List<RenderMethod.FunctionBlock>();
-            var shaderVectorArguments = new RenderMethod.ShaderProperty.Argument[rmt2.VectorArguments.Count];
+            var shaderFunctions = new TagBlock<RenderMethod.FunctionBlock>();
+            var shaderVectorArguments = new TagBlock<RenderMethod.ShaderProperty.Argument>(rmt2.VectorArguments.Count);
 
-            var shaderSamplerArguments = new RenderMethod.ShaderProperty.ShaderMap[rmt2.SamplerArguments.Count];
+            var shaderSamplerArguments = new TagBlock<RenderMethod.ShaderProperty.ShaderMap>(rmt2.SamplerArguments.Count);
             for (int rmt2SamplerIndex = 0; rmt2SamplerIndex < rmt2.SamplerArguments.Count; rmt2SamplerIndex++)
             {
                 var rmt2SamplerArgument = rmt2.SamplerArguments[rmt2SamplerIndex];
@@ -135,7 +135,7 @@ namespace TagTool.Commands.Porting
                     shaderSamplerArgument.XFormArgumentIndex = (sbyte)xform_index;
                 }
             }
-            shader_properties.ShaderMaps = shaderSamplerArguments.ToList();
+            shader_properties.ShaderMaps = shaderSamplerArguments;
 
             for (int rmt2ArgumentIndex = 0; rmt2ArgumentIndex < rmt2.VectorArguments.Count; rmt2ArgumentIndex++)
             {
@@ -145,7 +145,7 @@ namespace TagTool.Commands.Porting
                 var shaderArgument = ProcessArgument(vectorArgument, shaderFunctions, templateOptions, shaderCortana);
                 shaderVectorArguments[rmt2ArgumentIndex] = shaderArgument;
             }
-            shader_properties.Arguments = shaderVectorArguments.ToList();
+            shader_properties.Arguments = shaderVectorArguments;
             shader_properties.Functions = shaderFunctions;
 
             if (shaderCortana.Material.Index == 0)
@@ -165,7 +165,7 @@ namespace TagTool.Commands.Porting
 
         }
 
-        private int GetExistingXFormArgumentIndex(StringId name, List<RenderMethodTemplate.ShaderArgument> vectorArguments)
+        private int GetExistingXFormArgumentIndex(StringId name, TagBlock<RenderMethodTemplate.ShaderArgument> vectorArguments)
         {
             int xform_index = -1;
             foreach (var rmt2VectorArgument in vectorArguments)
@@ -182,8 +182,8 @@ namespace TagTool.Commands.Porting
 
         private RenderMethod.ShaderProperty.Argument ProcessArgument(
             RenderMethodTemplate.ShaderArgument vectorArgument,
-            List<RenderMethod.FunctionBlock> shaderFunctions,
-            List<RenderMethodOption.OptionBlock> templateOptions,
+            TagBlock<RenderMethod.FunctionBlock> shaderFunctions,
+			TagBlock<RenderMethodOption.OptionBlock> templateOptions,
             ShaderCortana shaderCortana)
         {
             RenderMethod.ShaderProperty.Argument shaderArgument = new RenderMethod.ShaderProperty.Argument();
@@ -290,7 +290,7 @@ namespace TagTool.Commands.Porting
             return shaderArgument;
         }
 
-        int GetArgumentIndex(string name, List<RenderMethodTemplate.ShaderArgument> args)
+        int GetArgumentIndex(string name, TagBlock<RenderMethodTemplate.ShaderArgument> args)
         {
             int index = -1;
             for (int i = 0; i < args.Count; i++)
@@ -323,16 +323,16 @@ namespace TagTool.Commands.Porting
 
             rmt2.DrawModeBitmask |= RenderMethodTemplate.ShaderModeBitmask.Active_Camo;
 
-            rmt2.VectorArguments = new List<RenderMethodTemplate.ShaderArgument>();
-            rmt2.IntegerArguments = new List<RenderMethodTemplate.ShaderArgument>();
-            rmt2.BooleanArguments = new List<RenderMethodTemplate.ShaderArgument>();
-            rmt2.SamplerArguments = new List<RenderMethodTemplate.ShaderArgument>();
-            rmt2.ArgumentMappings = new List<RenderMethodTemplate.ArgumentMapping>();
-            rmt2.RegisterOffsets = new List<RenderMethodTemplate.DrawModeRegisterOffsetBlock>();
+            rmt2.VectorArguments = new TagBlock<RenderMethodTemplate.ShaderArgument>();
+            rmt2.IntegerArguments = new TagBlock<RenderMethodTemplate.ShaderArgument>();
+            rmt2.BooleanArguments = new TagBlock<RenderMethodTemplate.ShaderArgument>();
+            rmt2.SamplerArguments = new TagBlock<RenderMethodTemplate.ShaderArgument>();
+            rmt2.ArgumentMappings = new TagBlock<RenderMethodTemplate.ArgumentMapping>();
+            rmt2.RegisterOffsets = new TagBlock<RenderMethodTemplate.DrawModeRegisterOffsetBlock>();
 
-            pixl.Shaders = new List<PixelShaderBlock>();
-            pixl.DrawModes = new List<ShaderDrawMode>();
-            rmt2.DrawModes = new List<RenderMethodTemplate.DrawMode>();
+            pixl.Shaders = new TagBlock<PixelShaderBlock>();
+            pixl.DrawModes = new TagBlock<ShaderDrawMode>();
+            rmt2.DrawModes = new TagBlock<RenderMethodTemplate.DrawMode>();
             foreach (RenderMethodTemplate.ShaderMode mode in Enum.GetValues(typeof(RenderMethodTemplate.ShaderMode)))
             {
                 var pixelShaderDrawmode = new ShaderDrawMode();
@@ -345,7 +345,7 @@ namespace TagTool.Commands.Porting
                     (HaloShaderGenerator.Enums.ShaderStage)(int)mode
                     )) continue;
 
-                rmt2Drawmode.Offset = (ushort)rmt2.RegisterOffsets.Count();
+                rmt2Drawmode.Offset = (ushort)rmt2.RegisterOffsets.Count;
                 rmt2Drawmode.Count = 1;
 
 
@@ -470,7 +470,7 @@ namespace TagTool.Commands.Porting
             var pixelShaderBlock = new PixelShaderBlock
             {
                 PCShaderBytecode = shader_gen_result.Bytecode,
-                PCParameters = new List<ShaderParameter>()
+                PCParameters = new TagBlock<ShaderParameter>()
             };
 
             foreach (var register in shader_gen_result.Registers)

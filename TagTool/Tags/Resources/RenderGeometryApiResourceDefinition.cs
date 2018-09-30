@@ -19,12 +19,12 @@ namespace TagTool.Tags.Resources
         /// <summary>
         /// The vertex buffer definitions for the model data.
         /// </summary>
-        public List<TagStructureReference<VertexBufferDefinition>> VertexBuffers;
+        public TagBlock<TagStructureReference<VertexBufferDefinition>> VertexBuffers;
 
         /// <summary>
         /// The index buffer definitions for the model data.
         /// </summary>
-        public List<TagStructureReference<IndexBufferDefinition>> IndexBuffers;
+        public TagBlock<TagStructureReference<IndexBufferDefinition>> IndexBuffers;
     }
 
     /// <summary>

@@ -51,31 +51,31 @@ namespace TagTool.Tags.Definitions
         [TagField(MinVersion = CacheVersion.Halo3Retail)]
         public CachedTagInstance LodModel;
 
-        public List<Variant> Variants;
+        public TagBlock<Variant> Variants;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<UnknownBlock> Unknown;
+        public TagBlock<UnknownBlock> Unknown;
 
         [TagField(MinVersion = CacheVersion.Halo3Retail)]
-        public List<InstanceGroup> InstanceGroups;
+        public TagBlock<InstanceGroup> InstanceGroups;
 
-        public List<Material> Materials;
+        public TagBlock<Material> Materials;
 
-        public List<GlobalDamageInfoBlock> NewDamageInfo;
+        public TagBlock<GlobalDamageInfoBlock> NewDamageInfo;
 
-        public List<Target> Targets;
+        public TagBlock<Target> Targets;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST, MaxVersion = CacheVersion.Halo3ODST)]
-        public List<UnknownTarget> UnknownTargets;
+        public TagBlock<UnknownTarget> UnknownTargets;
 
-        public List<CollisionRegion> CollisionRegions;
+        public TagBlock<CollisionRegion> CollisionRegions;
 
-        public List<Node> Nodes;
+        public TagBlock<Node> Nodes;
 
         [TagField(Padding = true, Length = 4)]
         public byte[] Unused4;
 
-        public List<ModelObjectDatum> ModelObjectData;
+        public TagBlock<ModelObjectDatum> ModelObjectData;
 
         public CachedTagInstance PrimaryDialogue;
 
@@ -96,7 +96,7 @@ namespace TagTool.Tags.Definitions
         [TagField(MinVersion = CacheVersion.HaloOnline498295)]
         public uint Unknown3; // TODO: Version number
 
-        public List<ScenarioLoadParametersBlock> ScenarioLoadParameters;
+        public TagBlock<ScenarioLoadParametersBlock> ScenarioLoadParameters;
 
         [TagField(MaxVersion = CacheVersion.Halo2Vista)]
         public CachedTagInstance HologramShader;
@@ -114,13 +114,13 @@ namespace TagTool.Tags.Definitions
         public short Unknown5;
 
         [TagField(MinVersion = CacheVersion.Halo3Retail)]
-        public List<UnknownBlock2> Unknown6;
+        public TagBlock<UnknownBlock2> Unknown6;
 
         [TagField(MinVersion = CacheVersion.Halo3Retail)]
-        public List<UnknownBlock3> Unknown7;
+        public TagBlock<UnknownBlock3> Unknown7;
 
         [TagField(MinVersion = CacheVersion.Halo3Retail)]
-        public List<UnknownBlock4> Unknown8;
+        public TagBlock<UnknownBlock4> Unknown8;
 
         [TagField(MinVersion = CacheVersion.Halo3Retail)]
         public CachedTagInstance ShieldImpactThirdPerson;
@@ -175,8 +175,8 @@ namespace TagTool.Tags.Definitions
             [TagField(Length = 16)]
             public sbyte[] ModelRegionIndices = new sbyte[16];
 
-            public List<Region> Regions;
-            public List<Object> Objects;
+            public TagBlock<Region> Regions;
+            public TagBlock<Object> Objects;
             public int InstanceGroupIndex;
             public uint Unknown6;
 
@@ -208,7 +208,7 @@ namespace TagTool.Tags.Definitions
                 [TagField(MinVersion = CacheVersion.Halo3Retail)]
                 public sbyte Unknown3;
 
-                public List<Permutation> Permutations;
+                public TagBlock<Permutation> Permutations;
 
                 [TagField(MinVersion = CacheVersion.Halo3Retail)]
                 public SortOrderValue SortOrder;
@@ -231,7 +231,7 @@ namespace TagTool.Tags.Definitions
                     public byte[] Unused;
 
                     public float Probability;
-                    public List<State> States;
+                    public TagBlock<State> States;
 
                     [TagField(Length = 12)]
                     public sbyte[] RuntimeStatePermutationIndices = new sbyte[12];
@@ -321,7 +321,7 @@ namespace TagTool.Tags.Definitions
 		{
             public StringId Name;
             public ChoiceValue Choice;
-            public List<InstanceMember> InstanceMembers;
+            public TagBlock<InstanceMember> InstanceMembers;
             public float Probability;
 
             public enum ChoiceValue : int
@@ -476,14 +476,14 @@ namespace TagTool.Tags.Definitions
             public CachedTagInstance ShieldDamagedEffect;
             public CachedTagInstance ShieldDepletedEffect;
             public CachedTagInstance ShieldRechargingEffect;
-            public List<DamageSection> DamageSections;
-            public List<Node> Nodes;
+            public TagBlock<DamageSection> DamageSections;
+            public TagBlock<Node> Nodes;
             public short GlobalShieldMaterialIndex;
             public short GlobalIndirectMaterialIndex;
             public uint Unknown25;
             public uint Unknown26;
-            public List<DamageSeat> DamageSeats;
-            public List<DamageConstraint> DamageConstraints;
+            public TagBlock<DamageSeat> DamageSeats;
+            public TagBlock<DamageConstraint> DamageConstraints;
 
             [TagField(MaxVersion = CacheVersion.Halo2Vista)]
             public CachedTagInstance OvershieldFirstPersonShader;
@@ -588,7 +588,7 @@ namespace TagTool.Tags.Definitions
                 public StringId Name;
                 public FlagsValue Flags;
                 public float VitalityPercentage;
-                public List<InstantResponse> InstantResponses;
+                public TagBlock<InstantResponse> InstantResponses;
                 public uint Unknown;
                 public uint Unknown2;
                 public uint Unknown3;
@@ -800,7 +800,7 @@ namespace TagTool.Tags.Definitions
                 public float MinimumTransferDamageScale;
 
                 [TagField(MinVersion = CacheVersion.Halo3Retail)]
-                public List<RegionSpecificDamageBlock> RegionSpecificDamage;
+                public TagBlock<RegionSpecificDamageBlock> RegionSpecificDamage;
 
                 [TagStructure(Size = 0x2C)]
                 public class RegionSpecificDamageBlock : TagStructure
@@ -916,7 +916,7 @@ namespace TagTool.Tags.Definitions
             public sbyte PhysicsRegionIndex;
             public sbyte Unknown;
             public sbyte Unknown2;
-            public List<Permutation> Permutations;
+            public TagBlock<Permutation> Permutations;
 
             [TagStructure(Size = 0x8)]
             public class Permutation : TagStructure

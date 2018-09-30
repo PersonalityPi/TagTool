@@ -13,44 +13,44 @@ namespace TagTool.Geometry
     [TagStructure(Size = 0x4C, MinVersion = CacheVersion.Halo3Retail)]
     public class Mesh : TagStructure
 	{
-        public List<Part> Parts;
-        public List<SubPart> SubParts;
+        public TagBlock<Part> Parts;
+        public TagBlock<SubPart> SubParts;
 
         [TagField(MaxVersion = CacheVersion.Halo2Vista)]
-        public List<VisibilityBinding> VisibilityBounds;
+        public TagBlock<VisibilityBinding> VisibilityBounds;
 
         [TagField(MaxVersion = CacheVersion.Halo2Vista)]
-        public List<RawVertex> RawVertices;
+        public TagBlock<RawVertex> RawVertices;
 
         [TagField(MaxVersion = CacheVersion.Halo2Vista)]
-        public List<StripIndex> StripIndices;
+        public TagBlock<StripIndex> StripIndices;
 
         [TagField(MaxVersion = CacheVersion.Halo2Vista)]
         public byte[] VisibilityMoppCodeData;
 
         [TagField(MaxVersion = CacheVersion.Halo2Vista)]
-        public List<StripIndex> MoppReorderTable;
+        public TagBlock<StripIndex> MoppReorderTable;
 
         [TagField(MaxVersion = CacheVersion.Halo2Vista)]
-        public List<VertexBuffer> VertexBuffers;
+        public TagBlock<VertexBuffer> VertexBuffers;
 
         [TagField(Padding = true, Length = 4, MaxVersion = CacheVersion.Halo2Vista)]
         public byte[] Unused1;
 
         [TagField(MaxVersion = CacheVersion.Halo2Vista)]
-        public List<RawPoint> RawPoints;
+        public TagBlock<RawPoint> RawPoints;
 
         [TagField(MaxVersion = CacheVersion.Halo2Vista)]
         public byte[] RuntimePointData;
 
         [TagField(MaxVersion = CacheVersion.Halo2Vista)]
-        public List<RigidPointGroup> RigidPointGroups;
+        public TagBlock<RigidPointGroup> RigidPointGroups;
 
         [TagField(MaxVersion = CacheVersion.Halo2Vista)]
-        public List<PointDataIndex> VertexPointIndices;
+        public TagBlock<PointDataIndex> VertexPointIndices;
 
         [TagField(MaxVersion = CacheVersion.Halo2Vista)]
-        public List<NodeMapping> NodeMap;
+        public TagBlock<NodeMapping> NodeMap;
 
         [TagField(Padding = true, Length = 4, MaxVersion = CacheVersion.Halo2Vista)]
         public byte[] Unused2 = new byte[4];
@@ -80,10 +80,10 @@ namespace TagTool.Geometry
         public byte[] Unused3;
 
         [TagField(MinVersion = CacheVersion.Halo3Retail)]
-        public List<InstancedGeometryBlock> InstancedGeometry;
+        public TagBlock<InstancedGeometryBlock> InstancedGeometry;
 
         [TagField(MinVersion = CacheVersion.Halo3Retail)]
-        public List<WaterBlock> Water;
+        public TagBlock<WaterBlock> Water;
 
         /// <summary>
         /// Associates geometry with a specific material.
@@ -340,7 +340,7 @@ namespace TagTool.Geometry
 		{
             public short Section1;
             public short Section2;
-            public List<ContentsBlock> Contents;
+            public TagBlock<ContentsBlock> Contents;
 
             [TagStructure(Size = 0x2)]
 			public /*was_struct*/ class ContentsBlock : TagStructure

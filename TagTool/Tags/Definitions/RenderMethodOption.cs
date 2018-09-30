@@ -8,7 +8,7 @@ namespace TagTool.Tags.Definitions
     [TagStructure(Name = "render_method_option", Tag = "rmop", Size = 0x18, MinVersion = CacheVersion.HaloOnline106708)]
     public class RenderMethodOption : TagStructure
 	{
-        public List<OptionBlock> Options;
+        public TagBlock<OptionBlock> Options;
 
         [TagField(Padding = true, Length = 12, MinVersion = CacheVersion.HaloOnline106708)]
         public byte[] Unused;

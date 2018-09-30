@@ -6,6 +6,8 @@ using System.IO;
 using System.Linq;
 
 using BSP = TagTool.Tags.Definitions.CollisionModel.Region.Permutation.Bsp;
+using TagTool.Tags;
+
 namespace TagTool.Geometry
 {
     public class CollisionGeometryBuilder
@@ -53,7 +55,7 @@ namespace TagTool.Geometry
         /// </summary>
         public long ParseMaterials(CollisionModel coll, BinaryReader reader, int count)
         {
-            coll.Materials = new List<CollisionModel.Material>();
+            coll.Materials = new TagBlock<CollisionModel.Material>();
 
             for (uint i = 0; i < count; ++i)
             {
@@ -83,7 +85,7 @@ namespace TagTool.Geometry
             var permutations_base_addr = reader.BaseStream.Position
                 + count * REGION_TAGBLOCK_SIZE;
 
-            coll.Regions = new List<CollisionModel.Region>();
+            coll.Regions = new TagBlock<CollisionModel.Region>();
 
             for (uint i = 0; i < count; ++i)
             {
@@ -97,13 +99,13 @@ namespace TagTool.Geometry
                     + REGION_PERMUTATION_OFFSET;
 
                 uint n_permutations = (uint)BitConverter.ToInt32(reader.ReadBytes(4).Reverse().ToArray(), 0);
-                region.Permutations = new List<CollisionModel.Region.Permutation>();
+                region.Permutations = new TagBlock<CollisionModel.Region.Permutation>();
 
                 for (uint j = 0; j < n_permutations; ++j)
                 {
                     var permutation = new CollisionModel.Region.Permutation();
                     permutation.Name = new StringId(0x140 + j);
-                    permutation.Bsps = new List<BSP>();
+                    permutation.Bsps = new TagBlock<BSP>();
                     region.Permutations.Add(permutation);
                 }
 
@@ -118,7 +120,7 @@ namespace TagTool.Geometry
         {
             var originalPos = reader.BaseStream.Position;
 
-            coll.PathfindingSpheres = new List<CollisionModel.PathfindingSphere>();
+            coll.PathfindingSpheres = new TagBlock<CollisionModel.PathfindingSphere>();
 
             for (uint i = 0; i < count; ++i)
             {
@@ -152,9 +154,9 @@ namespace TagTool.Geometry
         public long ParseNodes(CollisionModel coll, BinaryReader reader, int count)
         {
             var originalPos = reader.BaseStream.Position;
-            coll.Nodes = new List<CollisionModel.Node>();
+            coll.Nodes = new TagBlock<CollisionModel.Node>();
             //destroy the old list of regions, it may not be fine-grained enough
-            coll.Regions = new List<CollisionModel.Region>();
+            coll.Regions = new TagBlock<CollisionModel.Region>();
 
             var new_region_count = 0;
             var current_bsp_offset = originalPos + (count * NODE_SIZE);
@@ -187,10 +189,10 @@ namespace TagTool.Geometry
 
                     //each bsp is placed into a separate permutation. In h1 ce
                     // a node referencing a region with n permutations has n bsps
-                    region.Permutations = new List<CollisionModel.Region.Permutation>();
+                    region.Permutations = new TagBlock<CollisionModel.Region.Permutation>();
                     CollisionModel.Region.Permutation permutation = new CollisionModel.Region.Permutation();
                     region.Permutations.Add(permutation);
-                    permutation.Bsps = new List<BSP>();
+                    permutation.Bsps = new TagBlock<BSP>();
                     uint n_bsps = (uint)BitConverter.ToInt32(reader.ReadBytes(4).Reverse().ToArray(), 0);
                     for (uint j = 0; j < n_bsps; ++j)
                     {
@@ -248,7 +250,7 @@ namespace TagTool.Geometry
         public long ParseBSP3DNodes(BSP bsp, BinaryReader reader, int count)
         {
             bsp.Geometry = new CollisionGeometry(); // adjusted to current struct
-            bsp.Geometry.Bsp3dNodes = new List<CollisionGeometry.Bsp3dNode>();
+            bsp.Geometry.Bsp3dNodes = new TagBlock<CollisionGeometry.Bsp3dNode>();
             long originalPos = reader.BaseStream.Position;
             for (uint i = 0; i < count; ++i)
             {
@@ -295,7 +297,7 @@ namespace TagTool.Geometry
 
         public long ParsePlanes(BSP bsp, BinaryReader reader, int count)
         {
-            bsp.Geometry.Planes = new List<CollisionGeometry.Plane>();
+            bsp.Geometry.Planes = new TagBlock<CollisionGeometry.Plane>();
             var originalPos = reader.BaseStream.Position;
 
             for (uint i = 0; i < count; ++i)
@@ -306,17 +308,23 @@ namespace TagTool.Geometry
                 var plane_k = BitConverter.ToSingle(reader.ReadBytes(4).Reverse().ToArray(), 0);
                 var plane_d = BitConverter.ToSingle(reader.ReadBytes(4).Reverse().ToArray(), 0);
 
-                var plane = new CollisionGeometry.Plane();
+				var plane = new CollisionGeometry.Plane
+				{
 
-                // ReForge change:
-                // plane.Value.I = plane_i;
-                // plane.Value.J = plane_j;
-                // plane.Value.K = plane_k;
-                // plane.Value.D = plane_d;
+					// ReForge change:
+					// plane.Value.I = plane_i;
+					// plane.Value.J = plane_j;
+					// plane.Value.K = plane_k;
+					// plane.Value.D = plane_d;
 
-                plane.Value = new RealPlane3d { Normal = new RealVector3d(plane_i, plane_j, plane_k), Distance = plane_d };
+					Value = new RealPlane3d
+					{
+						Normal = new RealVector3d(plane_i, plane_j, plane_k),
+						Distance = plane_d
+					}
+				};
 
-                bsp.Geometry.Planes.Add(plane);
+				bsp.Geometry.Planes.Add(plane);
             }
 
             return originalPos + (count * PLANE_SIZE);
@@ -324,7 +332,7 @@ namespace TagTool.Geometry
 
         public long ParseLeaves(BSP bsp, BinaryReader reader, int count)
         {
-            bsp.Geometry.Leaves = new List<CollisionGeometry.Leaf>();
+            bsp.Geometry.Leaves = new TagBlock<CollisionGeometry.Leaf>();
             var originalPos = reader.BaseStream.Position;
 
             for (uint i = 0; i < count; ++i)
@@ -351,7 +359,7 @@ namespace TagTool.Geometry
 
         public long ParseBSP2DReferences(BSP bsp, BinaryReader reader, int count)
         {
-            bsp.Geometry.Bsp2dReferences = new List<CollisionGeometry.Bsp2dReference>();
+            bsp.Geometry.Bsp2dReferences = new TagBlock<CollisionGeometry.Bsp2dReference>();
             var originalPos = reader.BaseStream.Position;
 
             for (uint i = 0; i < count; ++i)
@@ -383,7 +391,7 @@ namespace TagTool.Geometry
 
         public long ParseBSP2DNodes(BSP bsp, BinaryReader reader, int count)
         {
-            bsp.Geometry.Bsp2dNodes = new List<CollisionGeometry.Bsp2dNode>();
+            bsp.Geometry.Bsp2dNodes = new TagBlock<CollisionGeometry.Bsp2dNode>();
             var originalPos = reader.BaseStream.Position;
 
             for (uint i = 0; i < count; ++i)
@@ -421,7 +429,7 @@ namespace TagTool.Geometry
 
         public long ParseSurfaces(BSP bsp, BinaryReader reader, int count)
         {
-            bsp.Geometry.Surfaces = new List<CollisionGeometry.Surface>();
+            bsp.Geometry.Surfaces = new TagBlock<CollisionGeometry.Surface>();
             var originalPos = reader.BaseStream.Position;
 
             for (uint i = 0; i < count; ++i)
@@ -457,7 +465,7 @@ namespace TagTool.Geometry
 
         public long ParseEdges(BSP bsp, BinaryReader reader, int count)
         {
-            bsp.Geometry.Edges = new List<CollisionGeometry.Edge>();
+            bsp.Geometry.Edges = new TagBlock<CollisionGeometry.Edge>();
             var originalPos = reader.BaseStream.Position;
 
             for (uint i = 0; i < count; ++i)
@@ -487,7 +495,7 @@ namespace TagTool.Geometry
 
         public long ParseVertices(BSP bsp, BinaryReader reader, int count)
         {
-            bsp.Geometry.Vertices = new List<CollisionGeometry.Vertex>();
+            bsp.Geometry.Vertices = new TagBlock<CollisionGeometry.Vertex>();
             var originalPos = reader.BaseStream.Position;
 
             for (uint i = 0; i < count; ++i)

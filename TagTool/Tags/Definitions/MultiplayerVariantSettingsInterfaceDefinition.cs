@@ -8,14 +8,14 @@ namespace TagTool.Tags.Definitions
     public class MultiplayerVariantSettingsInterfaceDefinition : TagStructure
 	{
         public int Unknown;
-        public List<GameEngineSetting> GameEngineSettings;
+        public TagBlock<GameEngineSetting> GameEngineSettings;
 
         [TagStructure(Size = 0x14)]
         public class GameEngineSetting : TagStructure
 		{
             public StringId Name;
             public SettingCategoryValue SettingCategory;
-            public List<Option> Options;
+            public TagBlock<Option> Options;
 
             public enum SettingCategoryValue : int
             {

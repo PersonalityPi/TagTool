@@ -24,8 +24,8 @@ namespace TagTool.Tags.Definitions
         [TagField(MinVersion = CacheVersion.HaloOnline498295)]
         public int Unknown11;
 
-        public List<AtmosphereProperty> AtmosphereProperties;
-        public List<UnderwaterBlock> Underwater;
+        public TagBlock<AtmosphereProperty> AtmosphereProperties;
+        public TagBlock<UnderwaterBlock> Underwater;
         
         [TagStructure(Size = 0xA4)]
         public class AtmosphereProperty : TagStructure

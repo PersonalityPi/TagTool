@@ -10,19 +10,19 @@ namespace TagTool.Tags.Definitions
         public StringId ScenarioName;
         public int Unknown1;
 
-        public List<SoundBlock> Sounds;
+        public TagBlock<SoundBlock> Sounds;
 
         public byte[] Data1;
         public byte[] Data2;
         public CachedTagInstance CinematicScene;
         public StringId Name;
 
-        public List<UnknownBlock1> Unknown2;
-        public List<PassBlock> Pass;
+        public TagBlock<UnknownBlock1> Unknown2;
+        public TagBlock<PassBlock> Pass;
 
-        public List<UnknownBlock2> Unknown3;
+        public TagBlock<UnknownBlock2> Unknown3;
 
-        public List<UnknownBlock2> Unknown4;
+        public TagBlock<UnknownBlock2> Unknown4;
 
         [TagStructure(Size = 0x14)]
         public class SoundBlock : TagStructure
@@ -34,29 +34,29 @@ namespace TagTool.Tags.Definitions
         [TagStructure(Size = 0x48)]
         public class UnknownBlock1 : TagStructure
 		{
-            public List<UnknownStandardBlock1> Unknown1;
-            public List<UnknownStandardBlock2> Unknown2;
-            public List<UnknownStandardBlock2> Unknown3;
-            public List<UnknownStandardBlock1> Unknown4;
-            public List<UnknownStandardBlock1> Unknown5;
-            public List<UnknownStandardBlock1> Unknown6;
+            public TagBlock<UnknownStandardBlock1> Unknown1;
+            public TagBlock<UnknownStandardBlock2> Unknown2;
+            public TagBlock<UnknownStandardBlock2> Unknown3;
+            public TagBlock<UnknownStandardBlock1> Unknown4;
+            public TagBlock<UnknownStandardBlock1> Unknown5;
+            public TagBlock<UnknownStandardBlock1> Unknown6;
         }
 
         [TagStructure(Size = 0x30)]
         public class PassBlock : TagStructure
 		{
-            public List<UnknownStandardBlock2> Unknown1;
-            public List<UnknownStandardBlock2> Unknown2;
-            public List<UnknownStandardBlock1> Unknown3;
-            public List<UnknownStandardBlock2> Unknown4;
+            public TagBlock<UnknownStandardBlock2> Unknown1;
+            public TagBlock<UnknownStandardBlock2> Unknown2;
+            public TagBlock<UnknownStandardBlock1> Unknown3;
+            public TagBlock<UnknownStandardBlock2> Unknown4;
         }
 
         [TagStructure(Size = 0x24)]
         public class UnknownBlock2 : TagStructure
 		{
-            public List<UnknownStandardBlock1> Unknown1;
-            public List<UnknownStandardBlock2> Unknown2;
-            public List<UnknownStandardBlock1> Unknown3;
+            public TagBlock<UnknownStandardBlock1> Unknown1;
+            public TagBlock<UnknownStandardBlock2> Unknown2;
+            public TagBlock<UnknownStandardBlock1> Unknown3;
         }
         
         [TagStructure(Size = 0x30)]
@@ -71,7 +71,7 @@ namespace TagTool.Tags.Definitions
             public float Unknown6;
             public float Unknown7;
 
-            public List<TimedTagFunctionBlock> Unknown8;
+            public TagBlock<TimedTagFunctionBlock> Unknown8;
 
             public float Unknown9;
             public float Unknown10;
@@ -79,7 +79,7 @@ namespace TagTool.Tags.Definitions
             [TagStructure(Size = 0x20)]
             public class TimedTagFunctionBlock : TagStructure
 			{
-                public List<UnknownBlock> Unknown1;
+                public TagBlock<UnknownBlock> Unknown1;
                 public TagFunction Unknown2 = new TagFunction { Data = new byte[0] };
 
                 [TagStructure(Size = 0xC)]
@@ -105,7 +105,7 @@ namespace TagTool.Tags.Definitions
             public float Unknown7;
             public float Unknown8;
 
-            public List<TimedTagFunctionBlock> Unknown9;
+            public TagBlock<TimedTagFunctionBlock> Unknown9;
 
             public float Unknown10;
             public float Unknown11;
@@ -115,7 +115,7 @@ namespace TagTool.Tags.Definitions
             [TagStructure(Size = 0x20)]
             public class TimedTagFunctionBlock : TagStructure
 			{
-                public List<UnknownBlock> Unknown1;
+                public TagBlock<UnknownBlock> Unknown1;
                 public TagFunction Unknown2 = new TagFunction { Data = new byte[0] };
 
                 [TagStructure(Size = 0x10)]

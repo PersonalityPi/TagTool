@@ -9,7 +9,7 @@ namespace TagTool.Tags.Definitions
     [TagStructure(Name = "light_volume_system", Tag = "ltvl", Size = 0x14, MinVersion = CacheVersion.HaloOnline106708)]
     public class LightVolumeSystem : TagStructure
 	{
-        public List<LightVolumeSystemBlock> LightVolume;
+        public TagBlock<LightVolumeSystemBlock> LightVolume;
 
         [TagField(Padding = true, Length = 8, MinVersion = CacheVersion.HaloOnline106708)]
         public byte[] Unused1;
@@ -64,9 +64,9 @@ namespace TagTool.Tags.Definitions
             public uint RuntimeMUsedStates;
             public uint RuntimeMMaxProfileCount;
 
-            public List<RuntimeGpuProperty> RuntimeGpuProperties;
-            public List<RuntimeGpuFunction> RuntimeGpuFunctions;
-            public List<RuntimeGpuColor> RuntimeGpuColors;
+            public TagBlock<RuntimeGpuProperty> RuntimeGpuProperties;
+            public TagBlock<RuntimeGpuFunction> RuntimeGpuFunctions;
+            public TagBlock<RuntimeGpuColor> RuntimeGpuColors;
 
             [TagStructure(Size = 0x10)]
             public class RuntimeGpuProperty : TagStructure

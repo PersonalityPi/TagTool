@@ -32,8 +32,8 @@ namespace TagTool.Cache
 
         public CacheAddress DefinitionAddress;
 
-        public List<ResourceFixup> ResourceFixups;
-        public List<ResourceDefinitionFixup> ResourceDefinitionFixups;
+        public TagBlock<ResourceFixup> ResourceFixups;
+        public TagBlock<ResourceDefinitionFixup> ResourceDefinitionFixups;
 
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
         public int Unknown2;

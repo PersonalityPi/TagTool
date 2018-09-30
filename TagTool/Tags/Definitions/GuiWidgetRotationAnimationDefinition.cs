@@ -8,7 +8,7 @@ namespace TagTool.Tags.Definitions
     public class GuiWidgetRotationAnimationDefinition : TagStructure
 	{
         public uint AnimationFlags;
-        public List<AnimationDefinitionBlock> AnimationDefinition;
+        public TagBlock<AnimationDefinitionBlock> AnimationDefinition;
         public TagFunction Function;
 
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]

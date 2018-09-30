@@ -17,7 +17,7 @@ namespace TagTool.Tags.Definitions
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
         public CachedTagInstance HologramUnit;
 
-        public List<MetagameProperty> MetagameProperties;
+        public TagBlock<MetagameProperty> MetagameProperties;
         public CachedTagInstance IntegratedLightToggle;
         public Angle CameraFieldOfView;
         public float CameraStiffness;
@@ -28,11 +28,11 @@ namespace TagTool.Tags.Definitions
         public Angle PitchAutoLevel;
         public Angle PitchRangeMin;
         public Angle PitchRangeMax;
-        public List<CameraTrackBlock> CameraTracks;
+        public TagBlock<CameraTrackBlock> CameraTracks;
         public Angle Unknown7;
         public Angle Unknown8;
         public Angle Unknown9;
-        public List<UnknownBlock> Unknown10;
+        public TagBlock<UnknownBlock> Unknown10;
 
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
         public short Flags3;
@@ -49,7 +49,7 @@ namespace TagTool.Tags.Definitions
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
         public Angle PitchRangeMax2;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<CameraTrackBlock> CameraTracks2;
+        public TagBlock<CameraTrackBlock> CameraTracks2;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
         public Angle Unknown12;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
@@ -57,7 +57,7 @@ namespace TagTool.Tags.Definitions
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
         public Angle Unknown14;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<UnknownBlock2> Unknown15;
+        public TagBlock<UnknownBlock2> Unknown15;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
         public CachedTagInstance AssassinationResponse;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
@@ -109,9 +109,9 @@ namespace TagTool.Tags.Definitions
         public CachedTagInstance AssassinationDamage;
         public MotionSensorBlipSizeValue MotionSensorBlipSize; // short
         public ItemScaleValue ItemScale; // short
-        public List<Posture> Postures;
-        public List<HudInterface> HudInterfaces;
-        public List<DialogueVariant> DialogueVariants;
+        public TagBlock<Posture> Postures;
+        public TagBlock<HudInterface> HudInterfaces;
+        public TagBlock<DialogueVariant> DialogueVariants;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
         public uint Unknown16;
@@ -125,11 +125,11 @@ namespace TagTool.Tags.Definitions
         public float GrenadeVelocity;
         public GrenadeTypeValue GrenadeType; // short
         public short GrenadeCount;
-        public List<PoweredSeat> PoweredSeats;
-        public List<Weapon> Weapons;
+        public TagBlock<PoweredSeat> PoweredSeats;
+        public TagBlock<Weapon> Weapons;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<TargetTrackingBlock> TargetTracking;
-        public List<Seat> Seats;
+        public TagBlock<TargetTrackingBlock> TargetTracking;
+        public TagBlock<Seat> Seats;
         public float EmpRadius;
         public CachedTagInstance EmpEffect;
         public CachedTagInstance BoostCollisionDamage;
@@ -343,7 +343,7 @@ namespace TagTool.Tags.Definitions
         [TagStructure(Size = 0x38)]
         public class TargetTrackingBlock : TagStructure
 		{
-            public List<TrackingType> TrackingTypes;
+            public TagBlock<TrackingType> TrackingTypes;
             public float AcquireTime;
             public float GraceTime;
             public float DecayTime;
@@ -396,11 +396,11 @@ namespace TagTool.Tags.Definitions
             public StringId CameraSubmergedMarkerName;
             public Angle PitchAutoLevel;
             public Bounds<Angle> PitchRange;
-            public List<CameraTrackBlock> CameraTracks;
+            public TagBlock<CameraTrackBlock> CameraTracks;
             public Bounds<Angle> PitchSpringBounds;
             public Angle SpringVelocity;
-            public List<CameraAccelerationBlock> Unknown7;
-            public List<UnitHudInterfaceBlock> UnitHudInterface;
+            public TagBlock<CameraAccelerationBlock> Unknown7;
+            public TagBlock<UnitHudInterfaceBlock> UnitHudInterface;
             public StringId EnterSeatString;
             public Bounds<Angle> YawRange;
             public CachedTagInstance BuiltInGunner;

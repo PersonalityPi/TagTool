@@ -74,7 +74,7 @@ namespace TagTool.Ai
         [TagField(Padding = true, Length = 48, MaxVersion = CacheVersion.Halo3Retail)]
         public byte[] Unused4;
 
-        public List<GravemindPropertyBlock> GravemindProperties;
+        public TagBlock<GravemindPropertyBlock> GravemindProperties;
 
         [TagField(Padding = true, Length = 48, MaxVersion = CacheVersion.Halo3Retail)]
         public byte[] Unused5;
@@ -93,13 +93,13 @@ namespace TagTool.Ai
         public float TaskSearchDuration;
         public float Unknown18;
 
-        public List<TagReferenceBlock> Styles;
+        public TagBlock<TagReferenceBlock> Styles;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<TagReferenceBlock> Formations;
+        public TagBlock<TagReferenceBlock> Formations;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<TagReferenceBlock> SquadTemplates;
+        public TagBlock<TagReferenceBlock> SquadTemplates;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
         public uint Unknown19;

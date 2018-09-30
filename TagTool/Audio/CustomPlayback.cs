@@ -17,7 +17,7 @@ namespace TagTool.Audio
         public FlagsValue Flags;
         public uint Unknown4;
         public uint Unknown5;
-        public List<FilterBlock> Filter;
+        public TagBlock<FilterBlock> Filter;
         public uint Unknown6;
         public uint Unknown7;
         public uint Unknown8;

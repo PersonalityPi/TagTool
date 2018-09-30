@@ -10,7 +10,7 @@ namespace TagTool.Tags.Definitions
         public CachedTagInstance ParticleModel;
         public RealVector3d CompressionScale;
         public RealVector3d CompressionOffset;
-        public List<Point> Points;
+        public TagBlock<Point> Points;
 
         [TagStructure(Size = 0xA)]
         public class Point : TagStructure

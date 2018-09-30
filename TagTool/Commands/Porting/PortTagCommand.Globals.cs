@@ -18,8 +18,9 @@ namespace TagTool.Commands.Porting
             {
                 AiGlobals aigl = new AiGlobals
                 {
-                    Data = new List<AiGlobalsDatum>(),
+                    Data = new TagBlock<AiGlobalsDatum>(),
                 };
+
                 foreach(var value in matg.AiGlobalsOld)
                 {
                     value.SearchRangeInfantry = 30;
@@ -36,14 +37,14 @@ namespace TagTool.Commands.Porting
                 edTag.Name = "globals\ai_globals";
                 CacheContext.Serialize(cacheStream, edTag, aigl);
                 matg.AiGlobals = edTag;
-                matg.AiGlobalsOld = new List<AiGlobalsDatum>();
+                matg.AiGlobalsOld = new TagBlock<AiGlobalsDatum>();
             }
 
             //Might require adding the GfxUiStrings block
 
             if(BlamCache.Version == CacheVersion.Halo3Retail)
             {
-                matg.Unknown60 = new List<Globals.UnknownBlock>
+                matg.Unknown60 = new TagBlock<Globals.UnknownBlock>
                 {
                     new Globals.UnknownBlock
                     {

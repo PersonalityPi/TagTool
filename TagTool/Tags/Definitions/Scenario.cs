@@ -26,7 +26,7 @@ namespace TagTool.Tags.Definitions
         public int MapId;
         public Angle LocalNorth;
         public float SandboxBudget;
-        public List<StructureBspBlock> StructureBsps;
+        public TagBlock<StructureBspBlock> StructureBsps;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST, MaxVersion = CacheVersion.Halo3ODST)]
         public CachedTagInstance ScenarioPda;
@@ -38,14 +38,14 @@ namespace TagTool.Tags.Definitions
         public uint Unknown2;
 
         public CachedTagInstance Unknown;
-        public List<SkyReference> SkyReferences;
-        public List<ZoneSetPotentiallyVisibleSet> ZoneSetPotentiallyVisibleSets;
-        public List<ZoneSetAudibilityBlock> ZoneSetAudibility;
-        public List<ZoneSet> ZoneSets;
-        public List<BspAtlasBlock> BspAtlas;
+        public TagBlock<SkyReference> SkyReferences;
+        public TagBlock<ZoneSetPotentiallyVisibleSet> ZoneSetPotentiallyVisibleSets;
+        public TagBlock<ZoneSetAudibilityBlock> ZoneSetAudibility;
+        public TagBlock<ZoneSet> ZoneSets;
+        public TagBlock<BspAtlasBlock> BspAtlas;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<CampaignPlayer> CampaignPlayers;
+        public TagBlock<CampaignPlayer> CampaignPlayers;
 
         public uint Unknown9;
         public uint Unknown10;
@@ -57,55 +57,55 @@ namespace TagTool.Tags.Definitions
         public uint Unknown16;
         public uint Unknown17;
         public byte[] EditorScenarioData; //Found no example to support that it could be a tagfunction, if you find one let me know : btz
-        public List<Comment> Comments;
-        public List<ObjectName> ObjectNames;
-        public List<SceneryInstance> Scenery;
-        public List<ScenarioPaletteEntry> SceneryPalette;
-        public List<BipedInstance> Bipeds;
-        public List<ScenarioPaletteEntry> BipedPalette;
-        public List<VehicleInstance> Vehicles;
-        public List<ScenarioPaletteEntry> VehiclePalette;
-        public List<EquipmentInstance> Equipment;
-        public List<ScenarioPaletteEntry> EquipmentPalette;
-        public List<WeaponInstance> Weapons;
-        public List<ScenarioPaletteEntry> WeaponPalette;
-        public List<DeviceGroup> DeviceGroups;
-        public List<MachineInstance> Machines;
-        public List<ScenarioPaletteEntry> MachinePalette;
-        public List<TerminalInstance> Terminals;
-        public List<ScenarioPaletteEntry> TerminalPalette;
+        public TagBlock<Comment> Comments;
+        public TagBlock<ObjectName> ObjectNames;
+        public TagBlock<SceneryInstance> Scenery;
+        public TagBlock<ScenarioPaletteEntry> SceneryPalette;
+        public TagBlock<BipedInstance> Bipeds;
+        public TagBlock<ScenarioPaletteEntry> BipedPalette;
+        public TagBlock<VehicleInstance> Vehicles;
+        public TagBlock<ScenarioPaletteEntry> VehiclePalette;
+        public TagBlock<EquipmentInstance> Equipment;
+        public TagBlock<ScenarioPaletteEntry> EquipmentPalette;
+        public TagBlock<WeaponInstance> Weapons;
+        public TagBlock<ScenarioPaletteEntry> WeaponPalette;
+        public TagBlock<DeviceGroup> DeviceGroups;
+        public TagBlock<MachineInstance> Machines;
+        public TagBlock<ScenarioPaletteEntry> MachinePalette;
+        public TagBlock<TerminalInstance> Terminals;
+        public TagBlock<ScenarioPaletteEntry> TerminalPalette;
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<AlternateRealityDeviceInstance> AlternateRealityDevices;
+        public TagBlock<AlternateRealityDeviceInstance> AlternateRealityDevices;
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<ScenarioPaletteEntry> AlternateRealityDevicePalette;
-        public List<ControlInstance> Controls;
-        public List<ScenarioPaletteEntry> ControlPalette;
-        public List<SoundSceneryInstance> SoundScenery;
-        public List<ScenarioPaletteEntry> SoundSceneryPalette;
-        public List<GiantInstance> Giants;
-        public List<ScenarioPaletteEntry> GiantPalette;
-        public List<EffectSceneryInstance> EffectScenery;
-        public List<ScenarioPaletteEntry> EffectSceneryPalette;
-        public List<LightVolumeInstance> LightVolumes;
-        public List<ScenarioPaletteEntry> LightVolumePalette;
-        public List<SandboxObject> SandboxVehicles;
-        public List<SandboxObject> SandboxWeapons;
-        public List<SandboxObject> SandboxEquipment;
-        public List<SandboxObject> SandboxScenery;
-        public List<SandboxObject> SandboxTeleporters;
-        public List<SandboxObject> SandboxGoalObjects;
-        public List<SandboxObject> SandboxSpawning;
-        public List<SoftCeiling> SoftCeilings;
-        public List<PlayerStartingProfileBlock> PlayerStartingProfile;
-        public List<PlayerStartingLocation> PlayerStartingLocations;
-        public List<TriggerVolume> TriggerVolumes;
-        public List<RecordedAnimation> RecordedAnimations;
-        public List<ZoneSetSwitchTriggerVolume> ZonesetSwitchTriggerVolumes;
-        public List<UnknownBlock> Unknown32;
-        public List<UnknownBlock> Unknown33;
-        public List<UnknownBlock> Unknown34;
-        public List<UnknownBlock> Unknown35;
-        public List<UnknownBlock> Unknown36;
+        public TagBlock<ScenarioPaletteEntry> AlternateRealityDevicePalette;
+        public TagBlock<ControlInstance> Controls;
+        public TagBlock<ScenarioPaletteEntry> ControlPalette;
+        public TagBlock<SoundSceneryInstance> SoundScenery;
+        public TagBlock<ScenarioPaletteEntry> SoundSceneryPalette;
+        public TagBlock<GiantInstance> Giants;
+        public TagBlock<ScenarioPaletteEntry> GiantPalette;
+        public TagBlock<EffectSceneryInstance> EffectScenery;
+        public TagBlock<ScenarioPaletteEntry> EffectSceneryPalette;
+        public TagBlock<LightVolumeInstance> LightVolumes;
+        public TagBlock<ScenarioPaletteEntry> LightVolumePalette;
+        public TagBlock<SandboxObject> SandboxVehicles;
+        public TagBlock<SandboxObject> SandboxWeapons;
+        public TagBlock<SandboxObject> SandboxEquipment;
+        public TagBlock<SandboxObject> SandboxScenery;
+        public TagBlock<SandboxObject> SandboxTeleporters;
+        public TagBlock<SandboxObject> SandboxGoalObjects;
+        public TagBlock<SandboxObject> SandboxSpawning;
+        public TagBlock<SoftCeiling> SoftCeilings;
+        public TagBlock<PlayerStartingProfileBlock> PlayerStartingProfile;
+        public TagBlock<PlayerStartingLocation> PlayerStartingLocations;
+        public TagBlock<TriggerVolume> TriggerVolumes;
+        public TagBlock<RecordedAnimation> RecordedAnimations;
+        public TagBlock<ZoneSetSwitchTriggerVolume> ZonesetSwitchTriggerVolumes;
+        public TagBlock<UnknownBlock> Unknown32;
+        public TagBlock<UnknownBlock> Unknown33;
+        public TagBlock<UnknownBlock> Unknown34;
+        public TagBlock<UnknownBlock> Unknown35;
+        public TagBlock<UnknownBlock> Unknown36;
         public uint Unknown45;
         public uint Unknown46;
         public uint Unknown47;
@@ -142,58 +142,58 @@ namespace TagTool.Tags.Definitions
         public uint Unknown78;
         public uint Unknown79;
         public uint Unknown80;
-        public List<Decal> Decals;
-        public List<TagReferenceBlock> DecalPalette;
-        public List<TagReferenceBlock> DetailObjectCollectionPalette;
-        public List<TagReferenceBlock> StylePalette;
-        public List<SquadGroup> SquadGroups;
-        public List<Squad> Squads;
-        public List<Zone> Zones;
+        public TagBlock<Decal> Decals;
+        public TagBlock<TagReferenceBlock> DecalPalette;
+        public TagBlock<TagReferenceBlock> DetailObjectCollectionPalette;
+        public TagBlock<TagReferenceBlock> StylePalette;
+        public TagBlock<SquadGroup> SquadGroups;
+        public TagBlock<Squad> Squads;
+        public TagBlock<Zone> Zones;
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<SquadPatrol> SquadPatrols;
-        public List<MissionScene> MissionScenes;
-        public List<TagReferenceBlock> CharacterPalette;
+        public TagBlock<SquadPatrol> SquadPatrols;
+        public TagBlock<MissionScene> MissionScenes;
+        public TagBlock<TagReferenceBlock> CharacterPalette;
         public uint Unknown88;
         public uint Unknown89;
         public uint Unknown90;
-        public List<AiPathfindingDatum> AiPathfindingData;
+        public TagBlock<AiPathfindingDatum> AiPathfindingData;
         public uint Unknown91;
         public uint Unknown92;
         public uint Unknown93;
         public byte[] ScriptStrings;
-        public List<Script> Scripts;
-        public List<ScriptGlobal> Globals;
-        public List<TagReferenceBlock> ScriptSourceFileReferences;
-        public List<TagReferenceBlock> ScriptExternalFileReferences;
-        public List<ScriptingDatum> ScriptingData;
-        public List<CutsceneFlag> CutsceneFlags;
-        public List<CutsceneCameraPoint> CutsceneCameraPoints;
-        public List<CutsceneTitle> CutsceneTitles;
+        public TagBlock<Script> Scripts;
+        public TagBlock<ScriptGlobal> Globals;
+        public TagBlock<TagReferenceBlock> ScriptSourceFileReferences;
+        public TagBlock<TagReferenceBlock> ScriptExternalFileReferences;
+        public TagBlock<ScriptingDatum> ScriptingData;
+        public TagBlock<CutsceneFlag> CutsceneFlags;
+        public TagBlock<CutsceneCameraPoint> CutsceneCameraPoints;
+        public TagBlock<CutsceneTitle> CutsceneTitles;
         public CachedTagInstance CustomObjectNameStrings;
         public CachedTagInstance ChapterTitleStrings;
         [TagField(MinVersion = CacheVersion.HaloOnline498295)]
         public CachedTagInstance Unknown156;
-        public List<ScenarioResource> ScenarioResources;
-        public List<UnitSeatsMappingBlock> UnitSeatsMapping;
-        public List<ScenarioKillTrigger> ScenarioKillTriggers;
-        public List<ScenarioSafeTrigger> ScenarioSafeTriggers;
-        public List<ScriptExpression> ScriptExpressions;
+        public TagBlock<ScenarioResource> ScenarioResources;
+        public TagBlock<UnitSeatsMappingBlock> UnitSeatsMapping;
+        public TagBlock<ScenarioKillTrigger> ScenarioKillTriggers;
+        public TagBlock<ScenarioSafeTrigger> ScenarioSafeTriggers;
+        public TagBlock<ScriptExpression> ScriptExpressions;
         public uint Unknown97;
         public uint Unknown98;
         public uint Unknown99;
         public uint Unknown100;
         public uint Unknown101;
         public uint Unknown102;
-        public List<BackgroundSoundEnvironmentPaletteBlock> BackgroundSoundEnvironmentPalette;
+        public TagBlock<BackgroundSoundEnvironmentPaletteBlock> BackgroundSoundEnvironmentPalette;
         public uint Unknown103;
         public uint Unknown104;
         public uint Unknown105;
         public uint Unknown106;
         public uint Unknown107;
         public uint Unknown108;
-        public List<UnknownBlock3> Unknown109;
-        public List<FogBlock> Fog;
-        public List<CameraFxBlock> CameraFx;
+        public TagBlock<UnknownBlock3> Unknown109;
+        public TagBlock<FogBlock> Fog;
+        public TagBlock<CameraFxBlock> CameraFx;
         public uint Unknown110;
         public uint Unknown111;
         public uint Unknown112;
@@ -203,35 +203,35 @@ namespace TagTool.Tags.Definitions
         public uint Unknown116;
         public uint Unknown117;
         public uint Unknown118;
-        public List<ScenarioClusterDatum> ScenarioClusterData;
+        public TagBlock<ScenarioClusterDatum> ScenarioClusterData;
         public uint Unknown119;
         public uint Unknown120;
         public uint Unknown121;
         [TagField(Length = 32)]
         public int[] ObjectSalts = new int[32];
-        public List<SpawnDatum> SpawnData;
+        public TagBlock<SpawnDatum> SpawnData;
         public CachedTagInstance SoundEffectsCollection;
-        public List<CrateInstance> Crates;
-        public List<ScenarioPaletteEntry> CratePalette;
-        public List<TagReferenceBlock> FlockPalette;
-        public List<Flock> Flocks;
+        public TagBlock<CrateInstance> Crates;
+        public TagBlock<ScenarioPaletteEntry> CratePalette;
+        public TagBlock<TagReferenceBlock> FlockPalette;
+        public TagBlock<Flock> Flocks;
         public CachedTagInstance SubtitleStrings;
-        public List<CreatureInstance> Creatures;
-        public List<ScenarioPaletteEntry> CreaturePalette;
-        public List<EditorFolder> EditorFolders;
+        public TagBlock<CreatureInstance> Creatures;
+        public TagBlock<ScenarioPaletteEntry> CreaturePalette;
+        public TagBlock<EditorFolder> EditorFolders;
         public CachedTagInstance TerritoryLocationNameStrings;
         public uint Unknown125;
         public uint Unknown126;
-        public List<TagReferenceBlock> MissionDialogue;
+        public TagBlock<TagReferenceBlock> MissionDialogue;
         public CachedTagInstance ObjectiveStrings;
-        public List<Interpolator> Interpolators;
+        public TagBlock<Interpolator> Interpolators;
         public uint Unknown127;
         public uint Unknown128;
         public uint Unknown129;
         public uint Unknown130;
         public uint Unknown131;
         public uint Unknown132;
-        public List<SimulationDefinitionTableBlock> SimulationDefinitionTable;
+        public TagBlock<SimulationDefinitionTableBlock> SimulationDefinitionTable;
         public CachedTagInstance DefaultCameraFx;
         public CachedTagInstance DefaultScreenFx;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
@@ -240,23 +240,23 @@ namespace TagTool.Tags.Definitions
         public CachedTagInstance GlobalLighting;
         public CachedTagInstance Lightmap;
         public CachedTagInstance PerformanceThrottles;
-        public List<AiObjectId> AiObjectIds;
-        public List<AiObjective> AiObjectives;
-        public List<DesignerZoneSet> DesignerZoneSets;
-        public List<UnknownBlock5> Unknown135;
+        public TagBlock<AiObjectId> AiObjectIds;
+        public TagBlock<AiObjective> AiObjectives;
+        public TagBlock<DesignerZoneSet> DesignerZoneSets;
+        public TagBlock<UnknownBlock5> Unknown135;
         public uint Unknown136;
         public uint Unknown137;
         public uint Unknown138;
-        public List<TagReferenceBlock> Cinematics;
-        public List<CinematicLightingBlock> CinematicLighting;
+        public TagBlock<TagReferenceBlock> Cinematics;
+        public TagBlock<CinematicLightingBlock> CinematicLighting;
         public uint Unknown139;
         public uint Unknown140;
         public uint Unknown141;
-        public List<ScenarioMetagameBlock> ScenarioMetagame;
-        public List<UnknownBlock6> Unknown142;
-        public List<UnknownBlock7> Unknown143;
-        public List<TagReferenceBlock> CortanaEffects;
-        public List<LightmapAirprobe> LightmapAirprobes;
+        public TagBlock<ScenarioMetagameBlock> ScenarioMetagame;
+        public TagBlock<UnknownBlock6> Unknown142;
+        public TagBlock<UnknownBlock7> Unknown143;
+        public TagBlock<TagReferenceBlock> CortanaEffects;
+        public TagBlock<LightmapAirprobe> LightmapAirprobes;
         [TagField(Padding = true, Length = 12)]
         public byte[] Unused;
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
@@ -266,7 +266,7 @@ namespace TagTool.Tags.Definitions
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
         public CachedTagInstance MissionVisionMode;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<TagReferenceBlock> Unknown155;
+        public TagBlock<TagReferenceBlock> Unknown155;
 
         [Flags]
         public enum BspFlags : int
@@ -369,9 +369,9 @@ namespace TagTool.Tags.Definitions
             public uint StructureBspMask;
             public short Version;
             public ZoneSetPotentiallyVisibleSetFlags Flags;
-            public List<BspChecksum> BspChecksums;
-            public List<StructureBspPotentiallyVisibleSet> StructureBspPotentiallyVisibleSets;
-            public List<PortalToDeviceMapping> PortalToDeviceMappings;
+            public TagBlock<BspChecksum> BspChecksums;
+            public TagBlock<StructureBspPotentiallyVisibleSet> StructureBspPotentiallyVisibleSets;
+            public TagBlock<PortalToDeviceMapping> PortalToDeviceMappings;
 
             [TagStructure(Size = 0x4)]
             public class BspChecksum : TagStructure
@@ -382,23 +382,23 @@ namespace TagTool.Tags.Definitions
             [TagStructure(Size = 0x54)]
             public class StructureBspPotentiallyVisibleSet : TagStructure
 			{
-                public List<Cluster> Clusters;
-                public List<Cluster> ClustersDoorsClosed;
-                public List<Sky> ClusterSkies;
-                public List<Sky> ClusterVisibleSkies;
-                public List<UnknownBlock> Unknown;
-                public List<UnknownBlock> Unknown2;
-                public List<Cluster2> Clusters2;
+                public TagBlock<Cluster> Clusters;
+                public TagBlock<Cluster> ClustersDoorsClosed;
+                public TagBlock<Sky> ClusterSkies;
+                public TagBlock<Sky> ClusterVisibleSkies;
+                public TagBlock<UnknownBlock> Unknown;
+                public TagBlock<UnknownBlock> Unknown2;
+                public TagBlock<Cluster2> Clusters2;
 
                 [TagStructure(Size = 0xC)]
                 public class Cluster : TagStructure
 				{
-                    public List<BitVector> BitVectors;
+                    public TagBlock<BitVector> BitVectors;
 
                     [TagStructure(Size = 0xC)]
                     public class BitVector : TagStructure
 					{
-                        public List<Bit> Bits;
+                        public TagBlock<Bit> Bits;
 
                         [TagStructure(Size = 0x4)]
                         public class Bit : TagStructure
@@ -461,7 +461,7 @@ namespace TagTool.Tags.Definitions
                 [TagStructure(Size = 0xC)]
                 public class Cluster2 : TagStructure
 				{
-                    public List<UnknownBlock> Unknowns;
+                    public TagBlock<UnknownBlock> Unknowns;
 
                     [TagStructure(Size = 0x1)]
                     public class UnknownBlock : TagStructure
@@ -474,8 +474,8 @@ namespace TagTool.Tags.Definitions
             [TagStructure(Size = 0x18)]
             public class PortalToDeviceMapping : TagStructure
 			{
-                public List<DevicePortalAssociation> DevicePortalAssociations;
-                public List<GamePortalToPortalMapping> GamePortalToPortalMappings;
+                public TagBlock<DevicePortalAssociation> DevicePortalAssociations;
+                public TagBlock<GamePortalToPortalMapping> GamePortalToPortalMappings;
 
                 [TagStructure(Size = 0xC)]
                 public class DevicePortalAssociation : TagStructure
@@ -512,13 +512,13 @@ namespace TagTool.Tags.Definitions
             public int DoorPortalCount;
             public int UniqueClusterCount;
             public Bounds<float> ClusterDistanceBounds;
-            public List<EncodedDoorPa> EncodedDoorPas;
-            public List<RoomDoorPortalEncodedPa> ClusterDoorPortalEncodedPas;
-            public List<AiDeafeningPa> AiDeafeningPas;
-            public List<RoomDistance> RoomDistances;
-            public List<GamePortalToDoorOccluderMapping> GamePortalToDoorOccluderMappings;
-            public List<BspClusterToRoomBoundsMapping> BspClusterToRoomBoundsMappings;
-            public List<BspClusterToRoomIndex> BspClusterToRoomIndices;
+            public TagBlock<EncodedDoorPa> EncodedDoorPas;
+            public TagBlock<RoomDoorPortalEncodedPa> ClusterDoorPortalEncodedPas;
+            public TagBlock<AiDeafeningPa> AiDeafeningPas;
+            public TagBlock<RoomDistance> RoomDistances;
+            public TagBlock<GamePortalToDoorOccluderMapping> GamePortalToDoorOccluderMappings;
+            public TagBlock<BspClusterToRoomBoundsMapping> BspClusterToRoomBoundsMappings;
+            public TagBlock<BspClusterToRoomIndex> BspClusterToRoomIndices;
 
             [TagStructure(Size = 0x4)]
             public class EncodedDoorPa : TagStructure
@@ -688,8 +688,8 @@ namespace TagTool.Tags.Definitions
             public short NodeCount;
             [TagField(Padding = true, Length = 2)]
             public byte[] Unused;
-            public List<BitVector> BitVectors;
-            public List<Orientation> Orientations;
+            public TagBlock<BitVector> BitVectors;
+            public TagBlock<Orientation> Orientations;
 
             [TagStructure(Size = 0x1)]
             public class BitVector : TagStructure
@@ -714,7 +714,7 @@ namespace TagTool.Tags.Definitions
             public RealPoint3d Position;
             public RealEulerAngles3d Rotation;
             public float Scale;
-            public List<ObjectNodeOrientation> NodeOrientations;
+            public TagBlock<ObjectNodeOrientation> NodeOrientations;
             public short Unknown2;
             public ushort OldManualBspFlagsNowZoneSets;
             public StringId UniqueName;
@@ -785,7 +785,7 @@ namespace TagTool.Tags.Definitions
         {
             public PathfindingPolicyValue PathfindingPolicy;
             public LightmappingPolicyValue LightmappingPolicy;
-            public List<PathfindingReference> PathfindingReferences;
+            public TagBlock<PathfindingReference> PathfindingReferences;
             public short Unknown11;
             public short Unknown12;
             public SymmetryValue Symmetry;
@@ -1094,7 +1094,7 @@ namespace TagTool.Tags.Definitions
             public short PositionGroup;
             public uint DeviceFlags;
             public uint MachineFlags;
-            public List<PathfindingReference> PathfindingReferences;
+            public TagBlock<PathfindingReference> PathfindingReferences;
             public PathfindingPolicyValue PathfindingPolicy;
             public short Unknown11;
 
@@ -1214,7 +1214,7 @@ namespace TagTool.Tags.Definitions
             public uint Flags;
             public short Unknown11;
             public short Unknown12;
-            public List<PathfindingReference> PathfindingReferences;
+            public TagBlock<PathfindingReference> PathfindingReferences;
 
             [TagStructure]
             public class PathfindingReference : TagStructure
@@ -1398,9 +1398,9 @@ namespace TagTool.Tags.Definitions
             public RealPoint3d Extents;
             public float ZSink;
             [TagField(MinVersion = CacheVersion.Halo3ODST)]
-            public List<SectorPoint> SectorPoints;
+            public TagBlock<SectorPoint> SectorPoints;
             [TagField(MinVersion = CacheVersion.Halo3ODST)]
-            public List<RuntimeTriangle> RuntimeTriangles;
+            public TagBlock<RuntimeTriangle> RuntimeTriangles;
             [TagField(MinVersion = CacheVersion.Halo3ODST)]
             public Bounds<float> RuntimeSectorXBounds;
             [TagField(MinVersion = CacheVersion.Halo3ODST)]
@@ -1705,13 +1705,13 @@ namespace TagTool.Tags.Definitions
             public short EditorFolderIndex;
 
             [TagField(MaxVersion = CacheVersion.Halo3Retail)]
-            public List<BaseSquadBlock> BaseSquad;
+            public TagBlock<BaseSquadBlock> BaseSquad;
 
             [TagField(MinVersion = CacheVersion.Halo3ODST)]
-            public List<SpawnFormation> SpawnFormations;
+            public TagBlock<SpawnFormation> SpawnFormations;
 
             [TagField(MinVersion = CacheVersion.Halo3ODST)]
-            public List<SpawnPoint> SpawnPoints;
+            public TagBlock<SpawnPoint> SpawnPoints;
 
             [TagField(MaxVersion = CacheVersion.Halo3Retail)]
             public short Unknown1;
@@ -1725,10 +1725,10 @@ namespace TagTool.Tags.Definitions
             public CachedTagInstance SquadTemplate;
 
             [TagField(MinVersion = CacheVersion.Halo3ODST)]
-            public List<Cell> DesignerCells;
+            public TagBlock<Cell> DesignerCells;
 
             [TagField(MinVersion = CacheVersion.Halo3ODST)]
-            public List<Cell> TemplatedCells;
+            public TagBlock<Cell> TemplatedCells;
 
             [TagStructure(Size = 0x60)]
             public class BaseSquadBlock : TagStructure
@@ -1760,8 +1760,8 @@ namespace TagTool.Tags.Definitions
                 public short PointSetIndex;
                 public SquadPatrolMode PatrolMode;
 
-                public List<SquadPoint> MultiState;
-                public List<SpawnPoint> StartingLocations;
+                public TagBlock<SquadPoint> MultiState;
+                public TagBlock<SpawnPoint> StartingLocations;
             }
 
             [TagStructure(Size = 0x6C)]
@@ -1787,7 +1787,7 @@ namespace TagTool.Tags.Definitions
                 public StringId InitialState;
                 public short PointSetIndex;
                 public SquadPatrolMode PatrolMode;
-                public List<SquadPoint> Points;
+                public TagBlock<SquadPoint> Points;
             }
 
             public enum SpawnPointFlags : ushort
@@ -1876,7 +1876,7 @@ namespace TagTool.Tags.Definitions
                 public short PointSetIndex;
                 public SquadPatrolMode PatrolMode;
 
-                public List<SquadPoint> Points;
+                public TagBlock<SquadPoint> Points;
             }
 
             [TagStructure(Size = 0x84)]
@@ -1893,10 +1893,10 @@ namespace TagTool.Tags.Definitions
                 public short Unknown3;
                 public short Count;
                 public short Unknown4;
-                public List<CharacterTypeBlock> CharacterType;
-                public List<ItemBlock> InitialWeapon;
-                public List<ItemBlock> InitialSecondaryWeapon;
-                public List<ItemBlock> InitialEquipment;
+                public TagBlock<CharacterTypeBlock> CharacterType;
+                public TagBlock<ItemBlock> InitialWeapon;
+                public TagBlock<ItemBlock> InitialSecondaryWeapon;
+                public TagBlock<ItemBlock> InitialEquipment;
                 public SquadGrenadeType GrenadeType;
                 public short VehicleTypeIndex;
                 public StringId VehicleVariant;
@@ -1912,7 +1912,7 @@ namespace TagTool.Tags.Definitions
                 public short PointSetIndex;
                 public SquadPatrolMode PatrolMode;
 
-                public List<SquadPoint> Points;
+                public TagBlock<SquadPoint> Points;
 
                 [TagStructure(Size = 0x10)]
                 public class CharacterTypeBlock : TagStructure
@@ -1958,8 +1958,8 @@ namespace TagTool.Tags.Definitions
             [TagField(MaxVersion = CacheVersion.Halo3Retail)]
             public short Unused;
 
-            public List<FiringPosition> FiringPositions;
-            public List<Area> Areas;
+            public TagBlock<FiringPosition> FiringPositions;
+            public TagBlock<Area> Areas;
 
             [Flags]
             public enum ZoneFlags : int
@@ -2044,10 +2044,10 @@ namespace TagTool.Tags.Definitions
                 public uint Unknown11;
                 public short ManualReferenceFrame;
                 public short Unknown12;
-                public List<FlightHint> FlightHints;
+                public TagBlock<FlightHint> FlightHints;
 
                 [TagField(MinVersion = CacheVersion.Halo3ODST)]
-                public List<Point> Points;
+                public TagBlock<Point> Points;
 
                 [TagField(MinVersion = CacheVersion.Halo3ODST)]
                 public short RuntimeCarverInversion;
@@ -2115,9 +2115,9 @@ namespace TagTool.Tags.Definitions
 		{
             [TagField(Label = true)]
             public StringId Name;
-            public List<Squad> Squads;
-            public List<Point> Points;
-            public List<Transition> Transitions;
+            public TagBlock<Squad> Squads;
+            public TagBlock<Point> Points;
+            public TagBlock<Transition> Transitions;
             public short EditorFolderIndex;
             [TagField(Padding = true, Length = 2)]
             public byte[] Unused;
@@ -2147,7 +2147,7 @@ namespace TagTool.Tags.Definitions
 			{
                 public short Point1Index;
                 public short Point2Index;
-                public List<Waypoint> Waypoints;
+                public TagBlock<Waypoint> Waypoints;
 
                 [TagStructure(Size = 0x14)]
                 public class Waypoint : TagStructure
@@ -2165,8 +2165,8 @@ namespace TagTool.Tags.Definitions
             [TagField(Label = true)]
             public StringId Name;
             public FlagBits Flags;
-            public List<TriggerCondition> TriggerConditions;
-            public List<Role> Roles;
+            public TagBlock<TriggerCondition> TriggerConditions;
+            public TagBlock<Role> Roles;
 
             [Flags]
             public enum FlagBits : int
@@ -2198,7 +2198,7 @@ namespace TagTool.Tags.Definitions
                 public GroupValue Group;
                 [TagField(Padding = true, Length = 2)]
                 public byte[] Unused;
-                public List<Variant> Variants;
+                public TagBlock<Variant> Variants;
 
                 public enum GroupValue : short
                 {
@@ -2219,15 +2219,15 @@ namespace TagTool.Tags.Definitions
         [TagStructure(Size = 0x6C)]
         public class AiPathfindingDatum : TagStructure
 		{
-            public List<LineSegment> LineSegments;
-            public List<Parallelogram> Parallelograms;
-            public List<JumpHint> JumpHints;
-            public List<UnknownBlock4> Unknown4;
-            public List<UnknownBlock5> Unknown5;
-            public List<FlightHint> FlightHints;
-            public List<CookieCutter> CookieCutters;
-            public List<UnknownBlock8> Unknown8;
-            public List<UnknownBlock9> Unknown9;
+            public TagBlock<LineSegment> LineSegments;
+            public TagBlock<Parallelogram> Parallelograms;
+            public TagBlock<JumpHint> JumpHints;
+            public TagBlock<UnknownBlock4> Unknown4;
+            public TagBlock<UnknownBlock5> Unknown5;
+            public TagBlock<FlightHint> FlightHints;
+            public TagBlock<CookieCutter> CookieCutters;
+            public TagBlock<UnknownBlock8> Unknown8;
+            public TagBlock<UnknownBlock9> Unknown9;
 
             [Flags]
             public enum UserHintFlags : int
@@ -2311,7 +2311,7 @@ namespace TagTool.Tags.Definitions
             public class UnknownBlock5 : TagStructure
 			{
                 public uint Unknown;
-                public List<UnknownBlock> Unknown2;
+                public TagBlock<UnknownBlock> Unknown2;
 
                 [TagStructure(Size = 0x1C)]
                 public class UnknownBlock : TagStructure
@@ -2329,7 +2329,7 @@ namespace TagTool.Tags.Definitions
             [TagStructure(Size = 0xC)]
             public class FlightHint : TagStructure
 			{
-                public List<FlightPoint> FlightPoints;
+                public TagBlock<FlightPoint> FlightPoints;
 
                 [TagStructure(Size = 0xC)]
                 public class FlightPoint : TagStructure
@@ -2367,7 +2367,7 @@ namespace TagTool.Tags.Definitions
                 public float Unknown18;
 
                 [TagField(MinVersion = CacheVersion.Halo3ODST)]
-                public List<Point> Points;
+                public TagBlock<Point> Points;
 
                 [TagField(MinVersion = CacheVersion.Halo3ODST)]
                 public int Unknown20;
@@ -2414,14 +2414,14 @@ namespace TagTool.Tags.Definitions
                 [TagField(MinVersion = CacheVersion.Halo3ODST)]
                 public int Unknown3;
 
-                public List<UnknownBlock> Unknown4;
+                public TagBlock<UnknownBlock> Unknown4;
 
                 [TagStructure(MaxVersion = CacheVersion.Halo3Retail, Size = 0xC)]
                 [TagStructure(MinVersion = CacheVersion.Halo3ODST, Size = 0x28)]
                 public class UnknownBlock : TagStructure
 				{
                     [TagField(MaxVersion = CacheVersion.Halo3Retail)]
-                    public List<UnknownBlock2> Unknown;
+                    public TagBlock<UnknownBlock2> Unknown;
 
                     [TagField(MinVersion = CacheVersion.Halo3ODST)]
                     public int Unknown2;
@@ -2477,7 +2477,7 @@ namespace TagTool.Tags.Definitions
         [TagStructure(Size = 0x84)]
         public class ScriptingDatum : TagStructure
 		{
-            public List<PointSet> PointSets;
+            public TagBlock<PointSet> PointSets;
 
             [TagField(Padding = true, Length = 120)]
             public byte[] Unused;
@@ -2488,7 +2488,7 @@ namespace TagTool.Tags.Definitions
 			{
                 [TagField(Label = true, Length = 32)]
                 public string Name;
-                public List<Point> Points;
+                public TagBlock<Point> Points;
                 public short BspIndex;
                 public short ManualReferenceFrame;
                 public uint Flags;
@@ -2614,9 +2614,9 @@ namespace TagTool.Tags.Definitions
         public class ScenarioResource : TagStructure
 		{
             public int Unknown;
-            public List<TagReferenceBlock> ScriptSource;
-            public List<TagReferenceBlock> AiResources;
-            public List<Reference> References;
+            public TagBlock<TagReferenceBlock> ScriptSource;
+            public TagBlock<TagReferenceBlock> AiResources;
+            public TagBlock<Reference> References;
 
             [TagStructure(Size = 0x130, MaxVersion = CacheVersion.Halo3Retail)]
             [TagStructure(Size = 0x16C, MinVersion = CacheVersion.Halo3ODST)]
@@ -2624,10 +2624,10 @@ namespace TagTool.Tags.Definitions
 			{
                 public CachedTagInstance SceneryResource;
                 [TagField(MinVersion = CacheVersion.Halo3ODST)]
-                public List<TagReferenceBlock> OtherScenery;
+                public TagBlock<TagReferenceBlock> OtherScenery;
                 public CachedTagInstance BipedsResource;
                 [TagField(MinVersion = CacheVersion.Halo3ODST)]
-                public List<TagReferenceBlock> OtherBipeds;
+                public TagBlock<TagReferenceBlock> OtherBipeds;
                 public CachedTagInstance VehiclesResource;
                 public CachedTagInstance EquipmentResource;
                 public CachedTagInstance WeaponsResource;
@@ -2635,11 +2635,11 @@ namespace TagTool.Tags.Definitions
                 public CachedTagInstance LightsResource;
                 public CachedTagInstance DevicesResource;
                 [TagField(MinVersion = CacheVersion.Halo3ODST)]
-                public List<TagReferenceBlock> OtherDevices;
+                public TagBlock<TagReferenceBlock> OtherDevices;
                 public CachedTagInstance EffectSceneryResource;
                 public CachedTagInstance DecalsResource;
                 [TagField(MinVersion = CacheVersion.Halo3ODST)]
-                public List<TagReferenceBlock> OtherDecals;
+                public TagBlock<TagReferenceBlock> OtherDecals;
                 public CachedTagInstance CinematicsResource;
                 public CachedTagInstance TriggerVolumesResource;
                 public CachedTagInstance ClusterDataResource;
@@ -2648,7 +2648,7 @@ namespace TagTool.Tags.Definitions
                 public CachedTagInstance StructureLightingResource;
                 public CachedTagInstance DecoratorsResource;
                 [TagField(MinVersion = CacheVersion.Halo3ODST)]
-                public List<TagReferenceBlock> OtherDecorators;
+                public TagBlock<TagReferenceBlock> OtherDecorators;
                 public CachedTagInstance SkyReferencesResource;
                 public CachedTagInstance CubemapResource;
             }
@@ -2819,16 +2819,16 @@ namespace TagTool.Tags.Definitions
         public class ScenarioClusterDatum : TagStructure
 		{
             public CachedTagInstance Bsp;
-            public List<BackgroundSoundEnvironment> BackgroundSoundEnvironments;
-            public List<UnknownBlock> Unknown;
-            public List<UnknownBlock2> Unknown2;
+            public TagBlock<BackgroundSoundEnvironment> BackgroundSoundEnvironments;
+            public TagBlock<UnknownBlock> Unknown;
+            public TagBlock<UnknownBlock2> Unknown2;
             public int BspChecksum;
-            public List<ClusterCentroid> ClusterCentroids;
-            public List<UnknownBlock3> Unknown3;
-            public List<FogBlock> Fog;
-            public List<CameraEffect> CameraEffects;
+            public TagBlock<ClusterCentroid> ClusterCentroids;
+            public TagBlock<UnknownBlock3> Unknown3;
+            public TagBlock<FogBlock> Fog;
+            public TagBlock<CameraEffect> CameraEffects;
             [TagField(MinVersion = CacheVersion.HaloOnline498295)]
-            public List<UnknownBlock4> Unknown4;
+            public TagBlock<UnknownBlock4> Unknown4;
 
             [TagStructure(Size = 0x4)]
             public class BackgroundSoundEnvironment : TagStructure
@@ -2906,9 +2906,9 @@ namespace TagTool.Tags.Definitions
             public uint Unknown13;
             public uint Unknown14;
             public uint Unknown15;
-            public List<DynamicSpawnOverload> DynamicSpawnOverloads;
-            public List<SpawnZone> StaticRespawnZones;
-            public List<SpawnZone> StaticInitialSpawnZones;
+            public TagBlock<DynamicSpawnOverload> DynamicSpawnOverloads;
+            public TagBlock<SpawnZone> StaticRespawnZones;
+            public TagBlock<SpawnZone> StaticInitialSpawnZones;
 
             [TagStructure(Size = 0x10)]
             public class DynamicSpawnOverload : TagStructure
@@ -2954,7 +2954,7 @@ namespace TagTool.Tags.Definitions
         public class CrateInstance : PermutationInstance
         {
             public uint Unknown11;
-            public List<UnknownBlock2> Unknown12;
+            public TagBlock<UnknownBlock2> Unknown12;
             public SymmetryValue Symmetry;
             public ushort EngineFlags;
             public TeamValue Team;
@@ -3023,8 +3023,8 @@ namespace TagTool.Tags.Definitions
             public short BoundingTriggerVolume;
             public ushort Flags;
             public float EcologyMargin;
-            public List<Source> Sources;
-            public List<Sink> Sinks;
+            public TagBlock<Source> Sources;
+            public TagBlock<Sink> Sinks;
             public Bounds<float> ProductionFrequencyBounds;
             public Bounds<float> ScaleBounds;
             public uint Unknown;
@@ -3118,7 +3118,7 @@ namespace TagTool.Tags.Definitions
             public StringId Name;
 
             [TagField(MinVersion = CacheVersion.Halo3ODST)]
-            public List<OpposingObjective> OpposingObjectives;
+            public TagBlock<OpposingObjective> OpposingObjectives;
 
             [TagField(MinVersion = CacheVersion.Halo3ODST)]
             public AiObjectiveFlags Flags;
@@ -3130,7 +3130,7 @@ namespace TagTool.Tags.Definitions
             [TagField(MinVersion = CacheVersion.Halo3ODST)]
             public short EditorFolderIndex;
 
-            public List<Task> Tasks;
+            public TagBlock<Task> Tasks;
 
             [TagStructure(Size = 0x4)]
             public class OpposingObjective : TagStructure
@@ -3202,7 +3202,7 @@ namespace TagTool.Tags.Definitions
                 public byte[] Unused = new byte[2];
 
                 [TagField(MinVersion = CacheVersion.Halo3ODST)]
-                public List<FollowFiringPointQueryBlock> FollowFiringPointQuery;
+                public TagBlock<FollowFiringPointQueryBlock> FollowFiringPointQuery;
 
                 [TagField(Length = 32)]
                 public string EntryScriptName;
@@ -3224,7 +3224,7 @@ namespace TagTool.Tags.Definitions
 
                 public RuntimeFlagBits RuntimeFlags;
 
-                public List<Unknown84Block> Unknown84;
+                public TagBlock<Unknown84Block> Unknown84;
 
                 [TagField(MinVersion = CacheVersion.Halo3ODST)]
                 public short Unknown20;
@@ -3237,7 +3237,7 @@ namespace TagTool.Tags.Definitions
                 public short PreviousRole;
                 public short NextRole;
                 public short ParentRole;
-                public List<ActivationScriptBlock> ActivationScript;
+                public TagBlock<ActivationScriptBlock> ActivationScript;
                 public short ScriptIndex;
 
                 /// <summary>
@@ -3263,8 +3263,8 @@ namespace TagTool.Tags.Definitions
                 [TagField(Format = "[0,1]")]
                 public float MinStrength;
 
-                public List<Area> Areas;
-                public List<DirectionBlock> Direction;
+                public TagBlock<Area> Areas;
+                public TagBlock<DirectionBlock> Direction;
 
                 public enum MovementValue : short
                 {
@@ -3475,7 +3475,7 @@ namespace TagTool.Tags.Definitions
                     public Point[] Points_H3 = new Point[2];
 
                     [TagField(MinVersion = CacheVersion.Halo3ODST)]
-                    public List<Point> Points;
+                    public TagBlock<Point> Points;
 
                     [TagStructure(Size = 0x10)]
                     public class Point : TagStructure
@@ -3502,22 +3502,22 @@ namespace TagTool.Tags.Definitions
             [TagField(Label = true)]
             public StringId Name;
             public uint Unknown;
-            public List<ObjectReference> Bipeds;
-            public List<ObjectReference> Vehicles;
-            public List<ObjectReference> Weapons;
-            public List<ObjectReference> Equipment;
-            public List<ObjectReference> Scenery;
-            public List<ObjectReference> Machines;
-            public List<ObjectReference> Terminals;
-            public List<ObjectReference> Controls;
-            public List<ObjectReference> Unknown2;
+            public TagBlock<ObjectReference> Bipeds;
+            public TagBlock<ObjectReference> Vehicles;
+            public TagBlock<ObjectReference> Weapons;
+            public TagBlock<ObjectReference> Equipment;
+            public TagBlock<ObjectReference> Scenery;
+            public TagBlock<ObjectReference> Machines;
+            public TagBlock<ObjectReference> Terminals;
+            public TagBlock<ObjectReference> Controls;
+            public TagBlock<ObjectReference> Unknown2;
             [TagField(MinVersion = CacheVersion.Halo3ODST, MaxVersion = CacheVersion.Halo3ODST)]
-            public List<ObjectReference> Unknown3;
-            public List<ObjectReference> Crates;
-            public List<ObjectReference> Creatures;
-            public List<ObjectReference> Giants;
-            public List<ObjectReference> Unknown4;
-            public List<ObjectReference> Characters;
+            public TagBlock<ObjectReference> Unknown3;
+            public TagBlock<ObjectReference> Crates;
+            public TagBlock<ObjectReference> Creatures;
+            public TagBlock<ObjectReference> Giants;
+            public TagBlock<ObjectReference> Unknown4;
+            public TagBlock<ObjectReference> Characters;
             public uint Unknown5;
             public uint Unknown6;
             public uint Unknown7;
@@ -3542,10 +3542,10 @@ namespace TagTool.Tags.Definitions
         [TagStructure(Size = 0x1C, MinVersion = CacheVersion.Halo3ODST)]
         public class ScenarioMetagameBlock : TagStructure
 		{
-            public List<TimeMultiplier> TimeMultipliers;
+            public TagBlock<TimeMultiplier> TimeMultipliers;
             public float ParScore;
             [TagField(MinVersion = CacheVersion.Halo3ODST)]
-            public List<SurvivalBlock> Survival;
+            public TagBlock<SurvivalBlock> Survival;
 
             [TagStructure(Size = 0x8)]
             public class TimeMultiplier : TagStructure
@@ -3572,7 +3572,7 @@ namespace TagTool.Tags.Definitions
             [TagField(MinVersion = CacheVersion.Halo3ODST)]
             public float Unknown3;
             [TagField(MinVersion = CacheVersion.Halo3ODST, MaxVersion = CacheVersion.Halo3ODST)]
-            public List<UnknownBlock> Unknowns;
+            public TagBlock<UnknownBlock> Unknowns;
             [TagField(MinVersion = CacheVersion.HaloOnline106708)]
             public float Unknown4;
             [TagField(MinVersion = CacheVersion.HaloOnline106708)]

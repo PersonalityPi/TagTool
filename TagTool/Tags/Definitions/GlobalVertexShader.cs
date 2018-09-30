@@ -6,14 +6,14 @@ namespace TagTool.Tags.Definitions
     [TagStructure(Name = "global_vertex_shader", Tag = "glvs", Size = 0x1C)]
     public class GlobalVertexShader : TagStructure
 	{
-        public List<VertexTypeShaders> VertexTypes;
+        public TagBlock<VertexTypeShaders> VertexTypes;
         public uint Unknown2;
-        public List<VertexShaderBlock> Shaders;
+        public TagBlock<VertexShaderBlock> Shaders;
 
         [TagStructure(Size = 0xC)]
         public class VertexTypeShaders : TagStructure
 		{
-            public List<DrawMode> DrawModes;
+            public TagBlock<DrawMode> DrawModes;
 
             [TagStructure(Size = 0x10)]
             public class DrawMode : TagStructure

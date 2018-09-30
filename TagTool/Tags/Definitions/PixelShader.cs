@@ -7,8 +7,8 @@ namespace TagTool.Tags.Definitions
     public class PixelShader : TagStructure
 	{
         public uint Unknown;
-        public List<ShaderDrawMode> DrawModes;
+        public TagBlock<ShaderDrawMode> DrawModes;
         public uint Unknown3;
-        public List<PixelShaderBlock> Shaders;
+        public TagBlock<PixelShaderBlock> Shaders;
     }
 }

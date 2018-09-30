@@ -11,11 +11,11 @@ namespace TagTool.Tags.Definitions
 	{
         public int Version;
 
-        public List<CollisionMoppCode> SoftCeilingMoppCodes;
-        public List<SoftCeiling> SoftCeilings;
-        public List<WaterMoppCode> WaterMoppCodes;
-        public List<WaterGroup> WaterGroups;
-        public List<WaterInstance> WaterInstances;
+        public TagBlock<CollisionMoppCode> SoftCeilingMoppCodes;
+        public TagBlock<SoftCeiling> SoftCeilings;
+        public TagBlock<WaterMoppCode> WaterMoppCodes;
+        public TagBlock<WaterGroup> WaterGroups;
+        public TagBlock<WaterInstance> WaterInstances;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
         public uint Unknown2;
@@ -47,7 +47,7 @@ namespace TagTool.Tags.Definitions
             [TagField(Padding = true, Length = 2)]
             public byte[] Unused = new byte[2];
 
-            public List<SoftCeilingTriangle> SoftCeilingTriangles;
+            public TagBlock<SoftCeilingTriangle> SoftCeilingTriangles;
         }
 
         [TagStructure(Size = 0x4)]
@@ -81,8 +81,8 @@ namespace TagTool.Tags.Definitions
             public RealVector3d FlowVelocity;
             public float FlowForce;
 
-            public List<WaterPlane> WaterPlanes;
-            public List<WaterDebugTriangle> WaterDebugTriangles;
+            public TagBlock<WaterPlane> WaterPlanes;
+            public TagBlock<WaterDebugTriangle> WaterDebugTriangles;
         }
     }
 }

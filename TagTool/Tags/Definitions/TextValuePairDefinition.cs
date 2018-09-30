@@ -10,7 +10,7 @@ namespace TagTool.Tags.Definitions
         public ParameterValue Parameter;
         public StringId Name;
         public StringId Description;
-        public List<TextValuePair> TextValuePairs;
+        public TagBlock<TextValuePair> TextValuePairs;
 
         public enum ParameterValue : int
         {

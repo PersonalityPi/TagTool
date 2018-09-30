@@ -7,7 +7,7 @@ namespace TagTool.Tags.Definitions
     public class ParticleModel : TagStructure
 	{
         public RenderGeometry Geometry;
-        public List<MVariant> MVariants;
+        public TagBlock<MVariant> MVariants;
 
         [TagStructure(Size = 0x10)]
         public class MVariant : TagStructure

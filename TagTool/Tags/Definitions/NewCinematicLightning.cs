@@ -6,8 +6,8 @@ namespace TagTool.Tags.Definitions
     [TagStructure(Name = "new_cinematic_lighting", Tag = "nclt", Size = 0x1C, MinVersion = CacheVersion.Halo3Retail)]
     public class NewCinematicLighting : TagStructure
 	{
-        public List<UnknownBlock> Unknown1;
-        public List<LightingBlock> Lighting;
+        public TagBlock<UnknownBlock> Unknown1;
+        public TagBlock<LightingBlock> Lighting;
         public float Unknown2;
 
         [TagStructure(Size = 0x20)]

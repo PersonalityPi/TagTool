@@ -9,11 +9,11 @@ namespace TagTool.Tags.Definitions
     public class GuiSkinDefinition : TagStructure
 	{
         public uint Unknown;
-        public List<TextWidget> TextWidgets;
-        public List<BitmapWidget> BitmapWidgets;
+        public TagBlock<TextWidget> TextWidgets;
+        public TagBlock<BitmapWidget> BitmapWidgets;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<ModelWidget> ModelWidgets;
+        public TagBlock<ModelWidget> ModelWidgets;
 
         [TagStructure(Size = 0x4C)]
         public class TextWidget : TagStructure
@@ -101,7 +101,7 @@ namespace TagTool.Tags.Definitions
             public short StandardYBoundsMax;
             public short StandardXBoundsMax;
             public CachedTagInstance Animation;
-            public List<UnknownBlock> Unknown3;
+            public TagBlock<UnknownBlock> Unknown3;
             public uint Unknown4;
             public uint Unknown5;
             public uint Unknown6;
@@ -109,7 +109,7 @@ namespace TagTool.Tags.Definitions
             public uint Unknown8;
             public uint Unknown9;
             public uint Unknown10;
-            public List<UnknownBlock2> Unknown11;
+            public TagBlock<UnknownBlock2> Unknown11;
             public short Unknown12;
             public short Unknown13;
             public short Unknown14;
@@ -122,7 +122,7 @@ namespace TagTool.Tags.Definitions
             public short Unknown21;
             public short Unknown22;
             public short Unknown23;
-            public List<UnknownBlock3> Unknown24;
+            public TagBlock<UnknownBlock3> Unknown24;
 
             [TagStructure(Size = 0xA0)]
             public class UnknownBlock : TagStructure
@@ -152,7 +152,7 @@ namespace TagTool.Tags.Definitions
                 public uint Unknown22;
                 public uint Unknown23;
                 public uint Unknown24;
-                public List<UnknownBlock2> Unknown25;
+                public TagBlock<UnknownBlock2> Unknown25;
                 public uint Unknown26;
                 public uint Unknown27;
                 public Angle Unknown28;

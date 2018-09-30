@@ -42,7 +42,7 @@ namespace TagTool.Ai
         public float HeroicAccuracyTime;
         public Bounds<float> LegendaryAccuracyBounds;
         public float LegendaryAccuracyTime;
-        public List<CharacterFiringPattern> FiringPatterns;
+        public TagBlock<CharacterFiringPattern> FiringPatterns;
         public CachedTagInstance WeaponMeleeDamage;
     }
 }

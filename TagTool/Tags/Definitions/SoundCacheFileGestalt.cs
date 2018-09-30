@@ -9,34 +9,34 @@ namespace TagTool.Tags.Definitions
     [TagStructure(Name = "sound_cache_file_gestalt", Tag = "ugh!", Size = 0xDC, MinVersion = CacheVersion.HaloReach)]
     public class SoundCacheFileGestalt : TagStructure
 	{
-        public List<PlatformCodec> PlatformCodecs;
-        public List<PlaybackParameter> PlaybackParameters;
-        public List<Scale> Scales;
-        public List<ImportName> ImportNames;
+        public TagBlock<PlatformCodec> PlatformCodecs;
+        public TagBlock<PlaybackParameter> PlaybackParameters;
+        public TagBlock<Scale> Scales;
+        public TagBlock<ImportName> ImportNames;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<UnknownBlock> Unknown;
+        public TagBlock<UnknownBlock> Unknown;
 
-        public List<PitchRangeParameter> PitchRangeParameters;
-        public List<PitchRange> PitchRanges;
-        public List<Permutation> Permutations;
+        public TagBlock<PitchRangeParameter> PitchRangeParameters;
+        public TagBlock<PitchRange> PitchRanges;
+        public TagBlock<Permutation> Permutations;
 
         [TagField(Version = CacheVersion.HaloReach)]
-        public List<LanguagePermutation> LanguagePermutations;
+        public TagBlock<LanguagePermutation> LanguagePermutations;
 
         // Unknown9 block Reach
 
         // not in Reach
-        public List<CustomPlayback> CustomPlaybacks;
+        public TagBlock<CustomPlayback> CustomPlaybacks;
 
-        public List<LanguageBlock> Languages;
-        public List<RuntimePermutationFlag> RuntimePermutationFlags;
+        public TagBlock<LanguageBlock> Languages;
+        public TagBlock<RuntimePermutationFlag> RuntimePermutationFlags;
         public TagFunction Unknown2 = new TagFunction { Data = new byte[0] };
         public uint Unknown3;
         public uint Unknown4;
-        public List<PermutationChunk> PermutationChunks;
-        public List<Promotion> Promotions;
-        public List<ExtraInfo> ExtraInfo; 
+        public TagBlock<PermutationChunk> PermutationChunks;
+        public TagBlock<Promotion> Promotions;
+        public TagBlock<ExtraInfo> ExtraInfo; 
 
         //Unknown15 Reach
 
@@ -51,7 +51,7 @@ namespace TagTool.Tags.Definitions
         /// <returns></returns>
         public int GetChunkSize(int chunkIndex)
         {
-            return PermutationChunks[chunkIndex].EncodedSize & 0xFFFFFF;
+			return (PermutationChunks[chunkIndex] as PermutationChunk).EncodedSize & 0xFFFFFF;
         }
 
         /// <summary>

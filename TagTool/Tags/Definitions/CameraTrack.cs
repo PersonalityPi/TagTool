@@ -14,7 +14,7 @@ namespace TagTool.Tags.Definitions
         [TagField(Padding = true, Length = 3)]
         public byte[] Unused1 = new byte[3];
 
-        public List<CameraPoint> CameraPoints;
+        public TagBlock<CameraPoint> CameraPoints;
 
         [TagField(Padding = true, Length = 4, MinVersion = CacheVersion.HaloOnline106708)]
         public byte[] Unused2 = new byte[4];

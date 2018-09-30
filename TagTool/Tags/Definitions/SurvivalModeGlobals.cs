@@ -12,10 +12,10 @@ namespace TagTool.Tags.Definitions
         public CachedTagInstance InGameStrings;
         public CachedTagInstance TimerSound;
         public CachedTagInstance TimerSoundZero;
-        public List<SurvivalEvent> SurvivalEvents;
+        public TagBlock<SurvivalEvent> SurvivalEvents;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST, MaxVersion = CacheVersion.Halo3ODST)]
-        public List<ArmorCustomization> ArmorCustomizations;
+        public TagBlock<ArmorCustomization> ArmorCustomizations;
 
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
         public uint Unknown2;
@@ -116,14 +116,14 @@ namespace TagTool.Tags.Definitions
 		{
             [TagField(Label = true)]
             public StringId CharacterName;
-            public List<Region> Regions;
+            public TagBlock<Region> Regions;
 
             [TagStructure(Size = 0x10)]
             public class Region : TagStructure
 			{
                 [TagField(Label = true)]
                 public StringId RegionName;
-                public List<Permutation> Permutations;
+                public TagBlock<Permutation> Permutations;
 
                 [TagStructure(Size = 0x1C)]
                 public class Permutation : TagStructure
@@ -134,7 +134,7 @@ namespace TagTool.Tags.Definitions
                     public short Flags;
                     public short Unknown;
                     public StringId AchievementRequired;
-                    public List<Variant> Variants;
+                    public TagBlock<Variant> Variants;
 
                     [TagStructure(Size = 0x8)]
                     public class Variant : TagStructure

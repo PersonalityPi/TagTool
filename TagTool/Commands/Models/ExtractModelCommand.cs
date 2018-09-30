@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TagTool.Serialization;
+using TagTool.Tags;
 
 namespace TagTool.Commands.Models
 {
@@ -205,8 +206,8 @@ namespace TagTool.Commands.Models
                 var meshAddressList = new List<int>();
                 var meshValueList = new List<int>();
                 
-                var regions = new List<RenderModel.Region>();
-                var permutations = new List<RenderModel.Region.Permutation>();
+                var regions = new TagBlock<RenderModel.Region>();
+                var permutations = new TagBlock<RenderModel.Region.Permutation>();
 
                 foreach (var variantRegion in modelVariant.Regions)
                 {
@@ -214,7 +215,7 @@ namespace TagTool.Commands.Models
                         continue;
 
                     var region = renderModel.Regions[variantRegion.RenderModelRegionIndex];
-                    var variantPermutations = region.Permutations.Where(i => variantRegion.Permutations.Find(j => j.Name == i.Name) != null).ToList();
+                    var variantPermutations = (TagBlock)region.Permutations.Where(i => variantRegion.Permutations.Find(j => j.Name == i.Name) != null);
 
                     if (variantPermutations.Count == 0)
                         continue;
@@ -309,7 +310,7 @@ namespace TagTool.Commands.Models
                         continue;
 
                     var region = renderModel.Regions[variantRegion.RenderModelRegionIndex];
-                    var variantPermutations = region.Permutations.Where(i => variantRegion.Permutations.Find(j => j.Name == i.Name) != null).ToList();
+                    var variantPermutations = (TagBlock)region.Permutations.Where(i => variantRegion.Permutations.Find(j => j.Name == i.Name) != null);
 
                     if (variantPermutations.Count == 0)
                         continue;

@@ -8,7 +8,7 @@ namespace TagTool.Tags.Definitions
     [TagStructure(Name = "contrail_system", Tag = "cntl", Size = 0x14, MinVersion = CacheVersion.HaloOnline106708)]
     public class ContrailSystem : TagStructure
 	{
-        public List<ContrailSystemBlock> Contrail;
+        public TagBlock<ContrailSystemBlock> Contrail;
 
         [TagField(Padding = true, Length = 8, MinVersion = CacheVersion.HaloOnline106708)]
         public byte[] Unused1;
@@ -68,9 +68,9 @@ namespace TagTool.Tags.Definitions
             public int Unknown20;
             public int Unknown21;
 
-            public List<UnknownBlock> Unknown22;
-            public List<CompiledFunction> CompiledFunctions;
-            public List<CompiledColorFunction> CompiledColorFunctions;
+            public TagBlock<UnknownBlock> Unknown22;
+            public TagBlock<CompiledFunction> CompiledFunctions;
+            public TagBlock<CompiledColorFunction> CompiledColorFunctions;
 
             [TagStructure(Size = 0x10, Align = 0x10)]
             public class UnknownBlock : TagStructure

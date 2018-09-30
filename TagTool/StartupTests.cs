@@ -1,4 +1,6 @@
-﻿using System;
+﻿//#define STARTUP_TESTS_ENABLED
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
@@ -11,6 +13,7 @@ namespace TagTool.Commands
 	{
 		public static void Run()
 		{
+#if STARTUP_TESTS_ENABLED
 			foreach (var method in typeof(StartupTests).GetRuntimeMethods())
 			{
 				if (!method.IsPrivate)
@@ -18,6 +21,7 @@ namespace TagTool.Commands
 
 				method.Invoke(null, null);
 			}
+#endif
 		}
 
 		#region Test Methods

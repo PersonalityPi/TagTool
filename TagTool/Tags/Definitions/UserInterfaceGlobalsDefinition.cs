@@ -12,7 +12,7 @@ namespace TagTool.Tags.Definitions
         public CachedTagInstance SharedUiGlobals;
         public CachedTagInstance EditableSettings;
         public CachedTagInstance MatchmakingHopperStrings;
-        public List<ScreenWidget> ScreenWidgets;
+        public TagBlock<ScreenWidget> ScreenWidgets;
 
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
         public CachedTagInstance TextureRenderList;

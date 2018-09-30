@@ -20,35 +20,35 @@ namespace TagTool.Tags.Definitions
         public byte[] Unused1;
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
         public uint Unknown3;
-        public List<SeamIdentifier> SeamIdentifiers;
-        public List<UnknownRaw7th> UnknownRaw7ths;
-        public List<CollisionMaterial> CollisionMaterials;
-        public List<Leaf> Leaves; // UnknownRaw3rd
+        public TagBlock<SeamIdentifier> SeamIdentifiers;
+        public TagBlock<UnknownRaw7th> UnknownRaw7ths;
+        public TagBlock<CollisionMaterial> CollisionMaterials;
+        public TagBlock<Leaf> Leaves; // UnknownRaw3rd
         public Bounds<float> WorldBoundsX;
         public Bounds<float> WorldBoundsY;
         public Bounds<float> WorldBoundsZ;
-        public List<UnknownRaw6th> UnknownRaw6ths;
-        public List<Plane> Planes;
+        public TagBlock<UnknownRaw6th> UnknownRaw6ths;
+        public TagBlock<Plane> Planes;
         [TagField(Padding = true, Length = 0xC, MinVersion = CacheVersion.HaloOnline106708)]
         public byte[] UnknownUnused1;
-        public List<ClusterPortal> ClusterPortals;
-        public List<UnknownBlock2> Unknown14;
-        public List<FogBlock> Fog;
-        public List<CameraEffect> CameraEffects;
+        public TagBlock<ClusterPortal> ClusterPortals;
+        public TagBlock<UnknownBlock2> Unknown14;
+        public TagBlock<FogBlock> Fog;
+        public TagBlock<CameraEffect> CameraEffects;
         public uint Unknown18;
         public uint Unknown19;
         public uint Unknown20;
-        public List<DetailObject> DetailObjects;
-        public List<Cluster> Clusters;
-        public List<RenderMaterial> Materials;
-        public List<SkyOwnerClusterBlock> SkyOwnerCluster;
-        public List<ConveyorSurface> ConveyorSurfaces;
-        public List<BreakableSurface> BreakableSurfaces;
-        public List<PathfindingDatum> PathfindingData;
+        public TagBlock<DetailObject> DetailObjects;
+        public TagBlock<Cluster> Clusters;
+        public TagBlock<RenderMaterial> Materials;
+        public TagBlock<SkyOwnerClusterBlock> SkyOwnerCluster;
+        public TagBlock<ConveyorSurface> ConveyorSurfaces;
+        public TagBlock<BreakableSurface> BreakableSurfaces;
+        public TagBlock<PathfindingDatum> PathfindingData;
         public uint Unknown30;
         public uint Unknown31;
         public uint Unknown32;
-        public List<BackgroundSoundEnvironmentPaletteBlock> BackgroundSoundEnvironmentPalette;
+        public TagBlock<BackgroundSoundEnvironmentPaletteBlock> BackgroundSoundEnvironmentPalette;
         public uint Unknown33;
         public uint Unknown34;
         public uint Unknown35;
@@ -60,12 +60,12 @@ namespace TagTool.Tags.Definitions
         public uint Unknown41;
         public uint Unknown42;
         public uint Unknown43;
-        public List<Marker> Markers;
-        public List<TagReferenceBlock> Lights;
-        public List<RuntimeLight> RuntimeLights;
-        public List<RuntimeDecal> RuntimeDecals;
-        public List<EnvironmentObjectPaletteBlock> EnvironmentObjectPalette;
-        public List<EnvironmentObject> EnvironmentObjects;
+        public TagBlock<Marker> Markers;
+        public TagBlock<TagReferenceBlock> Lights;
+        public TagBlock<RuntimeLight> RuntimeLights;
+        public TagBlock<RuntimeDecal> RuntimeDecals;
+        public TagBlock<EnvironmentObjectPaletteBlock> EnvironmentObjectPalette;
+        public TagBlock<EnvironmentObject> EnvironmentObjects;
         public uint Unknown45;
         public uint Unknown46;
         public uint Unknown47;
@@ -76,23 +76,23 @@ namespace TagTool.Tags.Definitions
         public uint Unknown52;
         public uint Unknown53;
         public uint Unknown54;
-        public List<InstancedGeometryInstance> InstancedGeometryInstances;
-        public List<TagReferenceBlock> Decorators;
+        public TagBlock<InstancedGeometryInstance> InstancedGeometryInstances;
+        public TagBlock<TagReferenceBlock> Decorators;
         public RenderGeometry Geometry;
-        public List<UnknownSoundClustersBlock> UnknownSoundClustersA;
-        public List<UnknownSoundClustersBlock> UnknownSoundClustersB;
-        public List<UnknownSoundClustersBlock> UnknownSoundClustersC;
-        public List<TransparentPlane> TransparentPlanes;
+        public TagBlock<UnknownSoundClustersBlock> UnknownSoundClustersA;
+        public TagBlock<UnknownSoundClustersBlock> UnknownSoundClustersB;
+        public TagBlock<UnknownSoundClustersBlock> UnknownSoundClustersC;
+        public TagBlock<TransparentPlane> TransparentPlanes;
         public uint Unknown64;
         public uint Unknown65;
         public uint Unknown66;
-        public List<CollisionMoppCode> CollisionMoppCodes;
+        public TagBlock<CollisionMoppCode> CollisionMoppCodes;
         public uint Unknown67;
         public Bounds<float> CollisionWorldBoundsX;
         public Bounds<float> CollisionWorldBoundsY;
         public Bounds<float> CollisionWorldBoundsZ;
-        public List<CollisionMoppCode> BreakableSurfaceMoppCodes;
-        public List<BreakableSurfaceKeyTableBlock> BreakableSurfaceKeyTable;
+        public TagBlock<CollisionMoppCode> BreakableSurfaceMoppCodes;
+        public TagBlock<BreakableSurfaceKeyTableBlock> BreakableSurfaceKeyTable;
         public uint Unknown68;
         public uint Unknown69;
         public uint Unknown70;
@@ -100,7 +100,7 @@ namespace TagTool.Tags.Definitions
         public uint Unknown72;
         public uint Unknown73;
         public RenderGeometry Geometry2;
-        public List<LeafSystem> LeafSystems;
+        public TagBlock<LeafSystem> LeafSystems;
         public uint Unknown83;
         public uint Unknown84;
         public uint Unknown85;
@@ -159,8 +159,8 @@ namespace TagTool.Tags.Definitions
 		{
             [TagField(Length = 4)]
             public int[] SeamIDs;
-            public List<Edge> EdgeMapping;
-            public List<Cluster> ClusterMapping;
+            public TagBlock<Edge> EdgeMapping;
+            public TagBlock<Cluster> ClusterMapping;
 
             [TagStructure(Size = 0x4)]
             public class Edge : TagStructure
@@ -237,7 +237,7 @@ namespace TagTool.Tags.Definitions
             public RealPoint3d Centroid;
             public float BoundingRadius;
             public FlagsValue Flags;
-            public List<Vertex> Vertices;
+            public TagBlock<Vertex> Vertices;
 
             public enum FlagsValue : int
             {
@@ -328,7 +328,7 @@ namespace TagTool.Tags.Definitions
             public uint Unknown5;
             public uint Unknown6;
             public uint Unknown7;
-            public List<UnknownBlock> Unknown8;
+            public TagBlock<UnknownBlock> Unknown8;
             public uint Unknown9;
             public uint Unknown10;
             public uint Unknown11;
@@ -336,7 +336,7 @@ namespace TagTool.Tags.Definitions
             [TagStructure(Size = 0x20)]
             public class UnknownBlock : TagStructure
 			{
-                public List<UnknownBlock2> Unknown;
+                public TagBlock<UnknownBlock2> Unknown;
                 public byte[] Unknown2;
 
                 [TagStructure(Size = 0x10)]
@@ -373,7 +373,7 @@ namespace TagTool.Tags.Definitions
             public uint Unknown8;
             public uint Unknown9;
             public uint Unknown10;
-            public List<Portal> Portals;
+            public TagBlock<Portal> Portals;
             public int Unknown11;
             public short Size;
             public short Count;
@@ -391,16 +391,16 @@ namespace TagTool.Tags.Definitions
             public uint Unknown17;
             public uint Unknown18;
             public uint Unknown19;
-            public List<CollisionMoppCode> CollisionMoppCodes;
+            public TagBlock<CollisionMoppCode> CollisionMoppCodes;
             public short MeshIndex;
             public short Unknown20;
-            public List<Seam> Seams;
-            public List<DecoratorGrid> DecoratorGrids;
+            public TagBlock<Seam> Seams;
+            public TagBlock<DecoratorGrid> DecoratorGrids;
             public uint Unknown21;
             public uint Unknown22;
             public uint Unknown23;
-            public List<ObjectPlacement> ObjectPlacements;
-            public List<UnknownBlock2> Unknown25;
+            public TagBlock<ObjectPlacement> ObjectPlacements;
+            public TagBlock<UnknownBlock2> Unknown25;
 
             [TagStructure(Size = 0x2)]
             public class Portal : TagStructure
@@ -505,22 +505,22 @@ namespace TagTool.Tags.Definitions
         [TagStructure(Size = 0xA0)]
         public class PathfindingDatum : TagStructure
 		{
-            public List<Sector> Sectors;
-            public List<Link> Links;
-            public List<Reference> References;
-            public List<Bsp2dNode> Bsp2dNodes;
-            public List<Vertex> Vertices;
-            public List<ObjectReference> ObjectReferences;
-            public List<PathfindingHint> PathfindingHints;
-            public List<InstancedGeometryReference> InstancedGeometryReferences;
+            public TagBlock<Sector> Sectors;
+            public TagBlock<Link> Links;
+            public TagBlock<Reference> References;
+            public TagBlock<Bsp2dNode> Bsp2dNodes;
+            public TagBlock<Vertex> Vertices;
+            public TagBlock<ObjectReference> ObjectReferences;
+            public TagBlock<PathfindingHint> PathfindingHints;
+            public TagBlock<InstancedGeometryReference> InstancedGeometryReferences;
             public int StructureChecksum;
             public uint Unknown;
             public uint Unknown2;
             public uint Unknown3;
-            public List<Unknown1Block> Unknown1s;
-            public List<Unknown2Block> Unknown2s;
-            public List<Unknown3Block> Unknown3s;
-            public List<Unknown4Block> Unknown4s;
+            public TagBlock<Unknown1Block> Unknown1s;
+            public TagBlock<Unknown2Block> Unknown2s;
+            public TagBlock<Unknown3Block> Unknown3s;
+            public TagBlock<Unknown4Block> Unknown4s;
 
             [TagStructure(Size = 0x8)]
             public class Sector : TagStructure
@@ -611,7 +611,7 @@ namespace TagTool.Tags.Definitions
             public class ObjectReference : TagStructure
 			{
                 public int Unknown;
-                public List<UnknownBlock> Unknown2;
+                public TagBlock<UnknownBlock> Unknown2;
                 public int Unknown3;
                 public short Unknown4;
                 public short Unknown5;
@@ -625,7 +625,7 @@ namespace TagTool.Tags.Definitions
                     public sbyte Unknown4;
                     public short Unknown5;
                     public short Unknown6;
-                    public List<UnknownBlock2> Unknown7;
+                    public TagBlock<UnknownBlock2> Unknown7;
                     public int Unknown8;
 
                     [TagStructure(Size = 0x4)]
@@ -699,7 +699,7 @@ namespace TagTool.Tags.Definitions
             [TagStructure(Size = 0xC)]
             public class Unknown2Block : TagStructure
 			{
-                public List<UnknownBlock> Unknown;
+                public TagBlock<UnknownBlock> Unknown;
 
                 [TagStructure(Size = 0x4)]
                 public class UnknownBlock : TagStructure
@@ -714,7 +714,7 @@ namespace TagTool.Tags.Definitions
                 public short Unknown1;
                 public short Unknown2;
                 public float Unknown3;
-                public List<UnknownBlock> Unknown4;
+                public TagBlock<UnknownBlock> Unknown4;
 
                 [TagStructure(Size = 0x4)]
                 public class UnknownBlock : TagStructure
@@ -888,7 +888,7 @@ namespace TagTool.Tags.Definitions
             public Scenery.PathfindingPolicyValue PathfindingPolicy;
             public Scenery.LightmappingPolicyValue LightmappingPolicy;
             public float LightmapResolutionScale;
-            public List<CollisionDefinition> CollisionDefinitions;
+            public TagBlock<CollisionDefinition> CollisionDefinitions;
             public short Unknown4;
             public short Unknown5;
             public short Unknown6;
@@ -970,8 +970,8 @@ namespace TagTool.Tags.Definitions
 		{
             public short BackgroundSoundEnvironmentIndex;
             public short Unknown;
-            public List<PortalDesignatorBlock> PortalDesignators;
-            public List<InteriorClusterIndexBlock> InteriorClusterIndices;
+            public TagBlock<PortalDesignatorBlock> PortalDesignators;
+            public TagBlock<InteriorClusterIndexBlock> InteriorClusterIndices;
 
             [TagStructure(Size = 0x2)]
             public class PortalDesignatorBlock : TagStructure

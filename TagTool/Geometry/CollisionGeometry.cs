@@ -10,14 +10,14 @@ namespace TagTool.Geometry
     [TagStructure(Size = 0x60, MinVersion = CacheVersion.Halo3Retail)]
     public class CollisionGeometry : TagStructure
 	{
-        public List<Bsp3dNode> Bsp3dNodes;
-        public List<Plane> Planes;
-        public List<Leaf> Leaves;
-        public List<Bsp2dReference> Bsp2dReferences;
-        public List<Bsp2dNode> Bsp2dNodes;
-        public List<Surface> Surfaces;
-        public List<Edge> Edges;
-        public List<Vertex> Vertices;
+        public TagBlock<Bsp3dNode> Bsp3dNodes;
+        public TagBlock<Plane> Planes;
+        public TagBlock<Leaf> Leaves;
+        public TagBlock<Bsp2dReference> Bsp2dReferences;
+        public TagBlock<Bsp2dNode> Bsp2dNodes;
+        public TagBlock<Surface> Surfaces;
+        public TagBlock<Edge> Edges;
+        public TagBlock<Vertex> Vertices;
 
         [TagField(MaxVersion = CacheVersion.Halo2Vista)]
         public float Unknown;

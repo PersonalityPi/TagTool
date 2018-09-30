@@ -33,6 +33,6 @@ namespace TagTool.Ai
         public uint Unknown8;
         public uint Unknown9;
         public uint Unknown10;
-        public List<CharacterChargeDifficultyLimit> DifficultyLimits;
+        public TagBlock<CharacterChargeDifficultyLimit> DifficultyLimits;
     }
 }

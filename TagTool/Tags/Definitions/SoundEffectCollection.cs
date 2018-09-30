@@ -8,7 +8,7 @@ namespace TagTool.Tags.Definitions
     [TagStructure(Name = "sound_effect_collection", Tag = "sfx+", Size = 0x10, MinVersion = CacheVersion.HaloOnline106708)]
     public class SoundEffectCollection : TagStructure
 	{
-        public List<SoundEffect> SoundEffects;
+        public TagBlock<SoundEffect> SoundEffects;
 
         [TagField(Padding = true, Length = 4, MinVersion = CacheVersion.HaloOnline106708)]
         public byte[] Unused;
@@ -23,10 +23,10 @@ namespace TagTool.Tags.Definitions
             public uint Flags;
             public uint Unknown4;
             public uint Unknown5;
-            public List<FilterBlock> Filter;
-            public List<PitchLFOBlock> PitchLFO;
-            public List<FilterLFOBlock> FilterLFO;
-            public List<SoundEffectBlock> SoundEffect2;
+            public TagBlock<FilterBlock> Filter;
+            public TagBlock<PitchLFOBlock> PitchLFO;
+            public TagBlock<FilterLFOBlock> FilterLFO;
+            public TagBlock<SoundEffectBlock> SoundEffect2;
 
             [TagStructure(Size = 0x48)]
             public class FilterBlock : TagStructure
@@ -72,8 +72,8 @@ namespace TagTool.Tags.Definitions
             public class SoundEffectBlock : TagStructure
 			{
                 public CachedTagInstance SoundEffectTemplate;
-                public List<Component> Components;
-                public List<TemplateCollectionBlock> TemplateCollection;
+                public TagBlock<Component> Components;
+                public TagBlock<TemplateCollectionBlock> TemplateCollection;
                 public uint Unknown1;
                 public uint Unknown2;
                 public uint Unknown3;
@@ -95,7 +95,7 @@ namespace TagTool.Tags.Definitions
                 public class TemplateCollectionBlock : TagStructure
 				{
                     public StringId DSPEffect;
-                    public List<Parameter> Parameters;
+                    public TagBlock<Parameter> Parameters;
 
                     [TagStructure(Size = 0x2C)]
                     public class Parameter : TagStructure

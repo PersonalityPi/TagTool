@@ -8,11 +8,11 @@ namespace TagTool.Tags.Definitions
     [TagStructure(Name = "texture_render_list", Tag = "trdf", Size = 0x48, MinVersion = CacheVersion.HaloOnline106708)]
     public class TextureRenderList : TagStructure
 	{
-        public List<Bitmap> Bitmaps;
-        public List<Light> Lights;
-        public List<Bink> Binks;
-        public List<Mannequin> Mannequins;
-        public List<Weapon> Weapons;
+        public TagBlock<Bitmap> Bitmaps;
+        public TagBlock<Light> Lights;
+        public TagBlock<Bink> Binks;
+        public TagBlock<Mannequin> Mannequins;
+        public TagBlock<Weapon> Weapons;
         public uint Unknown;
         public uint Unknown2;
         public uint Unknown3;
@@ -32,7 +32,7 @@ namespace TagTool.Tags.Definitions
         public class Light : TagStructure
 		{
             [TagField(MaxVersion = CacheVersion.HaloOnline571627)]
-            public List<UnknownBlock> Unknown;
+            public TagBlock<UnknownBlock> Unknown;
 
             [TagField(MinVersion = CacheVersion.HaloOnline700123)]
             public uint U1;

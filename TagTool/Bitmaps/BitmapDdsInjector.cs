@@ -33,8 +33,8 @@ namespace TagTool.Bitmaps
                     Page = new RawPage(),
                     Resource = new TagResource
                     {
-                        ResourceFixups = new List<TagResource.ResourceFixup>(),
-                        ResourceDefinitionFixups = new List<TagResource.ResourceDefinitionFixup>(),
+                        ResourceFixups = new TagBlock<TagResource.ResourceFixup>(),
+                        ResourceDefinitionFixups = new TagBlock<TagResource.ResourceDefinitionFixup>(),
                         Type = TagResourceType.Bitmap,
                         Unknown2 = 1
                     }

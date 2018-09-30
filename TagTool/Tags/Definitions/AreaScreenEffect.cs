@@ -16,7 +16,7 @@ namespace TagTool.Tags.Definitions
         [TagField(MinVersion = CacheVersion.Halo3ODST, MaxVersion = CacheVersion.Halo3ODST)]
         public HiddenFlagBits GlobalHiddenFlags;
 
-        public List<ScreenEffectBlock> ScreenEffects;
+        public TagBlock<ScreenEffectBlock> ScreenEffects;
 
         [Flags]
         public enum GlobalFlagBits : ushort

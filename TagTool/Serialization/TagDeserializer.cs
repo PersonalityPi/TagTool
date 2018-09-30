@@ -256,9 +256,8 @@ namespace TagTool.Serialization
             if (valueType.IsArray)
                 return DeserializeInlineArray(reader, context, valueInfo, valueType);
 
-            // List = Tag block
-            if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(List<>))
-                return DeserializeTagBlock(reader, context, valueType);
+			if (typeof(TagBlock).IsAssignableFrom(valueType))
+				return DeserializeTagBlock(reader, context, valueType);
 
             // Ranges
             if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(Bounds<>))
@@ -271,7 +270,10 @@ namespace TagTool.Serialization
                 return DeserializePixelShaderReference(reader, context);
 
             // Assume the value is a structure
-            return DeserializeStruct(reader, context, TagStructure.GetTagStructureInfo(valueType, Version));
+			if (typeof(TagStructure).IsAssignableFrom(valueType))
+				return DeserializeStruct(reader, context, TagStructure.GetTagStructureInfo(valueType, Version));
+
+			throw new NotImplementedException(valueType.FullName);
         }
 
         /// <summary>
@@ -283,49 +285,32 @@ namespace TagTool.Serialization
         /// <returns>The deserialized tag block.</returns>
         public object DeserializeTagBlock(EndianReader reader, ISerializationContext context, Type valueType)
         {
-            var result = Activator.CreateInstance(valueType);
-            var elementType = valueType.GenericTypeArguments[0];
-
-            TagStructureAttribute structure;
-
-            try
-            {
-                structure = TagStructure.GetTagStructureInfo(elementType, Version).Structure;
-            }
-            catch
-            {
-                structure = null;
-            }
-
-            // Read count and offset
+            // Read count and pointer
             var startOffset = reader.BaseStream.Position;
             var count = reader.ReadInt32();
-            
             var pointer = reader.ReadUInt32();
-            if (count == 0 || pointer == 0)
+
+			var cacheAddress = new CacheAddress(pointer);
+			var tagBlock = (TagBlock)Activator.CreateInstance(valueType, count, cacheAddress);
+            
+            // Empty TagBlock
+            if (count == 0 || pointer == 0 || tagBlock.Address.Type == CacheAddressType.Resource)
             {
-                // Null tag block
                 reader.BaseStream.Position = startOffset + (Version > CacheVersion.Halo2Vista ? 0xC : 0x8);
-                return result;
+                return tagBlock;
             }
 
-            //
-            // Read each value
-            //
-
-            var addMethod = valueType.GetMethod("Add");
-
+            // Read each element
             reader.BaseStream.Position = context.AddressToOffset((uint)startOffset + 4, pointer);
-
             for (var i = 0; i < count; i++)
             {
-                var element = DeserializeValue(reader, context, null, elementType);
-                addMethod.Invoke(result, new[] { element });
+                var element = (TagStructure)DeserializeValue(reader, context, null, tagBlock.ElementType);
+				tagBlock.Add(element);
             }
 
+			// set the stream position back and return
             reader.BaseStream.Position = startOffset + (Version > CacheVersion.Halo2Vista ? 0xC : 0x8);
-
-            return result;
+            return tagBlock;
         }
 
         /// <summary>

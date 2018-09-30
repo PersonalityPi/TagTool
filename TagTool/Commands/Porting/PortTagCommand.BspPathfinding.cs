@@ -31,8 +31,8 @@ namespace TagTool.Commands.Porting
                     Type = TagResourceType.Pathfinding,
                     DefinitionData = new byte[0x30],
                     DefinitionAddress = new CacheAddress(CacheAddressType.Definition, 0),
-                    ResourceFixups = new List<TagResource.ResourceFixup>(),
-                    ResourceDefinitionFixups = new List<TagResource.ResourceDefinitionFixup>(),
+                    ResourceFixups = new TagBlock<TagResource.ResourceFixup>(),
+                    ResourceDefinitionFixups = new TagBlock<TagResource.ResourceDefinitionFixup>(),
                     Unknown2 = 1
                 }
             };
@@ -101,7 +101,7 @@ namespace TagTool.Commands.Porting
                     UnknownRaw6ths = new TagBlock<ScenarioStructureBsp.UnknownRaw6th>(bsp.UnknownRaw6ths.Count, new CacheAddress()),
                     Planes = new TagBlock<ScenarioStructureBsp.Plane>(bsp.Planes.Count, new CacheAddress()),
                     UnknownRaw7ths = new TagBlock<ScenarioStructureBsp.UnknownRaw7th>(bsp.UnknownRaw7ths.Count, new CacheAddress()),
-                    PathfindingData = new List<StructureBspCacheFileTagResources.PathfindingDatum>() // TODO: copy from bsp.PathfindingData...
+                    PathfindingData = new TagBlock<StructureBspCacheFileTagResources.PathfindingDatum>() // TODO: copy from bsp.PathfindingData...
                 };
             }
 
@@ -193,9 +193,9 @@ namespace TagTool.Commands.Porting
                     var pathfinding = new StructureBspCacheFileTagResources.PathfindingDatum()
                     {
                         StructureChecksum = bsp.PathfindingData[0].StructureChecksum,
-                        ObjectReferences = new List<StructureBspCacheFileTagResources.PathfindingDatum.ObjectReference>(),
-                        Unknown2s = new List<StructureBspCacheFileTagResources.PathfindingDatum.Unknown2Block>(),
-                        Unknown3s = new List<StructureBspCacheFileTagResources.PathfindingDatum.Unknown3Block>()
+                        ObjectReferences = new TagBlock<StructureBspCacheFileTagResources.PathfindingDatum.ObjectReference>(),
+                        Unknown2s = new TagBlock<StructureBspCacheFileTagResources.PathfindingDatum.Unknown2Block>(),
+                        Unknown3s = new TagBlock<StructureBspCacheFileTagResources.PathfindingDatum.Unknown3Block>()
                     };
 
                     foreach (var oldObjectReference in bsp.PathfindingData[0].ObjectReferences)
@@ -203,7 +203,7 @@ namespace TagTool.Commands.Porting
                         var objectReference = new StructureBspCacheFileTagResources.PathfindingDatum.ObjectReference
                         {
                             Unknown = oldObjectReference.Unknown,
-                            Unknown2 = new List<StructureBspCacheFileTagResources.PathfindingDatum.ObjectReference.Unknown1Block>(),
+                            Unknown2 = new TagBlock<StructureBspCacheFileTagResources.PathfindingDatum.ObjectReference.Unknown1Block>(),
                             Unknown3 = oldObjectReference.Unknown3,
                             Unknown4 = oldObjectReference.Unknown4,
                             Unknown5 = oldObjectReference.Unknown5

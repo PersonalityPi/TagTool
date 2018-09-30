@@ -11,6 +11,6 @@ namespace TagTool.Ai
         public CachedTagInstance Equipment;
         public uint Unknown;
         public float UsageChance;
-        public List<CharacterEquipmentUsageCondition> UsageConditions;
+        public TagBlock<CharacterEquipmentUsageCondition> UsageConditions;
     }
 }

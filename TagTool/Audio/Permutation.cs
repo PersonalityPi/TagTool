@@ -37,7 +37,7 @@ namespace TagTool.Audio
         public uint IsNotFirstPermutation;
 
         [TagField(HaloOnlineOnly = true)]
-        public List<PermutationChunk> PermutationChunks;
+        public TagBlock<PermutationChunk> PermutationChunks;
 
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
         public uint Unknown1;

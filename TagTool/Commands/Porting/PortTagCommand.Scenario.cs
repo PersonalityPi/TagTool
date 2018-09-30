@@ -6,6 +6,7 @@ using System.Linq;
 using TagTool.Cache;
 using TagTool.Common;
 using TagTool.Scripting;
+using TagTool.Tags;
 using TagTool.Tags.Definitions;
 
 namespace TagTool.Commands.Porting
@@ -88,7 +89,7 @@ namespace TagTool.Commands.Porting
                 {
                     foreach (var cookieCutter in pathfindingdata.CookieCutters)
                     {
-                        cookieCutter.Points = new List<Scenario.AiPathfindingDatum.CookieCutter.Point>
+                        cookieCutter.Points = new TagBlock<Scenario.AiPathfindingDatum.CookieCutter.Point>
                         {
                             new Scenario.AiPathfindingDatum.CookieCutter.Point
                             {
@@ -144,7 +145,7 @@ namespace TagTool.Commands.Porting
                         }
 
                         foreach (var direction in task.Direction)
-                            direction.Points = direction.Points_H3.ToList();
+                            direction.Points = direction.Points_H3.ToBlock();
                     }
                 }
 
@@ -218,11 +219,11 @@ namespace TagTool.Commands.Porting
             {
                 foreach (var squad in scnr.Squads)
                 {
-                    squad.SpawnFormations = new List<Scenario.Squad.SpawnFormation>();
-                    squad.SpawnPoints = new List<Scenario.Squad.SpawnPoint>();
+                    squad.SpawnFormations = new TagBlock<Scenario.Squad.SpawnFormation>();
+                    squad.SpawnPoints = new TagBlock<Scenario.Squad.SpawnPoint>();
                     squad.SquadTemplate = null;
-                    squad.TemplatedCells = new List<Scenario.Squad.Cell>();
-                    squad.DesignerCells = new List<Scenario.Squad.Cell>();
+                    squad.TemplatedCells = new TagBlock<Scenario.Squad.Cell>();
+                    squad.DesignerCells = new TagBlock<Scenario.Squad.Cell>();
 
                     for (var i = 0; i < squad.BaseSquad.Count; i++)
                     {
@@ -266,10 +267,10 @@ namespace TagTool.Commands.Porting
                             DifficultyFlags = baseSquad.DifficultyFlags,
                             Count = baseSquad.Count,
 
-                            InitialWeapon = new List<Scenario.Squad.Cell.ItemBlock>(),
-                            InitialSecondaryWeapon = new List<Scenario.Squad.Cell.ItemBlock>(),
-                            InitialEquipment = new List<Scenario.Squad.Cell.ItemBlock>(),
-                            CharacterType = new List<Scenario.Squad.Cell.CharacterTypeBlock>()
+                            InitialWeapon = new TagBlock<Scenario.Squad.Cell.ItemBlock>(),
+                            InitialSecondaryWeapon = new TagBlock<Scenario.Squad.Cell.ItemBlock>(),
+                            InitialEquipment = new TagBlock<Scenario.Squad.Cell.ItemBlock>(),
+                            CharacterType = new TagBlock<Scenario.Squad.Cell.CharacterTypeBlock>()
                         };
 
                         //Add character type
@@ -516,7 +517,7 @@ namespace TagTool.Commands.Porting
             }
 
             if (createPrematchCamera)
-                scnr.CutsceneCameraPoints = new List<Scenario.CutsceneCameraPoint>() { MultiplayerPrematchCamera(position, orientation) };
+                scnr.CutsceneCameraPoints = new TagBlock<Scenario.CutsceneCameraPoint>() { MultiplayerPrematchCamera(position, orientation) };
             
             //
             // Convert scripts
@@ -546,9 +547,9 @@ namespace TagTool.Commands.Porting
             }
             else
             {
-                scnr.Globals = new List<ScriptGlobal>();
-                scnr.Scripts = new List<Script>();
-                scnr.ScriptExpressions = new List<ScriptExpression>();
+                scnr.Globals = new TagBlock<ScriptGlobal>();
+                scnr.Scripts = new TagBlock<Script>();
+                scnr.ScriptExpressions = new TagBlock<ScriptExpression>();
             }
 
             return scnr;

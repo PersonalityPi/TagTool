@@ -13,7 +13,7 @@ namespace TagTool.Tags.Definitions
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
         public uint Unknown2;
 
-        public List<SceneIndex> SceneIndices;
+        public TagBlock<SceneIndex> SceneIndices;
         public CachedTagInstance ImportScenario;
         public int Unknown3;
         public StringId ScenarioName; 
@@ -37,7 +37,7 @@ namespace TagTool.Tags.Definitions
 
         public byte[] ImportScript1;
 
-        public List<TagReferenceBlock> CinematicScenes;
+        public TagBlock<TagReferenceBlock> CinematicScenes;
 
         public byte[] ImportScript2;
         public byte[] ImportScript3;

@@ -18,51 +18,51 @@ namespace TagTool.Tags.Definitions
         public CachedTagInstance Style;
         public CachedTagInstance MajorCharacter;
 
-        public List<CharacterVariant> Variants;
-        public List<CharacterUnitDialogue> UnitDialogue;
-        public List<CharacterGeneralProperties> GeneralProperties;
-        public List<CharacterVitalityProperties> VitalityProperties;
-        public List<CharacterPlacementProperties> PlacementProperties;
-        public List<CharacterPerceptionProperties> PerceptionProperties;
-        public List<CharacterLookProperties> LookProperties;
-        public List<CharacterMovementProperties> MovementProperties;
-        public List<CharacterFlockingProperties> FlockingProperties;
-        public List<CharacterSwarmProperties> SwarmProperties;
-        public List<CharacterReadyProperties> ReadyProperties;
-        public List<CharacterEngageProperties> EngageProperties;
-        public List<CharacterChargeProperties> ChargeProperties;
-        public List<CharacterEvasionProperties> EvasionProperties;
-        public List<CharacterCoverProperties> CoverProperties;
-        public List<CharacterRetreatProperties> RetreatProperties;
-        public List<CharacterSearchProperties> SearchProperties;
-        public List<CharacterPreSearchProperties> PreSearchProperties;
-        public List<CharacterIdleProperties> IdleProperties;
-        public List<CharacterVocalizationProperties> VocalizationProperties;
-        public List<CharacterBoardingProperties> BoardingProperties;
+        public TagBlock<CharacterVariant> Variants;
+        public TagBlock<CharacterUnitDialogue> UnitDialogue;
+        public TagBlock<CharacterGeneralProperties> GeneralProperties;
+        public TagBlock<CharacterVitalityProperties> VitalityProperties;
+        public TagBlock<CharacterPlacementProperties> PlacementProperties;
+        public TagBlock<CharacterPerceptionProperties> PerceptionProperties;
+        public TagBlock<CharacterLookProperties> LookProperties;
+        public TagBlock<CharacterMovementProperties> MovementProperties;
+        public TagBlock<CharacterFlockingProperties> FlockingProperties;
+        public TagBlock<CharacterSwarmProperties> SwarmProperties;
+        public TagBlock<CharacterReadyProperties> ReadyProperties;
+        public TagBlock<CharacterEngageProperties> EngageProperties;
+        public TagBlock<CharacterChargeProperties> ChargeProperties;
+        public TagBlock<CharacterEvasionProperties> EvasionProperties;
+        public TagBlock<CharacterCoverProperties> CoverProperties;
+        public TagBlock<CharacterRetreatProperties> RetreatProperties;
+        public TagBlock<CharacterSearchProperties> SearchProperties;
+        public TagBlock<CharacterPreSearchProperties> PreSearchProperties;
+        public TagBlock<CharacterIdleProperties> IdleProperties;
+        public TagBlock<CharacterVocalizationProperties> VocalizationProperties;
+        public TagBlock<CharacterBoardingProperties> BoardingProperties;
 
         [TagField(Padding = true, Length = 12, MaxVersion = CacheVersion.Halo3Retail)]
         public byte[] Unused1;
         
-        public List<CharacterCombatformProperties> CombatformProperties;
+        public TagBlock<CharacterCombatformProperties> CombatformProperties;
        
         [TagField(Padding = true, Length = 24, MinVersion = CacheVersion.Halo3ODST)]
         public byte[] Unused2;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<CharacterEngineerProperties> EngineerProperties;
+        public TagBlock<CharacterEngineerProperties> EngineerProperties;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<CharacterInspectProperties> InspectProperties;
+        public TagBlock<CharacterInspectProperties> InspectProperties;
 
-        public List<CharacterUnknownProperties> UnknownProperties;
-        public List<CharacterWeaponsProperties> WeaponsProperties;
-        public List<CharacterFiringPatternProperties> FiringPatternProperties;
-        public List<CharacterGrenadesProperties> GrenadesProperties;
-        public List<CharacterVehicleProperties> VehicleProperties;
-        public List<CharacterMorphProperties> MorphProperties;
-        public List<CharacterEquipmentProperties> EquipmentProperties;
-        public List<CharacterMetagameProperties> MetagameProperties;
-        public List<CharacterActAttachment> ActAttachments;
+        public TagBlock<CharacterUnknownProperties> UnknownProperties;
+        public TagBlock<CharacterWeaponsProperties> WeaponsProperties;
+        public TagBlock<CharacterFiringPatternProperties> FiringPatternProperties;
+        public TagBlock<CharacterGrenadesProperties> GrenadesProperties;
+        public TagBlock<CharacterVehicleProperties> VehicleProperties;
+        public TagBlock<CharacterMorphProperties> MorphProperties;
+        public TagBlock<CharacterEquipmentProperties> EquipmentProperties;
+        public TagBlock<CharacterMetagameProperties> MetagameProperties;
+        public TagBlock<CharacterActAttachment> ActAttachments;
         
     }
 }

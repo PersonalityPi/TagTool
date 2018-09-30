@@ -40,7 +40,7 @@ namespace TagTool.Tags.Definitions
         /// <summary>
         /// The buckle settings of the giant.
         /// </summary>
-        public List<BuckleSetting> BuckleSettings;
+        public TagBlock<BuckleSetting> BuckleSettings;
 
         /// <summary>
         /// The lower values to drop the ankles of the giant towards the ground when computing IK.

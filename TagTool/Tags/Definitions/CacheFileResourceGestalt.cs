@@ -21,31 +21,31 @@ namespace TagTool.Tags.Definitions
         public MapTypeHalo3RetailValue MapSubTypeHaloReach;
 
         public short Flags;
-        public List<ResourceType> ResourceTypes;
-        public List<ResourceStructureType> ResourceStructureTypes;
+        public TagBlock<ResourceType> ResourceTypes;
+        public TagBlock<ResourceStructureType> ResourceStructureTypes;
         public CacheFileResourceLayoutTable ResourceLayoutTable = new CacheFileResourceLayoutTable();
-        public List<TagResource> TagResources;
-        public List<Zoneset> DesignerZonesets;
-        public List<Zoneset> GlobalZoneset;
+        public TagBlock<TagResource> TagResources;
+        public TagBlock<Zoneset> DesignerZonesets;
+        public TagBlock<Zoneset> GlobalZoneset;
         public uint Unknown;
         public uint Unknown2;
         public uint Unknown3;
-        public List<Zoneset> UnattachedZoneset;
-        public List<Zoneset> DiscForbiddenZoneset;
-        public List<Zoneset> DiscAlwaysStreamingZoneset;
-        public List<Zoneset> BspZonesets1;
-        public List<Zoneset> BspZonesets2;
-        public List<Zoneset> BspZonesets3;
-        public List<Zoneset> CinematicZonesets;
-        public List<Zoneset> ScenarioZonesets;
+        public TagBlock<Zoneset> UnattachedZoneset;
+        public TagBlock<Zoneset> DiscForbiddenZoneset;
+        public TagBlock<Zoneset> DiscAlwaysStreamingZoneset;
+        public TagBlock<Zoneset> BspZonesets1;
+        public TagBlock<Zoneset> BspZonesets2;
+        public TagBlock<Zoneset> BspZonesets3;
+        public TagBlock<Zoneset> CinematicZonesets;
+        public TagBlock<Zoneset> ScenarioZonesets;
         public uint Unknown4;
         public uint Unknown5;
         public uint Unknown6;
         public uint Unknown7;
         public uint Unknown8;
         public uint Unknown9;
-        public List<ScenarioZonesetGroup> ScenarioZonesetGroups;
-        public List<CachedTagInstance> ScenarioBsps;
+        public TagBlock<ScenarioZonesetGroup> ScenarioZonesetGroups;
+        public TagBlock<TagReferenceBlock> ScenarioBsps;
         public uint Unknown10;
         public uint Unknown11;
         public uint Unknown12;
@@ -61,7 +61,7 @@ namespace TagTool.Tags.Definitions
         public uint Unknown21;
         public uint Unknown22;
         public uint Unknown23;
-        public List<UnknownBlock> Unknown24;
+        public TagBlock<UnknownBlock> Unknown24;
         public uint Unknown25;
         public uint Unknown26;
         public uint Unknown27;
@@ -86,11 +86,11 @@ namespace TagTool.Tags.Definitions
         public uint Unknown46;
         public uint Unknown47;
         public uint Unknown48;
-        public List<PredictionABlock> PredictionA;
-        public List<PredictionBBlock> PredictionB;
-        public List<PredictionCBlock> PredictionC;
-        public List<PredictionDTag> PredictionDTags;
-        public List<PredictionD2Tag> PredictionD2Tags;
+        public TagBlock<PredictionABlock> PredictionA;
+        public TagBlock<PredictionBBlock> PredictionB;
+        public TagBlock<PredictionCBlock> PredictionC;
+        public TagBlock<PredictionDTag> PredictionDTags;
+        public TagBlock<PredictionD2Tag> PredictionD2Tags;
         public int CampaignId;
         public int MapId;
 
@@ -152,8 +152,8 @@ namespace TagTool.Tags.Definitions
             public short Unknown1;
             public short SegmentIndex;
             public int DefinitionAddress;
-            public List<ResourceFixup> ResourceFixups;
-            public List<ResourceDefinitionFixup> ResourceDefinitionFixups;
+            public TagBlock<ResourceFixup> ResourceFixups;
+            public TagBlock<ResourceDefinitionFixup> ResourceDefinitionFixups;
 
             [TagStructure(Size = 0x8)]
             public class ResourceFixup : TagStructure
@@ -181,21 +181,21 @@ namespace TagTool.Tags.Definitions
         [TagStructure(Size = 0xA0, MinVersion = CacheVersion.HaloReach)]
         public class Zoneset : TagStructure
 		{
-            public List<MemoryPoolBlock> RequiredRawPool;
+            public TagBlock<MemoryPoolBlock> RequiredRawPool;
             public uint Unknown;
             public uint Unknown2;
             public uint Unknown3;
-            public List<MemoryPoolBlock> OptionalRawPool;
-            public List<MemoryPoolBlock> OptionalRawPool2;
+            public TagBlock<MemoryPoolBlock> OptionalRawPool;
+            public TagBlock<MemoryPoolBlock> OptionalRawPool2;
             public uint Unknown4;
             public uint Unknown5;
             public uint Unknown6;
             public uint Unknown7;
             public uint Unknown8;
             public StringId SetName;
-            public List<ResourceType> ResourceTypes;
-            public List<MemoryPoolBlock> RequiredTagPool;
-            public List<MemoryPoolBlock> OptionalTagPool;
+            public TagBlock<ResourceType> ResourceTypes;
+            public TagBlock<MemoryPoolBlock> RequiredTagPool;
+            public TagBlock<MemoryPoolBlock> OptionalTagPool;
             public uint Unknown9;
             public uint Unknown10;
             public uint Unknown11;

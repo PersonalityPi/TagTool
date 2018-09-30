@@ -8,9 +8,9 @@ namespace TagTool.Tags.Definitions
     public class RenderMethodDefinition : TagStructure
 	{
         public CachedTagInstance RenderMethodOptions;
-        public List<Method> Methods;
-        public List<DrawMode> DrawModes;
-        public List<UnknownBlock> Unknown;
+        public TagBlock<Method> Methods;
+        public TagBlock<DrawMode> DrawModes;
+        public TagBlock<UnknownBlock> Unknown;
         public CachedTagInstance GlobalPixelShader;
         public CachedTagInstance GlobalVertexShader;
         public int Unknown2;
@@ -23,7 +23,7 @@ namespace TagTool.Tags.Definitions
         public class Method : TagStructure
 		{
             public StringId Type;
-            public List<ShaderOption> ShaderOptions;
+            public TagBlock<ShaderOption> ShaderOptions;
             public StringId Unknown;
             public StringId Unknown2;
 
@@ -41,13 +41,13 @@ namespace TagTool.Tags.Definitions
         public class DrawMode : TagStructure
 		{
             public uint Mode;
-            public List<UnknownBlock2> Unknown2;
+            public TagBlock<UnknownBlock2> Unknown2;
 
             [TagStructure(Size = 0x10)]
             public class UnknownBlock2 : TagStructure
 			{
                 public uint Unknown;
-                public List<UnknownBlock> Unknown2;
+                public TagBlock<UnknownBlock> Unknown2;
 
                 [TagStructure(Size = 0x4)]
                 public class UnknownBlock : TagStructure

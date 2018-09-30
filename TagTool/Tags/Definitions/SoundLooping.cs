@@ -16,8 +16,8 @@ namespace TagTool.Tags.Definitions
         public CachedTagInstance Unused;
         public SoundClassValue SoundClass;
         public short Unknown4;
-        public List<Track> Tracks;
-        public List<DetailSound> DetailSounds;
+        public TagBlock<Track> Tracks;
+        public TagBlock<DetailSound> DetailSounds;
 
         [Flags]
         public enum SoundLoopingFlags : int

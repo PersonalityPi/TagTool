@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using TagTool.Tags;
 
 namespace TagTool.Commands.Shaders
 {
@@ -30,15 +31,15 @@ namespace TagTool.Commands.Shaders
         private static void ResetRMT2(RenderMethodTemplate Definition)
         {
             Definition.DrawModeBitmask = 0;
-            Definition.DrawModes = new List<RenderMethodTemplate.DrawMode>();
+            Definition.DrawModes = new TagBlock<RenderMethodTemplate.DrawMode>();
 
-            Definition.ArgumentMappings = new List<RenderMethodTemplate.ArgumentMapping>();
-            Definition.RegisterOffsets = new List<RenderMethodTemplate.DrawModeRegisterOffsetBlock>();
+            Definition.ArgumentMappings = new TagBlock<RenderMethodTemplate.ArgumentMapping>();
+            Definition.RegisterOffsets = new TagBlock<RenderMethodTemplate.DrawModeRegisterOffsetBlock>();
 
-            Definition.VectorArguments = new List<RenderMethodTemplate.ShaderArgument>();
-            Definition.IntegerArguments = new List<RenderMethodTemplate.ShaderArgument>();
-            Definition.BooleanArguments = new List<RenderMethodTemplate.ShaderArgument>();
-            Definition.SamplerArguments = new List<RenderMethodTemplate.ShaderArgument>();
+            Definition.VectorArguments = new TagBlock<RenderMethodTemplate.ShaderArgument>();
+            Definition.IntegerArguments = new TagBlock<RenderMethodTemplate.ShaderArgument>();
+            Definition.BooleanArguments = new TagBlock<RenderMethodTemplate.ShaderArgument>();
+            Definition.SamplerArguments = new TagBlock<RenderMethodTemplate.ShaderArgument>();
 
         }
 

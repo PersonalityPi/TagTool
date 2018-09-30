@@ -103,17 +103,17 @@ namespace TagTool.Tags.Definitions
         public float Unknown32;
 
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<UnknownBlock> Unknown33;
+        public TagBlock<UnknownBlock> Unknown33;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<UnknownBlock2> Unknown34;
+        public TagBlock<UnknownBlock2> Unknown34;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<UnknownBlock3> Unknown35;
+        public TagBlock<UnknownBlock3> Unknown35;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<UnknownBlock4> Unknown36;
+        public TagBlock<UnknownBlock4> Unknown36;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<UnknownBlock5> Unknown37;
+        public TagBlock<UnknownBlock5> Unknown37;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<UnknownBlock6> Unknown38;
+        public TagBlock<UnknownBlock6> Unknown38;
 
         //
         // Godrays

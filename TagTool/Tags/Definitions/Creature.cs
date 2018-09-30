@@ -34,9 +34,9 @@ namespace TagTool.Tags.Definitions
         public StringId DeadMaterialName;
         public short LivingGlobalMaterialIndex;
         public short DeadGlobalMaterialIndex;
-        public List<PhysicsModel.Sphere> DeadSphereShapes;
-        public List<PhysicsModel.Pill> PillShapes;
-        public List<PhysicsModel.Sphere> SphereShapes;
+        public TagBlock<PhysicsModel.Sphere> DeadSphereShapes;
+        public TagBlock<PhysicsModel.Pill> PillShapes;
+        public TagBlock<PhysicsModel.Sphere> SphereShapes;
         public Angle MaximumSlopeAngle;
         public Angle DownhillFalloffAngle;
         public Angle DownhillCutoffAngle;
@@ -67,7 +67,7 @@ namespace TagTool.Tags.Definitions
         public uint Unknown14;
         public CachedTagInstance ImpactDamage;
         public CachedTagInstance ImpactShieldDamage;
-        public List<Unit.MetagameProperty> MetagameProperties;
+        public TagBlock<Unit.MetagameProperty> MetagameProperties;
         public Bounds<float> DestroyAfterDeathTimeBounds;
     }
 

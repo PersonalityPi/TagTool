@@ -21,43 +21,43 @@ namespace TagTool.Tags.Definitions
         [TagField(Padding = true, Length = 3)]
         public byte[] Unused;
 
-        public List<DampedSprintMotor> DampedSpringMotors;
-        public List<PositionMotor> PositionMotors;
-        public List<PhantomType> PhantomTypes;
-        public List<PoweredChain> PoweredChains;
-        public List<NodeEdge> NodeEdges;
-        public List<RigidBody> RigidBodies;
-        public List<Material> Materials;
-        public List<Sphere> Spheres;
+        public TagBlock<DampedSprintMotor> DampedSpringMotors;
+        public TagBlock<PositionMotor> PositionMotors;
+        public TagBlock<PhantomType> PhantomTypes;
+        public TagBlock<PoweredChain> PoweredChains;
+        public TagBlock<NodeEdge> NodeEdges;
+        public TagBlock<RigidBody> RigidBodies;
+        public TagBlock<Material> Materials;
+        public TagBlock<Sphere> Spheres;
 
         [TagField(Padding = true, Length = 12)]
         public byte[] UnusedMultiSpheres;
 
-        public List<Pill> Pills;
-        public List<Box> Boxes;
-        public List<Triangle> Triangles;
-        public List<Polyhedron> Polyhedra;
-        public List<PolyhedronFourVector> PolyhedronFourVectors;
-        public List<PolyhedronPlaneEquation> PolyhedronPlaneEquations;
+        public TagBlock<Pill> Pills;
+        public TagBlock<Box> Boxes;
+        public TagBlock<Triangle> Triangles;
+        public TagBlock<Polyhedron> Polyhedra;
+        public TagBlock<PolyhedronFourVector> PolyhedronFourVectors;
+        public TagBlock<PolyhedronPlaneEquation> PolyhedronPlaneEquations;
 
         [TagField(Padding = true, Length = 12)]
         public byte[] UnusedMassDistributions;
 
-        public List<List> Lists;
-        public List<ListShape> ListShapes;
-        public List<Mopp> Mopps;
+        public TagBlock<List> Lists;
+        public TagBlock<ListShape> ListShapes;
+        public TagBlock<Mopp> Mopps;
         public byte[] MoppCodes;
-        public List<HingeConstraint> HingeConstraints;
-        public List<RagdollConstraint> RagdollConstraints;
-        public List<Region> Regions;
-        public List<Node> Nodes;
+        public TagBlock<HingeConstraint> HingeConstraints;
+        public TagBlock<RagdollConstraint> RagdollConstraints;
+        public TagBlock<Region> Regions;
+        public TagBlock<Node> Nodes;
         public uint Unknown11;
         public uint Unknown12;
         public uint Unknown13;
         public uint Unknown14;
         public uint Unknown15;
         public uint Unknown16;
-        public List<LimitedHingeConstraint> LimitedHingeConstraints;
+        public TagBlock<LimitedHingeConstraint> LimitedHingeConstraints;
 
         [TagField(Padding = true, Length = 12)]
         public byte[] UnusedBallAndSocketConstraints;
@@ -68,7 +68,7 @@ namespace TagTool.Tags.Definitions
         [TagField(Padding = true, Length = 12)]
         public byte[] UnusedPrismaticConstraints;
 
-        public List<Phantom> Phantoms;
+        public TagBlock<Phantom> Phantoms;
 
         [TagField(MaxVersion = CacheVersion.Halo3ODST)]
         public uint Unknown17;
@@ -210,8 +210,8 @@ namespace TagTool.Tags.Definitions
         [TagStructure(Size = 0x18)]
         public class PoweredChain : TagStructure
 		{
-            public List<Node> Nodes;
-            public List<Constraint> Constraints;
+            public TagBlock<Node> Nodes;
+            public TagBlock<Constraint> Constraints;
 
             [TagStructure(Size = 0x2, Align = 0x8)]
             public class Node : TagStructure
@@ -237,7 +237,7 @@ namespace TagTool.Tags.Definitions
             public short NodeBGlobalMaterialIndex;
             public short NodeA;
             public short NodeB;
-            public List<Constraint> Constraints;
+            public TagBlock<Constraint> Constraints;
             public StringId NodeAMaterial;
             public StringId NodeBMaterial;
 
@@ -248,8 +248,8 @@ namespace TagTool.Tags.Definitions
                 public short Index;
                 public ConstraintFlags Flags;
                 public float Friction;
-                public List<RagdollMotor> RagdollMotors;
-                public List<LimitedHingeMotor> LimitedHingeMotors;
+                public TagBlock<RagdollMotor> RagdollMotors;
+                public TagBlock<LimitedHingeMotor> LimitedHingeMotors;
 
                 [Flags]
                 public enum ConstraintFlags : int
@@ -602,13 +602,13 @@ namespace TagTool.Tags.Definitions
         public class Region : TagStructure
 		{
             public StringId Name;
-            public List<Permutation> Permutations;
+            public TagBlock<Permutation> Permutations;
 
             [TagStructure(Size = 0x10)]
             public class Permutation : TagStructure
 			{
                 public StringId Name;
-                public List<RigidBody> RigidBodies;
+                public TagBlock<RigidBody> RigidBodies;
 
                 [TagStructure(Size = 0x2)]
                 public class RigidBody : TagStructure

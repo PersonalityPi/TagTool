@@ -48,6 +48,6 @@ namespace TagTool.Audio
         public ushort FirstPermutationIndex;
 
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<Permutation> Permutations;
+        public TagBlock<Permutation> Permutations;
     }
 }

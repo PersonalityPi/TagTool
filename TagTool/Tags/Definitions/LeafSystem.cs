@@ -22,7 +22,7 @@ namespace TagTool.Tags.Definitions
         public float MovementCylinderRadius;
         public float FadeInTime;
         public float FadeOutTime;
-        public List<LeafType> LeafTypes;
+        public TagBlock<LeafType> LeafTypes;
 
         [Flags]
         public enum FlagBits : int

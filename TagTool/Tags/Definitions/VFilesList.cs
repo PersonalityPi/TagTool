@@ -16,7 +16,7 @@ namespace TagTool.Tags.Definitions
         /// <summary>
         /// The files in the list.
         /// </summary>
-        public List<VFileInfo> Files;
+        public TagBlock<VFileInfo> Files;
 
         /// <summary>
         /// The data block containing the data for every file.

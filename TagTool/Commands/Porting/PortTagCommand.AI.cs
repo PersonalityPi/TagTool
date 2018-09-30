@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TagTool.Ai;
 using TagTool.Cache;
+using TagTool.Tags;
 using TagTool.Tags.Definitions;
 
 namespace TagTool.Commands.Porting
@@ -73,8 +74,8 @@ namespace TagTool.Commands.Porting
         {
             if (BlamCache.Version == CacheVersion.Halo3Retail)
             {
-                character.InspectProperties = new List<CharacterInspectProperties>();
-                character.EngineerProperties = new List<CharacterEngineerProperties>();
+                character.InspectProperties = new TagBlock<CharacterInspectProperties>();
+                character.EngineerProperties = new TagBlock<CharacterEngineerProperties>();
             }
 
             return character;

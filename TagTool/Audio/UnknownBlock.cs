@@ -9,7 +9,7 @@ namespace TagTool.Audio
     public class UnknownBlock : TagStructure
 	{
         public uint Unknown;
-        public List<UnknownBlock2> Unknown2;
+        public TagBlock<UnknownBlock2> Unknown2;
 
         [TagStructure(Size = 0x4)]
         public class UnknownBlock2 : TagStructure

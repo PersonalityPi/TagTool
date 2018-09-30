@@ -42,7 +42,7 @@ namespace TagTool.Tags.Definitions
         public TagFunction CrouchingCameraFunction = new TagFunction { Data = new byte[0] };
 
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<WeaponCameraHeightBlock> WeaponCameraHeight;
+        public TagBlock<WeaponCameraHeightBlock> WeaponCameraHeight;
 
         public Angle CameraInterpolationStart;
         public Angle CameraInterpolationEnd;
@@ -67,9 +67,9 @@ namespace TagTool.Tags.Definitions
         public CachedTagInstance AreaDamageEffect;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<UnknownFunctionBlock> Unknown34;
+        public TagBlock<UnknownFunctionBlock> Unknown34;
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<UnknownFunctionBlock> Unknown35;
+        public TagBlock<UnknownFunctionBlock> Unknown35;
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
         public uint Unknown36;
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
@@ -92,9 +92,9 @@ namespace TagTool.Tags.Definitions
         public StringId DeadMaterialName;
         public short LivingMaterialGlobalIndex;
         public short DeadMaterialGlobalIndex;
-        public List<PhysicsModel.Sphere> DeadSphereShapes;
-        public List<PhysicsModel.Pill> PillShapes;
-        public List<PhysicsModel.Sphere> SphereShapes;
+        public TagBlock<PhysicsModel.Sphere> DeadSphereShapes;
+        public TagBlock<PhysicsModel.Pill> PillShapes;
+        public TagBlock<PhysicsModel.Sphere> SphereShapes;
         public Angle MaximumSlopeAngle;
         public Angle DownhillFalloffAngle;
         public Angle DownhillCutoffAngle;
@@ -124,7 +124,7 @@ namespace TagTool.Tags.Definitions
         public Angle AngularAccelerationMaximum;
         public float CrouchVelocityModifier;
         
-        public List<ContactPoint> ContactPoints;
+        public TagBlock<ContactPoint> ContactPoints;
         public CachedTagInstance ReanimationCharacter;
         public CachedTagInstance TransformationMuffin;
         public CachedTagInstance DeathSpawnCharacter;

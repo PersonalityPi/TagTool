@@ -269,7 +269,7 @@ namespace TagTool.Commands.Porting
             var playbackParameters = BlamSoundGestalt.PlaybackParameters[sound.SoundReference.PlaybackParameterIndex];
             var scale = BlamSoundGestalt.Scales[sound.SoundReference.ScaleIndex];
             var promotion = sound.SoundReference.PromotionIndex != -1 ? BlamSoundGestalt.Promotions[sound.SoundReference.PromotionIndex] : new Promotion();
-            var customPlayBack = sound.SoundReference.CustomPlaybackIndex != -1 ? new List<CustomPlayback> { BlamSoundGestalt.CustomPlaybacks[sound.SoundReference.CustomPlaybackIndex] } : new List<CustomPlayback>();
+            var customPlayBack = sound.SoundReference.CustomPlaybackIndex != -1 ? new TagBlock<CustomPlayback> { BlamSoundGestalt.CustomPlaybacks[sound.SoundReference.CustomPlaybackIndex] } : new TagBlock<CustomPlayback>();
 
 
             sound.PlaybackParameters = playbackParameters;
@@ -290,7 +290,7 @@ namespace TagTool.Commands.Porting
             // Process all the pitch ranges
             //
 
-            sound.PitchRanges = new List<PitchRange>(sound.SoundReference.PitchRangeCount);
+            sound.PitchRanges = new TagBlock<PitchRange>(sound.SoundReference.PitchRangeCount);
 
             IEnumerable<byte> soundDataAggregate = new byte[0];
             int currentSoundDataOffset = 0;
@@ -340,7 +340,7 @@ namespace TagTool.Commands.Porting
                 // Add pitch range to ED sound
                 sound.PitchRanges.Add(pitchRange);
                 var newPitchRangeIndex = pitchRangeIndex - sound.SoundReference.PitchRangeIndex;
-                sound.PitchRanges[newPitchRangeIndex].Permutations = new List<Permutation>();
+                sound.PitchRanges[newPitchRangeIndex].Permutations = new TagBlock<Permutation>();
 
                 //
                 // Determine the audio channel count
@@ -388,7 +388,7 @@ namespace TagTool.Commands.Porting
 
                     permutation.ImportName = ConvertStringId(BlamSoundGestalt.ImportNames[permutation.ImportNameIndex].Name);
                     permutation.SkipFraction = new Bounds<float>(0.0f, permutation.Gain);
-                    permutation.PermutationChunks = new List<PermutationChunk>();
+                    permutation.PermutationChunks = new TagBlock<PermutationChunk>();
                     permutation.PermutationNumber = (uint)permutationOrder[permutationIndex];
                     permutation.IsNotFirstPermutation = (uint)(permutation.PermutationNumber == 0 ? 0 : 1);
                     permutations[permutationIndex] = permutation;   
@@ -441,8 +441,8 @@ namespace TagTool.Commands.Porting
 
             var extraInfo = new ExtraInfo()
             {
-                LanguagePermutations = new List<ExtraInfo.LanguagePermutation>(),
-                EncodedPermutationSections = new List<ExtraInfo.EncodedPermutationSection>()
+                LanguagePermutations = new TagBlock<ExtraInfo.LanguagePermutation>(),
+                EncodedPermutationSections = new TagBlock<ExtraInfo.EncodedPermutationSection>()
             };
 
             for (int u = 0; u < sound.SoundReference.PitchRangeCount; u++)
@@ -451,7 +451,7 @@ namespace TagTool.Commands.Porting
 
                 var languagePermutation = new ExtraInfo.LanguagePermutation
                 {
-                    RawInfo = new List<ExtraInfo.LanguagePermutation.RawInfoBlock>()
+                    RawInfo = new TagBlock<ExtraInfo.LanguagePermutation.RawInfoBlock>()
                 };
 
                 for (int i = 0; i < sound.PitchRanges[u].PermutationCount; i++)
@@ -460,7 +460,7 @@ namespace TagTool.Commands.Porting
                     {
                         SkipFractionName = StringId.Invalid,
                         Unknown24 = 480,
-                        UnknownList = new List<ExtraInfo.LanguagePermutation.RawInfoBlock.Unknown>(),
+                        UnknownList = new TagBlock<ExtraInfo.LanguagePermutation.RawInfoBlock.Unknown>(),
                         Compression = 8,
                         SampleCount = (uint)Math.Floor(pitchRange.Permutations[i].SampleSize * 128000.0 / (8 * sound.SampleRate.GetSampleRateHz())),
                         ResourceSampleSize = pitchRange.Permutations[i].SampleSize,
@@ -492,7 +492,7 @@ namespace TagTool.Commands.Porting
                 }
             }
 
-            sound.ExtraInfo = new List<ExtraInfo> { extraInfo };
+            sound.ExtraInfo = new TagBlock<ExtraInfo> { extraInfo };
 
             //
             // Convert Blam languages to ElDorado format
@@ -500,15 +500,15 @@ namespace TagTool.Commands.Porting
 
             if (sound.SoundReference.LanguageIndex != -1)
             {
-                sound.Languages = new List<LanguageBlock>();
+                sound.Languages = new TagBlock<LanguageBlock>();
 
                 foreach (var language in BlamSoundGestalt.Languages)
                 {
                     sound.Languages.Add(new LanguageBlock
                     {
                         Language = language.Language,
-                        PermutationDurations = new List<LanguageBlock.PermutationDurationBlock>(),
-                        PitchRangeDurations = new List<LanguageBlock.PitchRangeDurationBlock>(),
+                        PermutationDurations = new TagBlock<LanguageBlock.PermutationDurationBlock>(),
+                        PitchRangeDurations = new TagBlock<LanguageBlock.PitchRangeDurationBlock>(),
                     });
 
                     //Add all the  Pitch Range Duration block (pitch range count dependent)
@@ -527,7 +527,7 @@ namespace TagTool.Commands.Porting
                         var curPRD = curLanguage.PitchRangeDurations[i];
 
                         //Get current block count for new index
-                        short newPermutationIndex = (short)curLanguage.PermutationDurations.Count();
+                        short newPermutationIndex = (short)curLanguage.PermutationDurations.Count;
 
                         for (int j = curPRD.PermutationStartIndex; j < curPRD.PermutationStartIndex + curPRD.PermutationCount; j++)
                         {
@@ -559,8 +559,8 @@ namespace TagTool.Commands.Porting
                     Type = TagResourceType.Sound,
                     DefinitionData = new byte[20],
                     DefinitionAddress = new CacheAddress(CacheAddressType.Definition, 536870912),
-                    ResourceFixups = new List<TagResource.ResourceFixup>(),
-                    ResourceDefinitionFixups = new List<TagResource.ResourceDefinitionFixup>(),
+                    ResourceFixups = new TagBlock<TagResource.ResourceFixup>(),
+                    ResourceDefinitionFixups = new TagBlock<TagResource.ResourceDefinitionFixup>(),
                     Unknown2 = 1
                 }
             };
@@ -664,9 +664,9 @@ namespace TagTool.Commands.Porting
 
             adlg = CacheContext.Deserialize<AiDialogueGlobals>(cacheStream, edAdlg);
 
-            //Create empty udlg vocalization block and fill it with empty blocks matching adlg
+			//Create empty udlg vocalization block and fill it with empty blocks matching adlg
 
-            List<Dialogue.Vocalization> newVocalization = new List<Dialogue.Vocalization>();
+			TagBlock<Dialogue.Vocalization> newVocalization = new TagBlock<Dialogue.Vocalization>();
             foreach (var vocalization in adlg.Vocalizations)
             {
                 Dialogue.Vocalization block = new Dialogue.Vocalization

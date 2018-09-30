@@ -72,10 +72,10 @@ namespace TagTool.Tags.Definitions
         public float GuidedProjectileOuterRangeErrorRadius;
         public float AutoaimLeadingMaxLeadTime;
 
-        public List<MaterialResponse> MaterialResponses;
-        public List<BruteGrenadeProperty> BruteGrenadeProperties;
-        public List<FireBombGrenadeProperty> FireBombGrenadeProperties;
-        public List<ShotgunProperty> ShotgunProperties;
+        public TagBlock<MaterialResponse> MaterialResponses;
+        public TagBlock<BruteGrenadeProperty> BruteGrenadeProperties;
+        public TagBlock<FireBombGrenadeProperty> FireBombGrenadeProperties;
+        public TagBlock<ShotgunProperty> ShotgunProperties;
 
         [Flags]
         public enum ProjectileFlagBits : int

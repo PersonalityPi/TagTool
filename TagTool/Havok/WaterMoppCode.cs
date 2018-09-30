@@ -7,7 +7,7 @@ namespace TagTool.Havok
     [TagStructure(Size = 0x10, Align = 0x10)]
     public class WaterMoppCode : MoppCode
     {
-        public List<Datum> Data;
+        public TagBlock<Datum> Data;
 
         public sbyte MoppBuildType;
 

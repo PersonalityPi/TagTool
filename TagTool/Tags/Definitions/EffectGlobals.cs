@@ -7,7 +7,7 @@ namespace TagTool.Tags.Definitions
     [TagStructure(Name = "effect_globals", Tag = "effg", Size = 0x10, MinVersion = CacheVersion.HaloOnline106708)]
     public class EffectGlobals : TagStructure
 	{
-        public List<UnknownBlock> Unknown;
+        public TagBlock<UnknownBlock> Unknown;
 
         [TagField(Padding = true, Length = 4, MinVersion = CacheVersion.HaloOnline106708)]
         public byte[] Unused1;
@@ -17,7 +17,7 @@ namespace TagTool.Tags.Definitions
 		{
             public uint Unknown;
             public uint Unknown2;
-            public List<UnknownBlock2> Unknown3;
+            public TagBlock<UnknownBlock2> Unknown3;
 
             [TagStructure(Size = 0x10)]
             public class UnknownBlock2 : TagStructure

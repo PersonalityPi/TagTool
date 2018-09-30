@@ -8,14 +8,14 @@ namespace TagTool.Tags.Definitions
     public class VertexShader : TagStructure
 	{
         public uint Unknown;
-        public List<DrawModeList> DrawModeLists;
+        public TagBlock<DrawModeList> DrawModeLists;
         public uint Unknown3;
-        public List<VertexShaderBlock> Shaders;
+        public TagBlock<VertexShaderBlock> Shaders;
 
         [TagStructure(Size = 0xC)]
         public class DrawModeList : TagStructure
 		{
-            public List<ShaderDrawMode> DrawModes;
+            public TagBlock<ShaderDrawMode> DrawModes;
         }
     }
 }

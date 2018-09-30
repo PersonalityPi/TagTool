@@ -10,7 +10,7 @@ namespace TagTool.Tags.Definitions
     public class Formation : TagStructure
 	{
         public StringId Name;
-        public List<Primitive> Primitives;
+        public TagBlock<Primitive> Primitives;
 
         [TagField(Padding = true, Length = 8, MinVersion = CacheVersion.HaloOnline106708)]
         public byte[] Unused;
@@ -27,7 +27,7 @@ namespace TagTool.Tags.Definitions
             public float DistanceBackwards;
             public float RankSpacing;
             public float FileSpacing;
-            public List<Point> Points;
+            public TagBlock<Point> Points;
 
             [Flags]
             public enum FlagBits : ushort

@@ -17,10 +17,10 @@ namespace TagTool.Tags.Definitions
 
         public CollisionModelFlags Flags;
 
-        public List<Material> Materials;
-        public List<Region> Regions;
-        public List<PathfindingSphere> PathfindingSpheres;
-        public List<Node> Nodes;
+        public TagBlock<Material> Materials;
+        public TagBlock<Region> Regions;
+        public TagBlock<PathfindingSphere> PathfindingSpheres;
+        public TagBlock<Node> Nodes;
         
         [TagStructure(Size = 0x4)]
         public class Material : TagStructure
@@ -34,16 +34,16 @@ namespace TagTool.Tags.Definitions
 		{
             [TagField(Label = true)]
             public StringId Name;
-            public List<Permutation> Permutations;
+            public TagBlock<Permutation> Permutations;
 
             [TagStructure(Size = 0x28)]
             public class Permutation : TagStructure
 			{
                 [TagField(Label = true)]
                 public StringId Name;
-                public List<Bsp> Bsps;
-                public List<BspPhysicsBlock> BspPhysics;
-                public List<CollisionMoppCode> BspMoppCodes;
+                public TagBlock<Bsp> Bsps;
+                public TagBlock<BspPhysicsBlock> BspPhysics;
+                public TagBlock<CollisionMoppCode> BspMoppCodes;
 
                 [TagStructure(Size = 0x64)]
                 public class Bsp : TagStructure

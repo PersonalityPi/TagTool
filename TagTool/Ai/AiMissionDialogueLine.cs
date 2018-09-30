@@ -9,7 +9,7 @@ namespace TagTool.Ai
 	{
         [TagField(Label = true)]
         public StringId Name;
-        public List<AiMissionDialogueLineVariant> Variants;
+        public TagBlock<AiMissionDialogueLineVariant> Variants;
         public StringId DefaultSoundEffect;
     }
 }

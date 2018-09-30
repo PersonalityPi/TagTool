@@ -2,6 +2,7 @@ using TagTool.Cache;
 using TagTool.Tags.Definitions;
 using System;
 using System.Collections.Generic;
+using TagTool.Tags;
 
 namespace TagTool.Commands.Porting
 {
@@ -23,7 +24,7 @@ namespace TagTool.Commands.Porting
             BlamCache = blamCache;
         }
 
-        private void CopyEvents(List<MultiplayerGlobals.RuntimeBlock.EventBlock> events1, List<MultiplayerGlobals.RuntimeBlock.EventBlock> events2)
+        private void CopyEvents(TagBlock<MultiplayerGlobals.RuntimeBlock.EventBlock> events1, TagBlock<MultiplayerGlobals.RuntimeBlock.EventBlock> events2)
         {
             for (var i = 0; i < events1.Count; i++)
             {

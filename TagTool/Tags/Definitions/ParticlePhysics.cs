@@ -10,7 +10,7 @@ namespace TagTool.Tags.Definitions
 	{
         public CachedTagInstance Template;
         public FlagsValue Flags;
-        public List<Movement> Movements;
+        public TagBlock<Movement> Movements;
 
         [TagField(Padding = true, Length = 12, MinVersion = CacheVersion.HaloOnline106708)]
         public byte[] Unused1;
@@ -32,7 +32,7 @@ namespace TagTool.Tags.Definitions
 		{
             public TypeValue Type;
             public short Unknown1;
-            public List<Parameter> Parameters;
+            public TagBlock<Parameter> Parameters;
             public int Unknown2;
             public int Unknown3;
 

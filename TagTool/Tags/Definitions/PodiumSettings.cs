@@ -16,7 +16,7 @@ namespace TagTool.Tags.Definitions
         public Angle Unknown7;
         public int Unknown8;
         public CachedTagInstance Unknown9;
-        public List<UnknownBlock> Unknown10;
+        public TagBlock<UnknownBlock> Unknown10;
 
         [TagStructure(Size = 0x2C)]
         public class UnknownBlock : TagStructure

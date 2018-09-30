@@ -10,7 +10,7 @@ namespace TagTool.Tags.Definitions
 	{
         public CachedTagInstance GlobalDialogueInfo;
         public uint Flags;
-        public List<Vocalization> Vocalizations;
+        public TagBlock<Vocalization> Vocalizations;
         public StringId MissionDialogueDesignator;
 
         [TagField(Padding = true, Length = 12, MinVersion = CacheVersion.HaloOnline106708)]

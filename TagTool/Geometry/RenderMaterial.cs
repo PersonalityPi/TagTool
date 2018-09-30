@@ -26,8 +26,8 @@ namespace TagTool.Geometry
         public CachedTagInstance RenderMethod;
 
         [TagField(MinVersion = CacheVersion.HaloOnline700123)]
-        public List<Skin> Skins;
-        public List<Property> Properties;
+        public TagBlock<Skin> Skins;
+        public TagBlock<Property> Properties;
         public int Unknown;
         public sbyte BreakableSurfaceIndex;
         public sbyte Unknown2;

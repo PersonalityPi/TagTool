@@ -5,6 +5,7 @@ using SimpleJSON;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using TagTool.Tags;
 
 namespace TagTool.Geometry
 {
@@ -21,8 +22,8 @@ namespace TagTool.Geometry
         {
             _phmo = new PhysicsModel
             {
-                RigidBodies = new List<PhysicsModel.RigidBody>(),
-                Nodes = new List<PhysicsModel.Node>()
+                RigidBodies = new TagBlock<PhysicsModel.RigidBody>(),
+                Nodes = new TagBlock<PhysicsModel.Node>()
             };
             var node = new PhysicsModel.Node
             {
@@ -35,7 +36,7 @@ namespace TagTool.Geometry
 
             _phmo.Nodes.Add(node);
 
-            _phmo.Materials = new List<PhysicsModel.Material>();
+            _phmo.Materials = new TagBlock<PhysicsModel.Material>();
             var material = new PhysicsModel.Material
             {
                 //the 'default' stringid
@@ -96,9 +97,9 @@ namespace TagTool.Geometry
                 rigidbody.ShapeIndex = 0;
 
                 //phmo needs to use shapelist and listelements reflexives
-                _phmo.Lists = new List<PhysicsModel.List>();
-                _phmo.ListShapes = new List<PhysicsModel.ListShape>();
-                _phmo.Mopps = new List<PhysicsModel.Mopp>();
+                _phmo.Lists = new TagBlock<PhysicsModel.List>();
+                _phmo.ListShapes = new TagBlock<PhysicsModel.ListShape>();
+                _phmo.Mopps = new TagBlock<PhysicsModel.Mopp>();
 
                 var moppTagblock = new PhysicsModel.Mopp
                 {
@@ -210,7 +211,7 @@ namespace TagTool.Geometry
             //In the control flow, it could have been possible to have
             // no polyhedra up to this point.
             if (phmo.Polyhedra == null)
-                phmo.Polyhedra = new List<PhysicsModel.Polyhedron>();
+                phmo.Polyhedra = new TagBlock<PhysicsModel.Polyhedron>();
 
             int index = phmo.Polyhedra.Count;
             PhysicsModel.Polyhedron poly = new PhysicsModel.Polyhedron();
@@ -309,7 +310,7 @@ namespace TagTool.Geometry
             }
 
             if (phmo.PolyhedronPlaneEquations == null)
-                phmo.PolyhedronPlaneEquations = new List<PhysicsModel.PolyhedronPlaneEquation>();
+                phmo.PolyhedronPlaneEquations = new TagBlock<PhysicsModel.PolyhedronPlaneEquation>();
 
             foreach (JSONNode p in n.AsArray)
             {
@@ -345,7 +346,7 @@ namespace TagTool.Geometry
             }
 
             if (phmo.PolyhedronFourVectors == null)
-                phmo.PolyhedronFourVectors = new List<PhysicsModel.PolyhedronFourVector>();
+                phmo.PolyhedronFourVectors = new TagBlock<PhysicsModel.PolyhedronFourVector>();
 
             int vertCount = n.AsArray.Count;
             int numfvs = vertCount / 4 + ((vertCount % 4) > 0 ? 1 : 0);

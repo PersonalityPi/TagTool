@@ -24,12 +24,12 @@ namespace TagTool.Tags.Definitions
         public int MusicFadeTime;
         public RealArgbColor Color;
         public RealArgbColor TextColor;
-        public List<TextColorBlock> TextColors;
-        public List<PlayerColor> PlayerColors;
+        public TagBlock<TextColorBlock> TextColors;
+        public TagBlock<PlayerColor> PlayerColors;
         public CachedTagInstance UiSounds;
-        public List<Alert> Alerts;
-        public List<Dialog> Dialogs;
-        public List<GlobalDataSource> GlobalDataSources;
+        public TagBlock<Alert> Alerts;
+        public TagBlock<Dialog> Dialogs;
+        public TagBlock<GlobalDataSource> GlobalDataSources;
         public float WidescreenBitmapScaleX;
         public float WidescreenBitmapScaleY;
         public float StandardBitmapScaleX;
@@ -38,7 +38,7 @@ namespace TagTool.Tags.Definitions
         public float MenuBlurY;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<UiWidgetBiped> UiWidgetBipeds;
+        public TagBlock<UiWidgetBiped> UiWidgetBipeds;
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
         public StringId UnknownPlayer1;
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
@@ -140,7 +140,7 @@ namespace TagTool.Tags.Definitions
 
         //Missing ARG related tags in HO
         [TagField(MinVersion = CacheVersion.Halo3ODST, MaxVersion = CacheVersion.Halo3ODST)]
-        public List<ARGBlock> ARG;
+        public TagBlock<ARGBlock> ARG;
 
         [TagStructure(Size = 0x24)]
         public class ARGBlock : TagStructure
@@ -160,10 +160,10 @@ namespace TagTool.Tags.Definitions
         [TagStructure(Size = 0x30)]
         public class PlayerColor : TagStructure
 		{
-            public List<PlayerTextColorBlock> PlayerTextColor;
-            public List<TeamTextColorBlock> TeamTextColor;
-            public List<PlayerUiColorBlock> PlayerUiColor;
-            public List<TeamUiColorBlock> TeamUiColor;
+            public TagBlock<PlayerTextColorBlock> PlayerTextColor;
+            public TagBlock<TeamTextColorBlock> TeamTextColor;
+            public TagBlock<PlayerUiColorBlock> PlayerUiColor;
+            public TagBlock<TeamUiColorBlock> TeamUiColor;
 
             [TagStructure(Size = 0x10)]
             public class PlayerTextColorBlock : TagStructure

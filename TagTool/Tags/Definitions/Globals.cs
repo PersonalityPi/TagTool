@@ -17,36 +17,36 @@ namespace TagTool.Tags.Definitions
 
         public GameLanguage Language;
 
-        public List<TagReferenceBlock> HavokObjectCleanupEffects;
+        public TagBlock<TagReferenceBlock> HavokObjectCleanupEffects;
 
-        public List<SoundGlobalsDefinition> SoundGlobals;
+        public TagBlock<SoundGlobalsDefinition> SoundGlobals;
 
-        public List<AiGlobalsDatum> AiGlobalsOld;
+        public TagBlock<AiGlobalsDatum> AiGlobalsOld;
 
         [TagField(ValidTags = new[] { "aigl" }, MinVersion = CacheVersion.Halo3ODST)]
         public CachedTagInstance AiGlobals;
 
-        public List<DamageTableBlock> DamageTable;
+        public TagBlock<DamageTableBlock> DamageTable;
 
         public uint Unknown45;
         public uint Unknown46;
         public uint Unknown47;
 
-        public List<TagReferenceBlock> SoundsOld;
+        public TagBlock<TagReferenceBlock> SoundsOld;
 
-        public List<CameraGlobalsDefinition> Camera;
+        public TagBlock<CameraGlobalsDefinition> Camera;
 
-        public List<PlayerControlBlock> PlayerControl;
+        public TagBlock<PlayerControlBlock> PlayerControl;
 
-        public List<DifficultyBlock> Difficulty;
+        public TagBlock<DifficultyBlock> Difficulty;
 
-        public List<Grenade> Grenades;
+        public TagBlock<Grenade> Grenades;
 
         public uint Unknown48;
         public uint Unknown49;
         public uint Unknown50;
 
-        public List<InterfaceTagsBlock> InterfaceTags;
+        public TagBlock<InterfaceTagsBlock> InterfaceTags;
 
         public uint Unknown51;
         public uint Unknown52;
@@ -56,9 +56,9 @@ namespace TagTool.Tags.Definitions
         public uint Unknown55;
         public uint Unknown56;
 
-        public List<PlayerInformationBlock> PlayerInformation;
+        public TagBlock<PlayerInformationBlock> PlayerInformation;
 
-        public List<PlayerRepresentationBlock> PlayerRepresentation;
+        public TagBlock<PlayerRepresentationBlock> PlayerRepresentation;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
         public uint Unknown57;
@@ -67,15 +67,15 @@ namespace TagTool.Tags.Definitions
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
         public uint Unknown59;
 
-        public List<FallingDamageBlock> FallingDamage;
+        public TagBlock<FallingDamageBlock> FallingDamage;
 
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
-        public List<UnknownBlock> Unknown60;
+        public TagBlock<UnknownBlock> Unknown60;
 
-        public List<Material> Materials;
+        public TagBlock<Material> Materials;
 
         [TagField(MaxVersion = CacheVersion.Halo3ODST)]
-        public List<ColorBlock> Colors;
+        public TagBlock<ColorBlock> Colors;
 
         [TagField(ValidTags = new[] { "mulg" })]
         public CachedTagInstance MultiplayerGlobals;
@@ -86,8 +86,8 @@ namespace TagTool.Tags.Definitions
         [TagField(MinVersion = CacheVersion.HaloOnline498295)]
         public CachedTagInstance ArmorGlobals;
 
-        public List<CinematicAnchorBlock> CinematicAnchors;
-        public List<MetagameGlobal> MetagameGlobals;
+        public TagBlock<CinematicAnchorBlock> CinematicAnchors;
+        public TagBlock<MetagameGlobal> MetagameGlobals;
 
         [TagField(Length = 12)]
         public LocaleGlobalsBlock[] LocaleGlobals = new LocaleGlobalsBlock[12];
@@ -148,7 +148,7 @@ namespace TagTool.Tags.Definitions
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
         public float Unknown275;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-        public List<DamageReportingType> DamageReportingTypes;
+        public TagBlock<DamageReportingType> DamageReportingTypes;
 
         [TagField(MinVersion = CacheVersion.HaloOnline106708, MaxVersion = CacheVersion.HaloOnline571627)]
         public uint Unknown276;
@@ -156,14 +156,14 @@ namespace TagTool.Tags.Definitions
 		[TagStructure(Size = 0xC)]
 		public class DamageTableBlock : TagStructure
 		{
-			public List<DamageGroup> DamageGroups;
+			public TagBlock<DamageGroup> DamageGroups;
 
 			[TagStructure(Size = 0x10)]
 			public class DamageGroup : TagStructure
 			{
                 [TagField(Label = true)]
                 public StringId Name;
-				public List<ArmorModifier> ArmorModifiers;
+				public TagBlock<ArmorModifier> ArmorModifiers;
 
 				[TagStructure(Size = 0x8)]
 				public class ArmorModifier : TagStructure
@@ -194,7 +194,7 @@ namespace TagTool.Tags.Definitions
             [TagField(MaxVersion = CacheVersion.HaloOnline449175)]
             public RealPoint2d CrosshairLocation;
             [TagField(MinVersion = CacheVersion.HaloOnline498295)]
-            public List<CrosshairLocationBlock> CrosshairLocations;
+            public TagBlock<CrosshairLocationBlock> CrosshairLocations;
 
             //Sprinting
 
@@ -226,7 +226,7 @@ namespace TagTool.Tags.Definitions
             public short MinimumAutolevelingTicks;
             [TagField(MaxVersion = CacheVersion.Halo3ODST)]
             public float MinVehicleFlipAngle;
-            public List<LookFunctionBlock> LookFunction;
+            public TagBlock<LookFunctionBlock> LookFunction;
 
             [TagField(MaxVersion = CacheVersion.Halo3ODST)]
             public float MinimumActionHoldTime;
@@ -474,7 +474,7 @@ namespace TagTool.Tags.Definitions
             public CachedTagInstance HudGlobals;
 
             [TagField(MinVersion = CacheVersion.HaloOnline106708)]
-            public List<GfxUiString> GfxUiStrings;
+            public TagBlock<GfxUiString> GfxUiStrings;
 
             [TagStructure(Size = 0x30)]
             public class GfxUiString : TagStructure
@@ -636,7 +636,7 @@ namespace TagTool.Tags.Definitions
             public float Restitution;
             public float Density;
 
-            public List<WaterDragProperty> WaterDragProperties;
+            public TagBlock<WaterDragProperty> WaterDragProperties;
 
             [TagField(ValidTags = new[] { "bsdt" })]
             public CachedTagInstance BreakableSurface;
@@ -697,7 +697,7 @@ namespace TagTool.Tags.Definitions
             [TagField(ValidTags = new[] { "foot" })]
             public CachedTagInstance MaterialEffects;
 
-            public List<UnderwaterProxy> UnderwaterProxies;
+            public TagBlock<UnderwaterProxy> UnderwaterProxies;
 
             public uint Unknown2;
             public short Unknown3;
@@ -751,10 +751,10 @@ namespace TagTool.Tags.Definitions
         [TagStructure(Size = 0x98, MinVersion = CacheVersion.Halo3ODST)]
         public class MetagameGlobal : TagStructure
 		{
-            public List<Medal> Medals;
-            public List<MultiplierBlock> Difficulty;
-            public List<MultiplierBlock> PrimarySkulls;
-            public List<MultiplierBlock> SecondarySkulls;
+            public TagBlock<Medal> Medals;
+            public TagBlock<MultiplierBlock> Difficulty;
+            public TagBlock<MultiplierBlock> PrimarySkulls;
+            public TagBlock<MultiplierBlock> SecondarySkulls;
             public int Unknown;
             public int DeathPenalty;
             public int BetrayalPenalty;

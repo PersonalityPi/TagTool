@@ -2,6 +2,7 @@
 using TagTool.Common;
 using TagTool.Tags.Definitions;
 using System.Collections.Generic;
+using TagTool.Tags;
 
 namespace TagTool.Commands.Unicode
 {
@@ -36,7 +37,7 @@ namespace TagTool.Commands.Unicode
             var newDefinition = new MultilingualUnicodeStringList
             {
                 Data = new byte[0],
-                Strings = new List<LocalizedString>()
+                Strings = new TagBlock<LocalizedString>()
             };
 
             foreach (var oldString in Definition.Strings)

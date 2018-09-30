@@ -8,7 +8,7 @@ namespace TagTool.Tags.Definitions
     [TagStructure(Name = "chud_definition", Tag = "chdt", Size = 0x18)]
     public class ChudDefinition : TagStructure
 	{
-        public List<HudWidget> HudWidgets;
+        public TagBlock<HudWidget> HudWidgets;
         public int LowClipCutoff;
         public int LowAmmoCutoff;
         public int AgeCutoff;
@@ -22,16 +22,16 @@ namespace TagTool.Tags.Definitions
             public SpecialHudTypeValue SpecialHudType;
             public byte Unknown;
             public byte Unknown2;
-            public List<StateDatum> StateData;
-            public List<PlacementDatum> PlacementData;
-            public List<AnimationDatum> AnimationData;
-            public List<RenderDatum> RenderData;
+            public TagBlock<StateDatum> StateData;
+            public TagBlock<PlacementDatum> PlacementData;
+            public TagBlock<AnimationDatum> AnimationData;
+            public TagBlock<RenderDatum> RenderData;
 
             [TagField(MinVersion = CacheVersion.HaloOnline106708)]
             public CachedTagInstance ParallaxData;
 
-            public List<BitmapWidget> BitmapWidgets;
-            public List<TextWidget> TextWidgets;
+            public TagBlock<BitmapWidget> BitmapWidgets;
+            public TagBlock<TextWidget> TextWidgets;
 
             public enum SpecialHudTypeValue : short
             {
@@ -1352,10 +1352,10 @@ namespace TagTool.Tags.Definitions
                 public SpecialHudTypeValue SpecialHudType;
                 public byte Unknown;
                 public byte Unknown2;
-                public List<StateDatum> StateData;
-                public List<PlacementDatum> PlacementData;
-                public List<AnimationDatum> AnimationData;
-                public List<RenderDatum> RenderData;
+                public TagBlock<StateDatum> StateData;
+                public TagBlock<PlacementDatum> PlacementData;
+                public TagBlock<AnimationDatum> AnimationData;
+                public TagBlock<RenderDatum> RenderData;
                 public int WidgetIndex;
                 public FlagsValue Flags;
                 public short Unknown3;
@@ -1397,10 +1397,10 @@ namespace TagTool.Tags.Definitions
                 public SpecialHudTypeValue SpecialHudType;
                 public byte Unknown1;
                 public byte Unknown2;
-                public List<StateDatum> StateData;
-                public List<PlacementDatum> PlacementData;
-                public List<AnimationDatum> AnimationData;
-                public List<RenderDatum> RenderData;
+                public TagBlock<StateDatum> StateData;
+                public TagBlock<PlacementDatum> PlacementData;
+                public TagBlock<AnimationDatum> AnimationData;
+                public TagBlock<RenderDatum> RenderData;
                 public int WidgetIndex;
                 [TagField(MinVersion = CacheVersion.Halo3ODST)]
                 public FlagsValue Flags;

@@ -7,7 +7,7 @@ namespace TagTool.Tags.Definitions
     [TagStructure(Name = "sound_classes", Tag = "sncl", Size = 0x10, MinVersion = CacheVersion.HaloOnline106708)]
     public class SoundClasses : TagStructure
 	{
-        public List<Class> Classes;
+        public TagBlock<Class> Classes;
 
         [TagField(Padding = true, Length = 4, MinVersion = CacheVersion.HaloOnline106708)]
         public byte[] Unused;

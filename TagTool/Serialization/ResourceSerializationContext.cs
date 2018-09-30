@@ -19,7 +19,7 @@ namespace TagTool.Serialization
 
         private PageableResource Resource { get; }
         private List<TagResource.ResourceFixup> ResourceFixups { get; } = new List<TagResource.ResourceFixup>();
-        private List<TagResource.ResourceDefinitionFixup> ResourceDefinitionFixups { get; } = new List<TagResource.ResourceDefinitionFixup>();
+        private TagBlock<TagResource.ResourceDefinitionFixup> ResourceDefinitionFixups { get; } = new TagBlock<TagResource.ResourceDefinitionFixup>();
 
         public ResourceSerializationContext(PageableResource resource)
         {

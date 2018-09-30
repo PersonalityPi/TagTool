@@ -12,16 +12,16 @@ namespace TagTool.Tags.Definitions
         public uint Unknown;
         public uint Unknown2;
         public uint Unknown3;
-        public List<Datum> Data;
+        public TagBlock<Datum> Data;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
         public uint Unknown4;
 
         [TagStructure(Size = 0x28)]
         public class Datum : TagStructure
 		{
-            public List<IntegerValue> IntegerValues;
-            public List<StringValue> StringValues;
-            public List<StringidValue> StringidValues;
+            public TagBlock<IntegerValue> IntegerValues;
+            public TagBlock<StringValue> StringValues;
+            public TagBlock<StringidValue> StringidValues;
             public StringId Unknown;
 
             [TagStructure(Size = 0x8)]

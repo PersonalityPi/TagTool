@@ -59,21 +59,21 @@ namespace TagTool.Tags.Definitions
         //      }
         //
 
-        public List<Reflection> Reflections;
+        public TagBlock<Reflection> Reflections;
 
         public AnimationFlagsValue AnimationFlags;
 
         [TagField(Padding = true, Length = 2)]
         public byte[] Unused4;
 
-        public List<BrightnessBlock> TimeBrightness;
-        public List<BrightnessBlock> AgeBrightness;
+        public TagBlock<BrightnessBlock> TimeBrightness;
+        public TagBlock<BrightnessBlock> AgeBrightness;
 
-        public List<ColorBlock> TimeColor;
-        public List<ColorBlock> AgeColor;
+        public TagBlock<ColorBlock> TimeColor;
+        public TagBlock<ColorBlock> AgeColor;
 
-        public List<RotationBlock> TimeRotation;
-        public List<RotationBlock> AgeRotation;
+        public TagBlock<RotationBlock> TimeRotation;
+        public TagBlock<RotationBlock> AgeRotation;
 
         public enum OcclusionOffsetDirectionValue : short
         {

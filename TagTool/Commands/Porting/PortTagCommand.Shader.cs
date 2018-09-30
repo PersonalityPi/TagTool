@@ -62,8 +62,8 @@ namespace TagTool.Commands.Porting
             // Make a template of ShaderProperty, with the correct bitmaps and arguments counts. 
             var newShaderProperty = new RenderMethod.ShaderProperty
             {
-                ShaderMaps = new List<RenderMethod.ShaderProperty.ShaderMap>(),
-                Arguments = new List<RenderMethod.ShaderProperty.Argument>()
+                ShaderMaps = new TagBlock<RenderMethod.ShaderProperty.ShaderMap>(),
+                Arguments = new TagBlock<RenderMethod.ShaderProperty.Argument>()
             };
 
             // Loop only once trough all ED rmt2 tags and store them globally, string lists of their bitmaps and arguments
@@ -151,7 +151,7 @@ namespace TagTool.Commands.Porting
 
             // Remove some tagblocks
             // finalRm.Unknown = new List<RenderMethod.UnknownBlock>(); // hopefully not used; this gives rmt2's name. They correspond to the first tagblocks in rmdf, they tell what the shader does
-            finalRm.ImportData = new List<RenderMethod.ImportDatum>(); // most likely not used
+            finalRm.ImportData = new TagBlock<RenderMethod.ImportDatum>(); // most likely not used
             finalRm.ShaderProperties[0].Template = edRmt2Instance;
             finalRm.ShaderProperties[0].ShaderMaps = newShaderProperty.ShaderMaps;
             finalRm.ShaderProperties[0].Arguments = newShaderProperty.Arguments;
@@ -180,7 +180,7 @@ namespace TagTool.Commands.Porting
 
             if (RmhgUnknownTemplates.Contains(edRmt2Instance.Name))
                 if (finalRm.ShaderProperties[0].Unknown.Count == 0)
-                    finalRm.ShaderProperties[0].Unknown = new List<RenderMethod.ShaderProperty.UnknownBlock1>
+                    finalRm.ShaderProperties[0].Unknown = new TagBlock<RenderMethod.ShaderProperty.UnknownBlock1>
                     {
                         new RenderMethod.ShaderProperty.UnknownBlock1
                         {
@@ -396,12 +396,12 @@ namespace TagTool.Commands.Porting
             [TagField(Length = 10)]
             public uint[] Unknown00;
 
-            public List<Argument> Arguments;
+            public TagBlock<Argument> Arguments;
 
             [TagField(Length = 6)]
             public uint[] Unknown02;
 
-            public List<ShaderMap> ShaderMaps;
+            public TagBlock<ShaderMap> ShaderMaps;
 
             [TagStructure]
             public class Argument : TagStructure
@@ -420,7 +420,7 @@ namespace TagTool.Commands.Porting
         public class RenderMethodFast : TagStructure
 		{
             public CachedTagInstance BaseRenderMethod;
-            public List<RenderMethod.RenderMethodDefinitionOptionIndex> Unknown;
+            public TagBlock<RenderMethod.RenderMethodDefinitionOptionIndex> Unknown;
         }
 
         private static RenderMethod.ShaderProperty.Argument DefaultArgumentsValues(string arg)
@@ -1058,10 +1058,10 @@ namespace TagTool.Commands.Porting
                 if (!validEDRegisters.Contains((a.RegisterIndex)))
                 {
                     // Abort, disable functions
-                    finalRm.ShaderProperties[0].Unknown = new List<RenderMethod.ShaderProperty.UnknownBlock1>(); // no idea what it does, but it crashes sometimes if it's null. on Shrine, it's the shader loop effect
-                    finalRm.ShaderProperties[0].Functions = new List<RenderMethod.FunctionBlock>();
-                    finalRm.ShaderProperties[0].ArgumentMappings = new List<RenderMethod.ShaderProperty.ArgumentMapping>();
-                    finalRm.ShaderProperties[0].Unknown3 = new List<RenderMethod.ShaderProperty.UnknownBlock3>();
+                    finalRm.ShaderProperties[0].Unknown = new TagBlock<RenderMethod.ShaderProperty.UnknownBlock1>(); // no idea what it does, but it crashes sometimes if it's null. on Shrine, it's the shader loop effect
+                    finalRm.ShaderProperties[0].Functions = new TagBlock<RenderMethod.FunctionBlock>();
+                    finalRm.ShaderProperties[0].ArgumentMappings = new TagBlock<RenderMethod.ShaderProperty.ArgumentMapping>();
+                    finalRm.ShaderProperties[0].Unknown3 = new TagBlock<RenderMethod.ShaderProperty.UnknownBlock3>();
                     foreach (var b in edRmt2.RegisterOffsets) // stops crashing for some shaders if the drawmodes count is still the same
                         finalRm.ShaderProperties[0].Unknown3.Add(new RenderMethod.ShaderProperty.UnknownBlock3());
 

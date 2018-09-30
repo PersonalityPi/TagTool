@@ -12,7 +12,7 @@ namespace TagTool.Tags.Definitions
         public float TemplateCollectionBlock2;
         public float TemplateCollectionBlock3;
         public int InputEffectName;
-        public List<AdditionalSoundInput> AdditionalSoundInputs;
+        public TagBlock<AdditionalSoundInput> AdditionalSoundInputs;
 
         [TagField(Padding = true, Length = 4, MinVersion = CacheVersion.HaloOnline106708)]
         public byte[] Unused;

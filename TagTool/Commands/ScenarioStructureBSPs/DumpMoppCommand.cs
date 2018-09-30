@@ -1,5 +1,6 @@
 ﻿using TagTool.Cache;
 using TagTool.Havok;
+using TagTool.Tags;
 using TagTool.Tags.Definitions;
 using System;
 using System.Collections.Generic;
@@ -276,7 +277,7 @@ namespace TagTool.Commands.ScenarioStructureBSPs
             return true;
         }
 
-        public void ReadArguments(int count,int offset, List<CollisionMoppCode.Datum> moppData, StreamWriter fileWriter)
+        public void ReadArguments(int count,int offset, TagBlock<CollisionMoppCode.Datum> moppData, StreamWriter fileWriter)
         {
             for(int i = 0; i < count; i++)
             {

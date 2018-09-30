@@ -8,11 +8,11 @@ namespace TagTool.Tags.Definitions
     [TagStructure(Name = "game_progression", Tag = "gpdt", Size = 0x44, MinVersion = CacheVersion.HaloOnline106708)]
     public class GameProgression : TagStructure
 	{
-        public List<UnknownBlock> Unknown;
-        public List<UnknownBlock2> Unknown2;
-        public List<UnknownBlock3> Unknown3;
-        public List<UnknownBlock4> Unknown4;
-        public List<UnknownBlock5> Unknown5;
+        public TagBlock<UnknownBlock> Unknown;
+        public TagBlock<UnknownBlock2> Unknown2;
+        public TagBlock<UnknownBlock3> Unknown3;
+        public TagBlock<UnknownBlock4> Unknown4;
+        public TagBlock<UnknownBlock5> Unknown5;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]
         public uint Unknown6;
         [TagField(MinVersion = CacheVersion.HaloOnline106708)]

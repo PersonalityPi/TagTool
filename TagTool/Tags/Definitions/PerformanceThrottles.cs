@@ -7,7 +7,7 @@ namespace TagTool.Tags.Definitions
     [TagStructure(Name = "performance_throttles", Tag = "perf", Size = 0x10, MinVersion = CacheVersion.HaloOnline106708)]
     public class PerformanceThrottles : TagStructure
 	{
-        public List<PerformanceBlock> Performance;
+        public TagBlock<PerformanceBlock> Performance;
 
         [TagField(Padding = true, Length = 4, MinVersion = CacheVersion.HaloOnline106708)]
         public byte[] Unused;

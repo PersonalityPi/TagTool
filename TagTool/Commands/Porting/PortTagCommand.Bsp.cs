@@ -6,6 +6,7 @@ using TagTool.Common;
 using TagTool.Geometry;
 using TagTool.IO;
 using TagTool.Serialization;
+using TagTool.Tags;
 using TagTool.Tags.Definitions;
 using TagTool.Tags.Resources;
 
@@ -63,7 +64,7 @@ namespace TagTool.Commands.Porting
 
                     foreach (var cluster in sbsp.Clusters)
                     {
-                        List<ScenarioStructureBsp.Cluster.DecoratorGrid> newDecoratorGrids = new List<ScenarioStructureBsp.Cluster.DecoratorGrid>();
+						TagBlock<ScenarioStructureBsp.Cluster.DecoratorGrid> newDecoratorGrids = new TagBlock<ScenarioStructureBsp.Cluster.DecoratorGrid>();
 
                         foreach (var grid in cluster.DecoratorGrids)
                         {
@@ -106,11 +107,11 @@ namespace TagTool.Commands.Porting
 
             for (int i = 0; i < sbsp.Clusters.Count; i++)
             {
-                sbsp.Clusters[i].ObjectPlacements = new List<ScenarioStructureBsp.Cluster.ObjectPlacement>();
-                sbsp.Clusters[i].Unknown25 = new List<ScenarioStructureBsp.Cluster.UnknownBlock2>();
+                sbsp.Clusters[i].ObjectPlacements = new TagBlock<ScenarioStructureBsp.Cluster.ObjectPlacement>();
+                sbsp.Clusters[i].Unknown25 = new TagBlock<ScenarioStructureBsp.Cluster.UnknownBlock2>();
             }
             
-            sbsp.Geometry2.UnknownSections = new List<RenderGeometry.UnknownSection>();
+            sbsp.Geometry2.UnknownSections = new TagBlock<RenderGeometry.UnknownSection>();
             
             return sbsp;
         }

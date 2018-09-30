@@ -8,7 +8,7 @@ namespace TagTool.Tags.Definitions
     [TagStructure(Name = "beam_system", Tag = "beam", Size = 0x18, MinVersion = CacheVersion.HaloOnline106708)]
     public class BeamSystem : TagStructure
 	{
-        public List<BeamSystemBlock> Beam;
+        public TagBlock<BeamSystemBlock> Beam;
 
         [TagField(Padding = true, Length = 12, MinVersion = CacheVersion.HaloOnline106708)]
         public byte[] Unused1;
@@ -52,9 +52,9 @@ namespace TagTool.Tags.Definitions
             public int Unknown15;
             public int Unknown16;
 
-            public List<UnknownBlock> Unknown17;
-            public List<CompiledFunction> CompiledFunctions;
-            public List<CompiledColorFunction> CompiledColorFunctions;
+            public TagBlock<UnknownBlock> Unknown17;
+            public TagBlock<CompiledFunction> CompiledFunctions;
+            public TagBlock<CompiledColorFunction> CompiledColorFunctions;
 
             
             [TagStructure(Size = 0x10, Align = 0x10)]

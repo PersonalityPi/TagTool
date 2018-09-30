@@ -164,7 +164,7 @@ namespace TagTool.Commands.Files
 
                 destCacheContext.Serialize(new TagSerializationContext(destStream, destCacheContext, cfgtTag), new CacheFileGlobalTags
                 {
-                    GlobalTags = new List<TagReferenceBlock>
+                    GlobalTags = new TagBlock<TagReferenceBlock>
                     {
                         new TagReferenceBlock { Instance = destCacheContext.GetTag<Globals>(@"globals\globals") }
                     }
@@ -398,7 +398,7 @@ namespace TagTool.Commands.Files
             if (MulgDefinition == null)
                 MulgDefinition = mulgDefinition;
 
-            mulgDefinition.Universal[0].GameVariantWeapons = new List<MultiplayerGlobals.UniversalBlock.GameVariantWeapon>
+            mulgDefinition.Universal[0].GameVariantWeapons = new TagBlock<MultiplayerGlobals.UniversalBlock.GameVariantWeapon>
             {
                 new MultiplayerGlobals.UniversalBlock.GameVariantWeapon
                 {
@@ -534,7 +534,7 @@ namespace TagTool.Commands.Files
                 }
             };
 
-            mulgDefinition.Runtime[0].MultiplayerConstants[0].Weapons = new List<MultiplayerGlobals.RuntimeBlock.MultiplayerConstant.Weapon>
+            mulgDefinition.Runtime[0].MultiplayerConstants[0].Weapons = new TagBlock<MultiplayerGlobals.RuntimeBlock.MultiplayerConstant.Weapon>
             {
                 new MultiplayerGlobals.RuntimeBlock.MultiplayerConstant.Weapon
                 {
@@ -682,7 +682,7 @@ namespace TagTool.Commands.Files
                 }
             };
             #region Universal GameVariantVehicles
-            mulgDefinition.Universal[0].GameVariantVehicles = new List<MultiplayerGlobals.UniversalBlock.GameVariantVehicle>
+            mulgDefinition.Universal[0].GameVariantVehicles = new TagBlock<MultiplayerGlobals.UniversalBlock.GameVariantVehicle>
             {
                 new MultiplayerGlobals.UniversalBlock.GameVariantVehicle
                 {
@@ -733,18 +733,18 @@ namespace TagTool.Commands.Files
             #endregion
 
             #region Universal VehicleSets
-            mulgDefinition.Universal[0].VehicleSets = new List<MultiplayerGlobals.UniversalBlock.VehicleSet>
+            mulgDefinition.Universal[0].VehicleSets = new TagBlock<MultiplayerGlobals.UniversalBlock.VehicleSet>
             {
                 new MultiplayerGlobals.UniversalBlock.VehicleSet
                 {
                     Name = CacheContext.GetStringId("default"),
-                    Substitutions = new List<MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution>()
+                    Substitutions = new TagBlock<MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution>()
                 },
                 new MultiplayerGlobals.UniversalBlock.VehicleSet
                 {
                     Name = CacheContext.GetStringId("no_vehicles"),
                     #region Substitutions
-                    Substitutions = new List<MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution>
+                    Substitutions = new TagBlock<MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution>
                     {
                         new MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution
                         {
@@ -798,7 +798,7 @@ namespace TagTool.Commands.Files
                 {
                     Name = CacheContext.GetStringId("mongooses_only"),
                     #region Substitutions
-                    Substitutions = new List<MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution>
+                    Substitutions = new TagBlock<MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution>
                     {
                         new MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution
                         {
@@ -847,7 +847,7 @@ namespace TagTool.Commands.Files
                 {
                     Name = CacheContext.GetStringId("light_ground_only"),
                     #region Substitutions
-                    Substitutions = new List<MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution>
+                    Substitutions = new TagBlock<MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution>
                     {
                         new MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution
                         {
@@ -876,7 +876,7 @@ namespace TagTool.Commands.Files
                 {
                     Name = CacheContext.GetStringId("tanks_only"),
                     #region Substitutions
-                    Substitutions = new List<MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution>
+                    Substitutions = new TagBlock<MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution>
                     {
                         new MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution
                         {
@@ -920,7 +920,7 @@ namespace TagTool.Commands.Files
                 {
                     Name = CacheContext.GetStringId("aircraft_only"),
                     #region Substitutions
-                    Substitutions = new List<MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution>
+                    Substitutions = new TagBlock<MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution>
                     {
                         new MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution
                         {
@@ -964,7 +964,7 @@ namespace TagTool.Commands.Files
                 {
                     Name = CacheContext.GetStringId("no_light_ground"),
                     #region Substitutions
-                    Substitutions = new List<MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution>
+                    Substitutions = new TagBlock<MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution>
                     {
                         new MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution
                         {
@@ -998,7 +998,7 @@ namespace TagTool.Commands.Files
                 {
                     Name = CacheContext.GetStringId("no_tanks"),
                     #region Substitutions
-                    Substitutions = new List<MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution>
+                    Substitutions = new TagBlock<MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution>
                     {
                         new MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution
                         {
@@ -1017,7 +1017,7 @@ namespace TagTool.Commands.Files
                 {
                     Name = CacheContext.GetStringId("no_aircraft"),
                     #region Substitutions
-                    Substitutions = new List<MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution>
+                    Substitutions = new TagBlock<MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution>
                     {
                         new MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution
                         {
@@ -1035,7 +1035,7 @@ namespace TagTool.Commands.Files
                 new MultiplayerGlobals.UniversalBlock.VehicleSet
                 {
                     Name = CacheContext.GetStringId("all_vehicles"),
-                    Substitutions = new List<MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution>()
+                    Substitutions = new TagBlock<MultiplayerGlobals.UniversalBlock.VehicleSet.Substitution>()
                 }
             };
             #endregion
@@ -1053,7 +1053,7 @@ namespace TagTool.Commands.Files
                 MulgDefinition = CacheContext.Deserializer.Deserialize<MultiplayerGlobals>(context);
             }
 
-            var weaponPalette = new List<Scenario.ScenarioPaletteEntry>();
+            var weaponPalette = new TagBlock<Scenario.ScenarioPaletteEntry>();
 
             foreach (var entry in scnrDefinition.WeaponPalette)
                 if ((MulgDefinition.Universal[0].GameVariantWeapons.Find(i => i.Weapon == entry.Object) != null) ||
@@ -1064,7 +1064,7 @@ namespace TagTool.Commands.Files
 
             scnrDefinition.WeaponPalette = weaponPalette;
 
-            var sandboxWeapons = new List<Scenario.SandboxObject>();
+            var sandboxWeapons = new TagBlock<Scenario.SandboxObject>();
 
             foreach (var entry in scnrDefinition.SandboxWeapons)
                 if ((MulgDefinition.Universal[0].GameVariantWeapons.Find(i => i.Weapon == entry.Object) != null) ||

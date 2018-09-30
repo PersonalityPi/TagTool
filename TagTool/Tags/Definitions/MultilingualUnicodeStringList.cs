@@ -15,7 +15,7 @@ namespace TagTool.Tags.Definitions
         /// <summary>
         /// The strings in the list.
         /// </summary>
-        public List<LocalizedString> Strings;
+        public TagBlock<LocalizedString> Strings;
 
         /// <summary>
         /// The data block containing every string.

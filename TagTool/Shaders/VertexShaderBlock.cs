@@ -8,9 +8,9 @@ namespace TagTool.Shaders
 	{
         public byte[] Unknown;
         public byte[] PCShaderBytecode;
-        public List<ShaderParameter> XboxParameters;
+        public TagBlock<ShaderParameter> XboxParameters;
         public uint Unknown6;
-        public List<ShaderParameter> PCParameters;
+        public TagBlock<ShaderParameter> PCParameters;
         public uint Unknown8;
         public uint Unknown9;
         public VertexShaderReference XboxShaderReference;

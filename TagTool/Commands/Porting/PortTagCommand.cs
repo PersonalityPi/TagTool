@@ -414,7 +414,7 @@ namespace TagTool.Commands.Porting
 					break;
 
 				case Scenario scenario when !FlagIsSet(PortingFlags.Squads):
-					scenario.Squads = new List<Scenario.Squad>();
+					scenario.Squads = new TagBlock<Scenario.Squad>();
 					break;
 				case Scenario scenario when !FlagIsSet(PortingFlags.ForgePalette):
 					scenario.SandboxEquipment.Clear();
@@ -687,7 +687,7 @@ namespace TagTool.Commands.Porting
 					return propertyType;
 
 				case RenderMethod renderMethod when FlagIsSet(PortingFlags.MatchShaders):
-					ConvertCollection(cacheStream, resourceStreams, renderMethod.ShaderProperties[0].ShaderMaps, renderMethod.ShaderProperties[0].ShaderMaps, blamTagName);
+					ConvertTagBlock(cacheStream, resourceStreams, renderMethod.ShaderProperties[0].ShaderMaps, renderMethod.ShaderProperties[0].ShaderMaps, blamTagName);
 					return ConvertRenderMethod(cacheStream, resourceStreams, renderMethod, blamTagName);
 
 				case ScenarioObjectType scenarioObjectType:
@@ -695,6 +695,10 @@ namespace TagTool.Commands.Porting
 
 				case SoundClass soundClass:
 					return soundClass.ConvertSoundClass(BlamCache.Version);
+
+				case TagBlock tagBlock:
+					tagBlock = ConvertTagBlock(cacheStream, resourceStreams, tagBlock, definition, blamTagName);
+					return tagBlock;
 
 				case Array _:
 				case IList _: // All arrays and List<T> implement IList, so we should just use that
@@ -741,13 +745,13 @@ namespace TagTool.Commands.Porting
 		private IList ConvertCollection(Stream cacheStream, Dictionary<ResourceLocation, Stream> resourceStreams, IList data, object definition, string blamTagName)
 		{
 			// return early where possible
-			if (data is null || data.Count == 0) 
+			if (data is null || data.Count == 0)
 				return data;
 			var type = data[0].GetType();
 			if ((type.IsValueType && type != typeof(StringId)) ||
 				type == typeof(string))
 				return data;
-			
+
 			// convert each element
 			for (var i = 0; i < data.Count; i++)
 			{
@@ -757,6 +761,27 @@ namespace TagTool.Commands.Porting
 			}
 
 			return data;
+		}
+
+		private TagBlock ConvertTagBlock(Stream cacheStream, Dictionary<ResourceLocation, Stream> resourceStreams, TagBlock block, object definition, string blamTagName)
+		{
+			// return early where possible
+			if (block is null || block.Count == 0)
+				return block;
+			var type = block[0].GetType();
+			if ((type.IsValueType && type != typeof(StringId)) ||
+				type == typeof(string))
+				return block;
+
+			// convert each element
+			for (var i = 0; i < block.Count; i++)
+			{
+				var oldValue = block[i];
+				var newValue = ConvertData(cacheStream, resourceStreams, oldValue, definition, blamTagName);
+				block[i] = newValue as TagStructure;
+			}
+
+			return block;
 		}
 
 		private T ConvertStructure<T>(Stream cacheStream, Dictionary<ResourceLocation, Stream> resourceStreams, T data, object definition, string blamTagName) where T : TagStructure

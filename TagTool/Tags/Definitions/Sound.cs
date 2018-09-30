@@ -47,16 +47,16 @@ namespace TagTool.Tags.Definitions
         public Promotion Promotion;
 
         [TagField(HaloOnlineOnly = true)]
-        public List<PitchRange> PitchRanges;
+        public TagBlock<PitchRange> PitchRanges;
 
         [TagField(HaloOnlineOnly = true)]
-        public List<CustomPlayback> CustomPlayBacks;
+        public TagBlock<CustomPlayback> CustomPlayBacks;
 
         [TagField(HaloOnlineOnly = true)]
-        public List<ExtraInfo> ExtraInfo;
+        public TagBlock<ExtraInfo> ExtraInfo;
 
         [TagField(HaloOnlineOnly = true)]
-        public List<LanguageBlock> Languages;
+        public TagBlock<LanguageBlock> Languages;
 
         [TagField(Pointer = true, HaloOnlineOnly = true)]
         public PageableResource Resource;

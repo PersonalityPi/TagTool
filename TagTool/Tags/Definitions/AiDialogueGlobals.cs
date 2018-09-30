@@ -17,16 +17,16 @@ namespace TagTool.Tags.Definitions
         [TagField(MinVersion = CacheVersion.Halo3ODST)]
         public float FaceFriendlyPlayerDistance;
 
-        public List<AiVocalization> Vocalizations;
+        public TagBlock<AiVocalization> Vocalizations;
 
-        public List<AiDialoguePattern> Patterns;
+        public TagBlock<AiDialoguePattern> Patterns;
 
         [TagField(Padding = true, Length = 12)]
         public byte[] Unused1;
 
-        public List<DialogDatum> DialogData;
+        public TagBlock<DialogDatum> DialogData;
 
-        public List<InvoluntaryDatum> InvoluntaryData;
+        public TagBlock<InvoluntaryDatum> InvoluntaryData;
 
         [TagField(Padding = true, Length = 12, MinVersion = CacheVersion.HaloOnline106708)]
         public byte[] Unused2;

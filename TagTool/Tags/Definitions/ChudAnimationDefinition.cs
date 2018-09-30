@@ -9,19 +9,19 @@ namespace TagTool.Tags.Definitions
 	{
         public ushort Flags;
         public short Unknown;
-        public List<PositionBlock> Position;
-        public List<RotationBlock> Rotation;
-        public List<SizeBlock> Size;
-        public List<ColorBlock> Color;
-        public List<AlphaBlock> Alpha;
-        public List<AlphaUnknownBlock> AlphaUnknown;
-        public List<BitmapBlock> Bitmap;
+        public TagBlock<PositionBlock> Position;
+        public TagBlock<RotationBlock> Rotation;
+        public TagBlock<SizeBlock> Size;
+        public TagBlock<ColorBlock> Color;
+        public TagBlock<AlphaBlock> Alpha;
+        public TagBlock<AlphaUnknownBlock> AlphaUnknown;
+        public TagBlock<BitmapBlock> Bitmap;
         public int NumberOfFrames;
 
         [TagStructure(Size = 0x20)]
         public class PositionBlock : TagStructure
 		{
-            public List<AnimationBlock> Animation;
+            public TagBlock<AnimationBlock> Animation;
             public TagFunction Function = new TagFunction { Data = new byte[0] };
 
             [TagStructure(Size = 0x10)]
@@ -35,7 +35,7 @@ namespace TagTool.Tags.Definitions
         [TagStructure(Size = 0x20)]
         public class RotationBlock : TagStructure
 		{
-            public List<AnimationBlock> Animation;
+            public TagBlock<AnimationBlock> Animation;
             public TagFunction Function = new TagFunction { Data = new byte[0] };
 
             [TagStructure(Size = 0x10)]
@@ -49,7 +49,7 @@ namespace TagTool.Tags.Definitions
         [TagStructure(Size = 0x20)]
         public class SizeBlock : TagStructure
 		{
-            public List<AnimationBlock> Animation;
+            public TagBlock<AnimationBlock> Animation;
             public TagFunction Function = new TagFunction { Data = new byte[0] };
 
             [TagStructure(Size = 0xC)]
@@ -63,7 +63,7 @@ namespace TagTool.Tags.Definitions
         [TagStructure(Size = 0x20)]
         public class ColorBlock : TagStructure
 		{
-            public List<AnimationBlock> Animation;
+            public TagBlock<AnimationBlock> Animation;
             public TagFunction Function = new TagFunction { Data = new byte[0] };
 
             [TagStructure(Size = 0x4, MaxVersion = CacheVersion.Halo3ODST)]
@@ -79,7 +79,7 @@ namespace TagTool.Tags.Definitions
         [TagStructure(Size = 0x20)]
         public class AlphaBlock : TagStructure
 		{
-            public List<AnimationBlock> Animation;
+            public TagBlock<AnimationBlock> Animation;
             public TagFunction Function = new TagFunction { Data = new byte[0] };
 
             [TagStructure(Size = 0x8)]
@@ -93,7 +93,7 @@ namespace TagTool.Tags.Definitions
         [TagStructure(Size = 0x20)]
         public class AlphaUnknownBlock : TagStructure
 		{
-            public List<AnimationBlock> Animation;
+            public TagBlock<AnimationBlock> Animation;
             public TagFunction Function = new TagFunction { Data = new byte[0] };
 
             [TagStructure(Size = 0x8)]
@@ -107,7 +107,7 @@ namespace TagTool.Tags.Definitions
         [TagStructure(Size = 0x20)]
         public class BitmapBlock : TagStructure
 		{
-            public List<AnimationBlock> Animation;
+            public TagBlock<AnimationBlock> Animation;
             public TagFunction Function = new TagFunction { Data = new byte[0] };
 
             [TagStructure(Size = 0x14)]
