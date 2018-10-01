@@ -22,11 +22,13 @@ namespace TagTool.Tags.Resources
             /// <summary>
             /// The reference to the bitmap data.
             /// </summary>
+            [TagField(IsResourceData = true)]
             public TagData Data;
 
             /// <summary>
             /// The reference to the unknown data.
             /// </summary>
+            [TagField(IsResourceData = true)]
             public TagData UnknownData;
 
             /// <summary>

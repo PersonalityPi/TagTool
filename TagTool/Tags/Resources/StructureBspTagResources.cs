@@ -21,26 +21,56 @@ namespace TagTool.Tags.Resources
         [TagStructure(Size = 0x60)]
         public class CollisionBspBlock : TagStructure
 		{
+            [TagField(IsResourceData = true)]
             public TagBlock<CollisionGeometry.Bsp3dNode> Bsp3dNodes;
+
+            [TagField(IsResourceData = true)]
             public TagBlock<CollisionGeometry.Plane> Planes;
+
+            [TagField(IsResourceData = true)]
             public TagBlock<CollisionGeometry.Leaf> Leaves;
+
+            [TagField(IsResourceData = true)]
             public TagBlock<CollisionGeometry.Bsp2dReference> Bsp2dReferences;
+
+            [TagField(IsResourceData = true)]
             public TagBlock<CollisionGeometry.Bsp2dNode> Bsp2dNodes;
+
+            [TagField(IsResourceData = true)]
             public TagBlock<CollisionGeometry.Surface> Surfaces;
+
+            [TagField(IsResourceData = true)]
             public TagBlock<CollisionGeometry.Edge> Edges;
+
+            [TagField(IsResourceData = true)]
             public TagBlock<CollisionGeometry.Vertex> Vertices;
         }
 
         [TagStructure(Size = 0x60)]
         public class LargeCollisionBspBlock : TagStructure
-		{
+        {
+            [TagField(IsResourceData = true)]
             public TagBlock<Bsp3dNode> Bsp3dNodes;
+
+            [TagField(IsResourceData = true)]
             public TagBlock<CollisionGeometry.Plane> Planes;
+
+            [TagField(IsResourceData = true)]
             public TagBlock<CollisionGeometry.Leaf> Leaves;
+
+            [TagField(IsResourceData = true)]
             public TagBlock<Bsp2dReference> Bsp2dReferences;
+
+            [TagField(IsResourceData = true)]
             public TagBlock<Bsp2dNode> Bsp2dNodes;
+
+            [TagField(IsResourceData = true)]
             public TagBlock<Surface> Surfaces;
+
+            [TagField(IsResourceData = true)]
             public TagBlock<Edge> Edges;
+
+            [TagField(IsResourceData = true)]
             public TagBlock<Vertex> Vertices;
 
             [TagStructure(Size = 0xC)]
@@ -107,9 +137,14 @@ namespace TagTool.Tags.Resources
             public CollisionBspBlock CollisionBsp;
             public TagBlock<CollisionBspBlock> CollisionGeometries;
             public TagBlock<CollisionMoppCodeResource> CollisionMoppCodes;
+
+            [TagField(IsResourceData = true)]
             public TagBlock<Unknown1Block> Unknown1;
+            [TagField(IsResourceData = true)]
             public TagBlock<Unknown2Block> Unknown2;
+            [TagField(IsResourceData = true)]
             public TagBlock<Unknown3Block> Unknown3;
+
             public short MeshIndex;
             public short CompressionIndex;
 
@@ -143,15 +178,14 @@ namespace TagTool.Tags.Resources
                 public int Unknown2;
             }
 
-            [TagStructure]
+            [TagStructure(Size = 0x4)]
             public class Unknown3Block : TagStructure
 			{
-                // public uint Unknown;
                 public short Unknown;
                 public short Unknown1;
             }
 
-            [TagStructure]
+            [TagStructure(Size = 0x4)]
             public class Unknown4Block : TagStructure
 			{
                 public uint Unknown;
@@ -193,7 +227,10 @@ namespace TagTool.Tags.Resources
             public sbyte DataBuildType;
             public sbyte Unused4;
             public short Unused5;
+
+            [TagField(IsResourceData = true)]
             public TagBlock<Datum> Data;
+
             public sbyte MoppBuildType;
             public byte Unused6;
             public short Unused7;

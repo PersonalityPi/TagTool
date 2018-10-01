@@ -26,6 +26,7 @@ namespace TagTool.Tags.Resources
             public short Unknown4; // always 0x0
             public uint FlagsOffset; // with OverlayOffset as origin , not member offset
 
+            [TagField(IsResourceData = true)]
             public TagData AnimationData; // this will point to an Animation object
 
             [TagStructure(Size = 0xC)]

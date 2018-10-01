@@ -106,5 +106,10 @@ namespace TagTool.Tags
         /// States whether the field is a fraction if it is a float value (real_fraction).
         /// </summary>
         public bool IsFraction { get; set; } = false;
+
+        /// <summary>
+        /// If the field contains a pointer, states if the address points to resource data.
+        /// </summary>
+        public bool IsResourceData { get; set; } = false;
     }
 }

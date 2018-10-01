@@ -257,7 +257,7 @@ namespace TagTool.Serialization
                 return DeserializeInlineArray(reader, context, valueInfo, valueType);
 
 			if (typeof(TagBlock).IsAssignableFrom(valueType))
-				return DeserializeTagBlock(reader, context, valueType);
+				return DeserializeTagBlock(reader, context, valueInfo, valueType);
 
             // Ranges
             if (valueType.IsGenericType && valueType.GetGenericTypeDefinition() == typeof(Bounds<>))
@@ -281,27 +281,31 @@ namespace TagTool.Serialization
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <param name="context">The serialization context to use.</param>
+        /// <param name="valueInfo">The value information. Can be <c>null</c>.</param>
         /// <param name="valueType">The type of the value to deserialize.</param>
         /// <returns>The deserialized tag block.</returns>
-        public object DeserializeTagBlock(EndianReader reader, ISerializationContext context, Type valueType)
+        public object DeserializeTagBlock(EndianReader reader, ISerializationContext context, TagFieldAttribute valueInfo, Type valueType)
         {
             // Read count and pointer
             var startOffset = reader.BaseStream.Position;
             var count = reader.ReadInt32();
             var pointer = reader.ReadUInt32();
 
-			var cacheAddress = new CacheAddress(pointer);
-			var tagBlock = (TagBlock)Activator.CreateInstance(valueType, count, cacheAddress);
-            
+            var cacheAddress = new CacheAddress(
+                valueInfo.IsResourceData ? CacheAddressType.Resource : CacheAddressType.Definition,
+                (int)context.AddressToOffset((uint)startOffset, pointer));
+
+            var tagBlock = (TagBlock)Activator.CreateInstance(valueType, count, cacheAddress);
+
             // Empty TagBlock
-            if (count == 0 || pointer == 0 || tagBlock.Address.Type == CacheAddressType.Resource)
+            if (count == 0 || pointer == 0 || valueInfo.IsResourceData)
             {
                 reader.BaseStream.Position = startOffset + (Version > CacheVersion.Halo2Vista ? 0xC : 0x8);
                 return tagBlock;
             }
 
             // Read each element
-            reader.BaseStream.Position = context.AddressToOffset((uint)startOffset + 4, pointer);
+            reader.BaseStream.Position = cacheAddress.Offset;
             for (var i = 0; i < count; i++)
             {
                 var element = (TagStructure)DeserializeValue(reader, context, null, tagBlock.ElementType);

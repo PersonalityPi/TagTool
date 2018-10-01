@@ -55,6 +55,7 @@ namespace TagTool.Tags.Resources
         /// <summary>
         /// The reference to the the data for the vertex buffer.
         /// </summary>
+        [TagField(IsResourceData = true)]
         public TagData Data;
 
         [TagField(Padding = true, Length = 4, MinVersion = CacheVersion.HaloOnline106708)]
@@ -76,6 +77,7 @@ namespace TagTool.Tags.Resources
         /// <summary>
         /// The reference to the data for the index buffer.
         /// </summary>
+        [TagField(IsResourceData = true)]
         public TagData Data;
 
         [TagField(Padding = true, Length = 8, MinVersion = CacheVersion.HaloOnline106708)]
