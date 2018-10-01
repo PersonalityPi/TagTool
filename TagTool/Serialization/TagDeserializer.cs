@@ -291,21 +291,20 @@ namespace TagTool.Serialization
             var count = reader.ReadInt32();
             var pointer = reader.ReadUInt32();
 
-            var cacheAddress = new CacheAddress(
-                valueInfo.IsResourceData ? CacheAddressType.Resource : CacheAddressType.Definition,
-                (int)context.AddressToOffset((uint)startOffset, pointer));
-
-            var tagBlock = (TagBlock)Activator.CreateInstance(valueType, count, cacheAddress);
-
             // Empty TagBlock
             if (count == 0 || pointer == 0 || valueInfo.IsResourceData)
             {
                 reader.BaseStream.Position = startOffset + (Version > CacheVersion.Halo2Vista ? 0xC : 0x8);
-                return tagBlock;
+                return Activator.CreateInstance(valueType, count, new CacheAddress(pointer));
             }
 
+            var tagBlock = (TagBlock)Activator.CreateInstance(valueType, count,
+                new CacheAddress(
+                    valueInfo.IsResourceData ? CacheAddressType.Resource : CacheAddressType.Definition,
+                    (int)context.AddressToOffset((uint)startOffset, pointer)));
+
             // Read each element
-            reader.BaseStream.Position = cacheAddress.Offset;
+            reader.BaseStream.Position = tagBlock.Address.Offset;
             for (var i = 0; i < count; i++)
             {
                 var element = (TagStructure)DeserializeValue(reader, context, null, tagBlock.ElementType);
