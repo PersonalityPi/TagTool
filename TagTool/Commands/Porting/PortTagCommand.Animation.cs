@@ -14,8 +14,8 @@ namespace TagTool.Commands.Porting
 {
     partial class PortTagCommand
     {
-        public ModelAnimationGraph ConvertModelAnimationGraph(Stream cacheStream, Dictionary<ResourceLocation, Stream> resourceStreams, ModelAnimationGraph definition)
-        {
+        public ModelAnimationGraph ConvertModelAnimationGraph(Dictionary<ResourceLocation, Stream> resourceStreams, ModelAnimationGraph definition)
+		{
             if (BlamCache.ResourceGestalt == null)
                 BlamCache.LoadResourceTags();
             

@@ -46,15 +46,35 @@ namespace TagTool.Tags
 		int ICollection<TagStructure>.Count => Elements.Count;
 		public bool IsReadOnly => Elements.IsReadOnly;
 		public TagStructure this[int index] { get => Elements[index]; set => Elements[index] = value; }
-		public void Add(TagStructure item) => Elements.Add(item);
+		public void Add(TagStructure item)
+		{
+			Elements.Add(item);
+			Count = Elements.Count;
+		}
+
 		public void Clear() => Elements.Clear();
 		public bool Contains(TagStructure item) => Elements.Contains(item);
 		public void CopyTo(TagStructure[] array, int arrayIndex) => Elements.CopyTo(array, arrayIndex);
 		public IEnumerator<TagStructure> GetEnumerator() => Elements.GetEnumerator();
 		public int IndexOf(TagStructure item) => Elements.IndexOf(item);
-		public void Insert(int index, TagStructure item) => Elements.Insert(index, item);
-		public bool Remove(TagStructure item) => Elements.Remove(item);
-		public void RemoveAt(int index) => Elements.RemoveAt(index);
+		public void Insert(int index, TagStructure item)
+		{
+			Elements.Insert(index, item);
+			Count = Elements.Count;
+		}
+
+		public bool Remove(TagStructure item)
+		{
+			var result = Elements.Remove(item);
+			Count = Elements.Count;
+			return result;
+		}
+
+		public void RemoveAt(int index)
+		{
+			Elements.RemoveAt(index);
+			Count = Elements.Count;
+		}
 		IEnumerator IEnumerable.GetEnumerator() => Elements.GetEnumerator();
 		#endregion
 	}
@@ -84,19 +104,19 @@ namespace TagTool.Tags
 		public new int Count => Elements.Count;
 		public new T this[int index] { get => (T)Elements[index]; set => Elements[index] = value; }
 
-		public void AddRange(IEnumerable<T> options)
+		public void AddRange(IEnumerable<T> items)
 		{
-			foreach (var option in options)
-				Elements.Add(option);
+			foreach (var item in items)
+				base.Add(item);
 		}
 
-		public void Add(T value) => Elements.Add(value);
+		public void Add(T item) => base.Add(item);
 
 		public bool Contains(T value) => Elements.Contains(value);
 		public void CopyTo(T[] array, int arrayIndex) => Elements.CopyTo(array, arrayIndex);
 		public int IndexOf(T value) => Elements.IndexOf(value);
-		public void Insert(int index, T value) => Elements.Insert(index, value);
-		public bool Remove(T item) => Elements.Remove(item);
+		public void Insert(int index, T value) => base.Insert(index, value);
+		public bool Remove(T item) => base.Remove(item);
 		public new IEnumerator<T> GetEnumerator() => Elements.OfType<T>().GetEnumerator();
 
 		public void ForEach(Action<T> action) => Elements.OfType<T>().ToList().ForEach(action);

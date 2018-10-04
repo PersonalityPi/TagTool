@@ -474,8 +474,8 @@ namespace TagTool.Commands.Porting
             }
         }
 
-        private object ConvertGen2RenderModel(CachedTagInstance edTag, RenderModel mode, Dictionary<ResourceLocation, Stream> resourceStreams)
-        {
+        private object ConvertGen2RenderModel(Dictionary<ResourceLocation, Stream> resourceStreams, RenderModel mode)
+		{
             foreach (var section in mode.Sections)
             {
                 var compressor = new VertexCompressor(

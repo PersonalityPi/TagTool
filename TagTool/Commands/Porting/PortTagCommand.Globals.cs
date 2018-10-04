@@ -10,8 +10,8 @@ namespace TagTool.Commands.Porting
 {
     partial class PortTagCommand
     {
-       private Globals ConvertGlobals(Globals matg, Stream cacheStream)
-        {
+       private Globals ConvertGlobals(Stream cacheStream, Globals matg)
+		{
             //Add aigl from H3
 
             if(BlamCache.Version == CacheVersion.Halo3Retail)

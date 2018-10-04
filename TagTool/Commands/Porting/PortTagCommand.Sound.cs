@@ -244,8 +244,8 @@ namespace TagTool.Commands.Porting
             return result;
         }
 
-        private Sound ConvertSound(Stream cacheStream, Dictionary<ResourceLocation, Stream> resourceStreams, Sound sound, string blamTag_Name)
-        {
+        private Sound ConvertSound(Dictionary<ResourceLocation, Stream> resourceStreams, Sound sound, string blamTag_Name)
+		{
             if (BlamSoundGestalt == null)
                 BlamSoundGestalt = PortingContextFactory.LoadSoundGestalt(CacheContext, ref BlamCache);
 

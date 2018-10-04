@@ -806,7 +806,7 @@ namespace TagTool.Commands.Porting
 
                     case ScriptValueType.HaloOnlineValue.AiLine:
                     case ScriptValueType.HaloOnlineValue.StringId:
-                        ConvertScriptStringIdExpressionData(cacheStream, resourceStreams, expr);
+                        ConvertScriptStringIdExpressionData(expr);
                         return;
 
                     default:
@@ -912,8 +912,8 @@ namespace TagTool.Commands.Porting
             expr.Data = BitConverter.GetBytes(tag?.Index ?? -1).ToArray();
         }
 
-        public void ConvertScriptStringIdExpressionData(Stream cacheStream, Dictionary<ResourceLocation, Stream> resourceStreams, ScriptExpression expr)
-        {
+        public void ConvertScriptStringIdExpressionData(ScriptExpression expr)
+		{
             int blamStringId = (int)BitConverter.ToUInt32(expr.Data.Reverse().ToArray(), 0);
             var value = BlamCache.Strings.GetItemByID(blamStringId);
 

@@ -15,8 +15,8 @@ namespace TagTool.Commands.Porting
     partial class PortTagCommand
     {
 
-        private void ConvertShaderCortana(ShaderCortana shaderCortana, Stream cacheStream, Dictionary<ResourceLocation, Stream> resourceStreams)
-        {
+        private void ConvertShaderCortana(Stream cacheStream, ShaderCortana shaderCortana)
+		{
             var render_method_option_indices = shaderCortana.RenderMethodDefinitionOptionIndices.Select(c => (int)c.OptionIndex).ToList();
 
             //CachedTagInstance newCortanaShaderInstance = CacheContext.TagCache.AllocateTag(TagGroup.Instances[groupTag]);
@@ -61,11 +61,10 @@ namespace TagTool.Commands.Porting
             if (shader_properties.Template == null)
             {
                 GenerateCortanaRMT2Tag(
-                    render_method_option_indices,
-                    cacheStream,
-                    resourceStreams,
-                    out CachedTagInstance rmt2Instance,
-                    out RenderMethodTemplate newRMT2);
+					render_method_option_indices,
+					cacheStream,
+					out CachedTagInstance rmt2Instance,
+					out RenderMethodTemplate newRMT2);
 
                 shader_properties.Template = rmt2Instance;
                 rmt2 = newRMT2;
@@ -305,8 +304,8 @@ namespace TagTool.Commands.Porting
             return index;
         }
 
-        private void GenerateCortanaRMT2Tag(List<int> options, Stream cacheStream, Dictionary<ResourceLocation, Stream> resourceStreams, out CachedTagInstance rmt2Instance, out RenderMethodTemplate rmt2)
-        {
+        private void GenerateCortanaRMT2Tag(List<int> options, Stream cacheStream, out CachedTagInstance rmt2Instance, out RenderMethodTemplate rmt2)
+		{
             string template_name = $@"shaders\cortana_templates\_{string.Join("_", options)}";
             rmt2 = new RenderMethodTemplate();
             var rmt2_group = TagGroup.Instances[new TagStructureInfo(typeof(RenderMethodTemplate)).GroupTag];

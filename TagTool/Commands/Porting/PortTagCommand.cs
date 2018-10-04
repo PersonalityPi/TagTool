@@ -460,7 +460,7 @@ namespace TagTool.Commands.Porting
 					break;
 
 				case Bitmap bitm:
-					blamDefinition = ConvertBitmap(blamTag, bitm, resourceStreams);
+					blamDefinition = ConvertBitmap(resourceStreams, blamTag, bitm);
 					break;
 
 				case CameraFxSettings cfxs:
@@ -498,7 +498,7 @@ namespace TagTool.Commands.Porting
 					break;
 
 				case Globals matg:
-					blamDefinition = ConvertGlobals(matg, cacheStream);
+					blamDefinition = ConvertGlobals(cacheStream, matg);
 					break;
 
 				case LensFlare lens:
@@ -506,11 +506,11 @@ namespace TagTool.Commands.Porting
 					break;
 
 				case ModelAnimationGraph jmad:
-					blamDefinition = ConvertModelAnimationGraph(cacheStream, resourceStreams, jmad);
+					blamDefinition = ConvertModelAnimationGraph(resourceStreams, jmad);
 					break;
 
 				case MultilingualUnicodeStringList unic:
-					blamDefinition = ConvertMultilingualUnicodeStringList(cacheStream, resourceStreams, unic);
+					blamDefinition = ConvertMultilingualUnicodeStringList(unic);
 					break;
 
 				case Particle particle when BlamCache.Version == CacheVersion.Halo3Retail:
@@ -545,7 +545,7 @@ namespace TagTool.Commands.Porting
 					break;
 
 				case RenderModel renderModel when BlamCache.Version < CacheVersion.Halo3Retail:
-					blamDefinition = ConvertGen2RenderModel(edTag, renderModel, resourceStreams);
+					blamDefinition = ConvertGen2RenderModel(resourceStreams, renderModel);
 					break;
 
 				case Scenario scnr:
@@ -561,7 +561,7 @@ namespace TagTool.Commands.Porting
 					break;
 
 				case ScenarioStructureBsp sbsp:
-					blamDefinition = ConvertScenarioStructureBsp(sbsp, edTag, resourceStreams);
+					blamDefinition = ConvertScenarioStructureBsp(resourceStreams, sbsp, edTag);
 					break;
 
 				case SkyAtmParameters skya:
@@ -571,7 +571,7 @@ namespace TagTool.Commands.Porting
 					break;
 
 				case Sound sound:
-					blamDefinition = ConvertSound(cacheStream, resourceStreams, sound, blamTag.Name);
+					blamDefinition = ConvertSound(resourceStreams, sound, blamTag.Name);
 					break;
 
 				case SoundLooping lsnd:
@@ -600,7 +600,7 @@ namespace TagTool.Commands.Porting
 					break;
 
 				case ShaderCortana shader_cortana:
-					ConvertShaderCortana(shader_cortana, cacheStream, resourceStreams);
+					ConvertShaderCortana(cacheStream, shader_cortana);
 					break;
 			}
 
@@ -700,14 +700,15 @@ namespace TagTool.Commands.Porting
 					tagBlock = ConvertTagBlock(cacheStream, resourceStreams, tagBlock, definition, blamTagName);
 					return tagBlock;
 
+				// Inline-arrays/tag-data
 				case Array _:
-				case IList _: // All arrays and List<T> implement IList, so we should just use that
+				case IList _:
 					data = ConvertCollection(cacheStream, resourceStreams, data as IList, definition, blamTagName);
 					return data;
 
 				case RenderGeometry renderGeometry when BlamCache.Version >= CacheVersion.Halo3Retail:
 					renderGeometry = ConvertStructure(cacheStream, resourceStreams, renderGeometry, definition, blamTagName);
-					renderGeometry = GeometryConverter.Convert(cacheStream, renderGeometry, resourceStreams, Flags);
+					renderGeometry = GeometryConverter.Convert(renderGeometry, resourceStreams, Flags);
 					return renderGeometry;
 
 				case Mesh.Part part when BlamCache.Version < CacheVersion.Halo3Retail:
@@ -834,7 +835,7 @@ namespace TagTool.Commands.Porting
 			return bipedPhysicsFlags;
 		}
 
-		private object ConvertWeaponFlags(WeaponFlags weaponFlags)
+		private WeaponFlags ConvertWeaponFlags(WeaponFlags weaponFlags)
 		{
 			if (weaponFlags.OldFlags.HasFlag(WeaponFlags.OldWeaponFlags.WeaponUsesOldDualFireErrorCode))
 				weaponFlags.OldFlags &= ~WeaponFlags.OldWeaponFlags.WeaponUsesOldDualFireErrorCode;

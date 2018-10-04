@@ -14,8 +14,8 @@ namespace TagTool.Commands.Porting
 {
     partial class PortTagCommand
     {
-        private ScenarioStructureBsp ConvertScenarioStructureBsp(ScenarioStructureBsp sbsp, CachedTagInstance instance, Dictionary<ResourceLocation, Stream> resourceStreams)
-        {
+        private ScenarioStructureBsp ConvertScenarioStructureBsp(Dictionary<ResourceLocation, Stream> resourceStreams, ScenarioStructureBsp sbsp, CachedTagInstance instance)
+		{
             sbsp.CollisionBspResource = ConvertStructureBspTagResources(sbsp, resourceStreams);
             sbsp.PathfindingResource = ConvertStructureBspCacheFileTagResources(sbsp, resourceStreams);
 

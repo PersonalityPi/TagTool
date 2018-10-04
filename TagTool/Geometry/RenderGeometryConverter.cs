@@ -32,8 +32,8 @@ namespace TagTool.Geometry
             CurrentWaterBuffer = 0;
         }
 
-        public RenderGeometry Convert(Stream cacheStream, RenderGeometry geometry, Dictionary<ResourceLocation, Stream> resourceStreams, PortTagCommand.PortingFlags portingFlags)
-        {
+        public RenderGeometry Convert(RenderGeometry geometry, Dictionary<ResourceLocation, Stream> resourceStreams, PortTagCommand.PortingFlags portingFlags)
+		{
             if (BlamCache.ResourceGestalt == null || BlamCache.ResourceLayoutTable == null)
                 BlamCache.LoadResourceTags();
 

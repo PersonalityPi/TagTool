@@ -10,8 +10,8 @@ namespace TagTool.Commands.Porting
 {
     partial class PortTagCommand
     {
-        private MultilingualUnicodeStringList ConvertMultilingualUnicodeStringList(Stream cacheStream, Dictionary<ResourceLocation, Stream> resourceStreams, MultilingualUnicodeStringList unic)
-        {
+        private MultilingualUnicodeStringList ConvertMultilingualUnicodeStringList(MultilingualUnicodeStringList unic)
+		{
             ushort[] stringIndex = new ushort[12];
             ushort[] stringCount = new ushort[12];
 
