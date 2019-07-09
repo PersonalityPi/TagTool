@@ -341,7 +341,7 @@ namespace TagTool.Commands.Porting
                             bsp.PathfindingData[0].PathfindingHints[i] :
                             BlamCache.Deserializer.Deserialize<ScenarioStructureBsp.PathfindingDatum.PathfindingHint>(dataContext);
 
-                        switch (hint.HintType)
+                        /*switch (hint.HintType)
                         {
                             case ScenarioStructureBsp.PathfindingDatum.PathfindingHint.HintTypeValue.IntersectionLink:
                                 Array.Reverse(hint.Data, 0, 4);
@@ -389,7 +389,7 @@ namespace TagTool.Commands.Porting
 
                             default:
                                 throw new NotSupportedException(hint.HintType.ToString());
-                        }
+                        }*/
 
                         CacheContext.Serializer.Serialize(dataContext, hint);
                     }

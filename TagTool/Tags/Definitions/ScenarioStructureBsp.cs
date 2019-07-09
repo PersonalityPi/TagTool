@@ -800,8 +800,8 @@ namespace TagTool.Tags.Definitions
                 public HintTypeValue HintType;
                 public short NextHintIndex;
 
-                [TagField(Length = 16)]
-                public byte[] Data = new byte[16];
+                [TagField(Length = 4)]
+                public int[] Data = new int[4];
 
                 public enum HintTypeValue : short
                 {
